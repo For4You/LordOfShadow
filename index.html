@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>NexusHub V8 Pro — مجتمع رقمي</title>
 <style>
 /* NexusHub V8 Pro - shared styles */
@@ -122,14 +122,194 @@ body[data-background="midnight"]{background:radial-gradient(circle at 50% -10%,r
 /* Free Mode: URL attachments without Firebase Storage */
 .free-mode-note{padding:11px 13px;border:1px solid rgba(255,211,109,.26);border-radius:12px;background:rgba(255,211,109,.08);color:#ffe7a6;font-size:12px;line-height:1.75;margin:8px 0 14px}
 
+
+/* V15 — Mobile First compatibility layer */
+html{
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+  -webkit-tap-highlight-color:transparent;
+  scroll-padding-top:86px;
+}
+body{
+  overflow-x:hidden;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+img,video,canvas,svg{max-width:100%;height:auto}
+button,input,textarea,select,a{touch-action:manipulation}
+button,.btn,.nav-link,.tab,.react,.close,.notification-btn,.mobile-menu-toggle{
+  min-height:44px;
+}
+.mobile-nav-menu{display:contents}
+.mobile-menu-toggle{
+  display:none;width:44px;height:44px;border:1px solid rgba(255,255,255,.16);border-radius:12px;
+  background:rgba(255,255,255,.07);color:#fff;font-size:22px;line-height:1;
+}
+.nav-actions{display:flex;align-items:center;gap:8px;min-width:0}
+.main-layout>*{min-width:0}
+.feed-tabs,.post-actions,.post-tags-v10,.hero-actions{scrollbar-width:thin}
+.post-actions{flex-wrap:wrap}
+.post-actions .react{min-height:40px}
+.chat-compose input,.comment-form input{min-width:0}
+.modal{padding:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
+.modal-box{max-height:min(90vh,calc(100dvh - 20px))}
+.document-attachment{min-width:0}
+.document-name,.document-meta{overflow-wrap:anywhere;word-break:break-word}
+@media (hover:none){
+  .btn:hover,.nav-link:hover,.document-attachment:hover{transform:none;box-shadow:none;filter:none}
+}
+@media (max-width:900px){
+  .container{width:min(100% - 24px,1260px)}
+  .nav{
+    height:auto;min-height:68px;padding:10px 0;gap:8px;flex-wrap:wrap;
+  }
+  .brand{min-width:0;margin-left:auto}
+  .brand strong{font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .brand small{display:none}
+  .brand-icon{width:40px;height:40px;border-radius:13px}
+  .nav-actions{gap:6px}
+  #accountBtn{padding:10px 12px;max-width:168px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mobile-menu-toggle{display:grid;place-items:center}
+  .mobile-nav-menu{
+    display:none;order:4;width:100%;padding:8px;border-top:1px solid var(--line);
+    grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;
+  }
+  .mobile-nav-menu.open{display:grid}
+  .mobile-nav-menu .nav-link{
+    display:block;width:100%;padding:12px 10px;text-align:right;
+    background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;color:#e9e9f7;
+  }
+  .hero{padding:48px 0 28px;gap:16px}
+  .hero-visual{display:none}
+  .hero:before{right:0;left:0;top:14px;text-align:center;font-size:clamp(36px,10vw,72px);line-height:1.2}
+  .hero h1{font-size:clamp(34px,8vw,50px);line-height:1.2}
+  .hero p{font-size:16px;line-height:1.85}
+  .main-layout{grid-template-columns:minmax(0,1fr) 260px}
+  .rightbar{display:none}
+  .categories,.resources,.trending-grid,.feature-grid-v10,.features-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .section-head{align-items:flex-start}
+  .section-head h2{font-size:25px}
+  .chat-compose{flex-wrap:wrap}
+  .chat-compose input{flex:1 1 300px}
+}
+@media (max-width:760px){
+  .container{width:min(100% - 20px,1260px)}
+  .mobile-nav-menu{grid-template-columns:1fr}
+  .notification-btn{width:42px;height:42px}
+  #accountBtn{max-width:142px;font-size:13px}
+  .hero{padding:38px 0 22px}
+  .hero-actions>.btn{flex:1 1 170px}
+  .hero-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;width:100%}
+  .mini-stat{min-width:0;padding:10px 7px;text-align:center}
+  .mini-stat b{font-size:18px}
+  .mini-stat span{font-size:10px;line-height:1.4}
+  .section{padding:22px 0}
+  .section-head{gap:10px;margin-bottom:13px}
+  .section-head h2{font-size:23px}
+  .section-head p{font-size:13px}
+  .section-head>#newPostBtn{width:100%}
+  .main-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+  .feed{order:1}
+  .leftbar{display:grid;order:2;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .leftbar>section:first-child{grid-column:1/-1}
+  .rightbar{display:grid;order:3;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:0}
+  .sidebar{gap:12px}
+  .side-title{padding:13px 14px;font-size:15px}
+  .side-body{padding:12px}
+  .member-list{max-height:250px}
+  .feed-tabs{padding:7px;gap:6px;overscroll-behavior-inline:contain}
+  .tab{padding:9px 11px}
+  .post-card-v12{margin:8px;border-radius:16px}
+  .post-card-inner-v12{padding:15px}
+  .post-title-v12{font-size:21px!important}
+  .post-meta-v12{align-items:flex-start}
+  .post-excerpt-v12{-webkit-line-clamp:7}
+  .post-actions{gap:7px}
+  .post-actions .react{flex:1 1 120px;padding:9px 8px;font-size:12px}
+  .post-media-v12{max-height:260px}
+  .document-attachment{padding:10px;gap:9px}
+  .document-open{display:none}
+  .chat-wrap{border-radius:17px}
+  .chat-log{max-height:52dvh;min-height:260px;padding:13px}
+  .chat-compose{display:grid;grid-template-columns:minmax(0,1fr) auto;padding:10px}
+  .chat-compose input{width:100%;font-size:16px}
+  .chat-compose .btn{min-height:46px;padding-inline:14px}
+  .form-row{grid-template-columns:1fr}
+  .modal-box{width:100%;border-radius:18px}
+  .modal-head{padding:14px}
+  .modal-head h2{font-size:18px}
+  .modal-body{padding:14px}
+  input,textarea,select{font-size:16px}
+  textarea{min-height:120px}
+  .comment-form{flex-direction:column}
+  .comment-form .btn{width:100%}
+  .categories,.resources,.trending-grid,.feature-grid-v10,.features-grid{grid-template-columns:1fr}
+  .category,.resource{min-height:auto}
+  .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+  .footer-grid>div:first-child{grid-column:1/-1}
+  footer{padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+}
+@media (max-width:430px){
+  .container{width:min(100% - 16px,1260px)}
+  .nav{min-height:62px;padding:8px 0}
+  .brand strong{font-size:18px}
+  .brand-icon{width:37px;height:37px;font-size:18px}
+  #accountBtn{max-width:118px;padding:9px 9px;font-size:12px}
+  .notification-btn,.mobile-menu-toggle{width:40px;height:40px}
+  .hero h1{font-size:32px}
+  .hero p{font-size:15px}
+  .eyebrow{font-size:11px;padding:7px 9px}
+  .hero-actions{display:grid;grid-template-columns:1fr}
+  .hero-actions>.btn{width:100%}
+  .hero-stats{gap:6px}
+  .mini-stat{padding:9px 4px}
+  .section-head h2{font-size:21px}
+  .leftbar,.rightbar{grid-template-columns:1fr}
+  .leftbar>section:first-child{grid-column:auto}
+  .profile-stats{grid-template-columns:1fr 1fr}
+  .post-card-inner-v12{padding:13px}
+  .post-top{align-items:flex-start}
+  .avatar{width:42px;height:42px;border-radius:14px;font-size:17px}
+  .post-title-v12{font-size:19px!important}
+  .chat-compose{grid-template-columns:1fr}
+  .chat-compose .btn{width:100%}
+  .modal{padding:8px}
+  .modal-box{max-height:calc(100dvh - 16px);border-radius:15px}
+  .modal-body{padding:12px}
+  .document-attachment{align-items:flex-start}
+  .document-icon{width:38px;height:38px;font-size:20px}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-grid>div:first-child{grid-column:auto}
+}
+@media (max-height:520px) and (orientation:landscape){
+  .topbar{position:relative}
+  .hero{padding-top:24px}
+  .hero h1{font-size:32px}
+  .modal-box{max-height:calc(100dvh - 12px)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+
 </style>
 </head>
 <body>
-<header class="topbar"><div class="container nav">
+<header class="topbar">
+ <div class="container nav">
   <div class="brand"><div class="brand-icon">N</div><div><strong id="brandName">NexusHub</strong><small>Community Space</small></div></div>
-  <button class="nav-link" id="homeNav">الرئيسية</button><button class="nav-link" id="categoriesNav">الأقسام</button><button class="nav-link" id="resourcesNav">البطاقات الخاصة</button><button class="nav-link" id="chatNav">الدردشة</button>
-  <button id="notificationBtn" class="notification-btn hide" title="الإشعارات">🔔<span id="notificationCount" class="notification-count hide">0</span></button><button id="accountBtn" class="btn primary">دخول / تسجيل</button>
-</div></header>
+  <nav id="mobileNavMenu" class="mobile-nav-menu" aria-label="تنقل الموقع">
+   <button class="nav-link" id="homeNav">الرئيسية</button>
+   <button class="nav-link" id="categoriesNav">الأقسام</button>
+   <button class="nav-link" id="resourcesNav">البطاقات الخاصة</button>
+   <button class="nav-link" id="chatNav">الدردشة</button>
+  </nav>
+  <div class="nav-actions">
+   <button id="notificationBtn" class="notification-btn hide" title="الإشعارات">🔔<span id="notificationCount" class="notification-count hide">0</span></button>
+   <button id="accountBtn" class="btn primary">دخول / تسجيل</button>
+   <button id="mobileMenuBtn" class="mobile-menu-toggle" type="button" aria-label="فتح القائمة" aria-controls="mobileNavMenu" aria-expanded="false">☰</button>
+  </div>
+ </div>
+</header>
 <div class="container" id="moderationBanner"></div>
 
 <section class="container hero">
@@ -601,6 +781,25 @@ function openNotifications(){
 }
 
 function bindUI(){
+ const mobileMenu=$("mobileNavMenu"),mobileMenuBtn=$("mobileMenuBtn");
+ const closeMobileMenu=()=>{
+  if(!mobileMenu||!mobileMenuBtn)return;
+  mobileMenu.classList.remove("open");
+  mobileMenuBtn.setAttribute("aria-expanded","false");
+  mobileMenuBtn.textContent="☰";
+  mobileMenuBtn.setAttribute("aria-label","فتح القائمة");
+ };
+ if(mobileMenu&&mobileMenuBtn){
+  mobileMenuBtn.onclick=()=>{
+   const open=mobileMenu.classList.toggle("open");
+   mobileMenuBtn.setAttribute("aria-expanded",String(open));
+   mobileMenuBtn.textContent=open?"×":"☰";
+   mobileMenuBtn.setAttribute("aria-label",open?"إغلاق القائمة":"فتح القائمة");
+  };
+  mobileMenu.querySelectorAll(".nav-link").forEach(btn=>btn.addEventListener("click",closeMobileMenu));
+  window.addEventListener("resize",()=>{if(window.innerWidth>900)closeMobileMenu();});
+ }
+
  document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>modal(b.dataset.close,false));document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)modal(m.id,false);}));
  document.querySelectorAll("[data-authmode]").forEach(b=>b.onclick=()=>setAuthMode(b.dataset.authmode));$("authForm").addEventListener("submit",submitAuth);$("googleBtn").onclick=googleLogin;
  $("notificationBtn").onclick=openNotifications;$("accountBtn").onclick=()=>state.user?openProfile():modal("authModal");$("heroJoinBtn").onclick=()=>modal("authModal");$("newPostBtn").onclick=openCompose;$("composeForm").addEventListener("submit",publishPost);$("profileForm").addEventListener("submit",saveProfile);$("sendChatBtn").onclick=sendChat;$("chatInput").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendChat();}});
