@@ -464,6 +464,10 @@ html[data-theme='light'] .scroll-top-v21{box-shadow:0 14px 28px rgba(46,72,130,.
 @media (max-width:760px){.scroll-top-v21{width:48px;height:48px;border-radius:16px;font-size:25px;inset-inline-end:max(13px,env(safe-area-inset-right));bottom:max(15px,env(safe-area-inset-bottom))}}
 @media (prefers-reduced-motion:reduce){.scroll-top-v21{transition:none}.scroll-top-v21:hover{transform:none}}
 
+
+/* V22 — site announcement overlay */
+.site-announcement-v22{position:fixed;inset:0;z-index:9000;display:grid;place-items:center;padding:22px;background:rgba(5,7,22,.42);backdrop-filter:blur(12px) saturate(115%);-webkit-backdrop-filter:blur(12px) saturate(115%);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .24s ease,visibility .24s ease}.site-announcement-v22.show{opacity:1;visibility:visible;pointer-events:auto}.site-announcement-card-v22{width:min(540px,100%);border:1px solid rgba(255,255,255,.23);border-radius:23px;padding:25px;background:linear-gradient(145deg,rgba(35,40,93,.78),rgba(11,15,43,.74));box-shadow:0 24px 70px rgba(0,0,0,.42);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);text-align:center;transform:translateY(14px) scale(.975);transition:transform .24s ease}.site-announcement-v22.show .site-announcement-card-v22{transform:none}.site-announcement-icon-v22{display:grid;place-items:center;width:54px;height:54px;margin:0 auto 12px;border-radius:17px;background:linear-gradient(135deg,rgba(44,221,255,.34),rgba(140,91,255,.45));font-size:27px;box-shadow:0 10px 27px rgba(44,221,255,.16)}.site-announcement-card-v22 h2{margin:0 0 10px;font-size:23px}.site-announcement-card-v22 p{margin:0 0 19px;white-space:pre-wrap;overflow-wrap:anywhere;color:#f2f2ff;font-size:16px;line-height:1.9}.site-announcement-card-v22 .btn{min-width:135px}@media(max-width:520px){.site-announcement-v22{padding:16px}.site-announcement-card-v22{padding:21px 17px}.site-announcement-card-v22 h2{font-size:21px}.site-announcement-card-v22 p{font-size:15px}}
+
 </style>
 </head>
 <body>
@@ -597,6 +601,7 @@ html[data-theme='light'] .scroll-top-v21{box-shadow:0 14px 28px rgba(46,72,130,.
 <div id="memberModal" class="modal"><div class="modal-box" style="width:min(470px,100%)"><div class="modal-head"><h2 data-i18n="member_profile">ملف العضو</h2><button class="close" data-close="memberModal">×</button></div><div id="memberModalBody" class="modal-body"></div></div></div>
 <div id="notificationModal" class="modal"></div>
 <div id="legalModal" class="modal"><div class="modal-box" style="width:min(630px,100%)"><div class="modal-head"><h2 id="legalTitle" data-i18n="information">معلومات</h2><button class="close" data-close="legalModal">×</button></div><div id="legalBody" class="modal-body" style="line-height:1.95;color:#deddea"></div></div></div>
+<div id="siteAnnouncement" class="site-announcement-v22" role="dialog" aria-modal="true" aria-labelledby="siteAnnouncementTitle" aria-hidden="true"><div class="site-announcement-card-v22"><div class="site-announcement-icon-v22" aria-hidden="true">📢</div><h2 id="siteAnnouncementTitle">إعلان الموقع</h2><p id="siteAnnouncementMessage"></p><button id="siteAnnouncementDismiss" class="btn primary" type="button">فهمت</button></div></div>
 <div id="toast" class="toast"></div>
 
 
@@ -627,7 +632,7 @@ const DEFAULT_CATEGORIES = [
  {id:"community",title:"النقاش العام",icon:"💬",color:"#2cddff",description:"أسئلة وحوارات لطيفة بين الأعضاء.",order:3},
  {id:"projects",title:"مشاريع وأفكار",icon:"🚀",color:"#54efb8",description:"اعرض مشروعك وخذ رأي المجتمع.",order:4}
 ];
-const state = {user:null,profile:null,role:false,moderator:false,settings:{...DEFAULT_SETTINGS},categories:[],posts:[],profiles:{},presence:{},comments:{},reactions:{},chat:[],chatReactions:{},resources:[],secrets:{},unlock:{},activities:[],notifications:[],moderation:null,filter:"all",postsPage:1,postsPerPage:5,authMode:"login",activePost:null,pendingAction:null,unsubPrivate:[],presenceConnectionUnsub:null,lordVisitsUnsub:null,profileVisits:[],visits:{facebook:false,telegram:false},replyTo:null,siteStats:{totalVisits:0,today:0}};
+const state = {user:null,profile:null,role:false,moderator:false,settings:{...DEFAULT_SETTINGS},categories:[],posts:[],profiles:{},presence:{},comments:{},reactions:{},chat:[],chatReactions:{},resources:[],secrets:{},unlock:{},activities:[],notifications:[],moderation:null,filter:"all",postsPage:1,postsPerPage:5,authMode:"login",activePost:null,pendingAction:null,unsubPrivate:[],presenceConnectionUnsub:null,lordVisitsUnsub:null,profileVisits:[],visits:{facebook:false,telegram:false},replyTo:null,siteStats:{totalVisits:0,today:0},announcement:null};
 function esc(v=""){return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
 function clean(v=""){return String(v).replace(/[<>]/g,"").trim().slice(0,30)||"عضو";}
 function color(v){return /^#[0-9a-f]{6}$/i.test(String(v))?v:"#7eeaff";}
@@ -1341,8 +1346,75 @@ bindPublic = function(){
  onValue(dbref('presence'),s=>{state.presence=s.val()||{};renderHero();renderMembers();});
 };
 
+
+/* V22 — announcements, complete new-post notifications, and pinned-topic ordering */
+function sortPinnedFirstV22(a,b){
+ const aPinned=!!a?.pinned,bPinned=!!b?.pinned;
+ if(aPinned!==bPinned)return aPinned?-1:1;
+ return Number(b?.createdAt||0)-Number(a?.createdAt||0);
+}
+function announcementCopyV22(){
+ if(state.language==='fr')return{title:'Annonce du site',dismiss:'J’ai compris'};
+ if(state.language==='en')return{title:'Site announcement',dismiss:'Got it'};
+ return{title:'إعلان الموقع',dismiss:'فهمت'};
+}
+let announcementTimerV22=null;
+function readAnnouncementSeenV22(){try{return sessionStorage.getItem('nexushub-announcement-v22')||'';}catch{return'';}}
+function saveAnnouncementSeenV22(key){try{sessionStorage.setItem('nexushub-announcement-v22',key);}catch{}}
+function closeAnnouncementV22(markSeen=true){
+ const box=$('siteAnnouncement');if(!box)return;
+ clearTimeout(announcementTimerV22);announcementTimerV22=null;
+ const key=box.dataset.announcementKey||'';
+ if(markSeen&&key)saveAnnouncementSeenV22(key);
+ box.classList.remove('show');box.setAttribute('aria-hidden','true');
+}
+function renderAnnouncementV22(){
+ const box=$('siteAnnouncement'),message=$('siteAnnouncementMessage'),title=$('siteAnnouncementTitle'),dismiss=$('siteAnnouncementDismiss');
+ if(!box||!message||!title||!dismiss)return;
+ const announcement=state.announcement||{},text=String(announcement.text||'').trim(),key=String(announcement.updatedAt||announcement.createdAt||'')+'|'+text;
+ if(!announcement.active||!text||!key){closeAnnouncementV22(false);return;}
+ if(readAnnouncementSeenV22()===key){closeAnnouncementV22(false);return;}
+ const copy=announcementCopyV22();
+ box.dataset.announcementKey=key;message.textContent=text;title.textContent=copy.title;dismiss.textContent=copy.dismiss;
+ clearTimeout(announcementTimerV22);box.classList.add('show');box.setAttribute('aria-hidden','false');
+ announcementTimerV22=setTimeout(()=>closeAnnouncementV22(true),10000);
+}
+const announcementDismissV22=$('siteAnnouncementDismiss');
+if(announcementDismissV22)announcementDismissV22.onclick=()=>closeAnnouncementV22(true);
+
+notifyMembersOfNewPost = async function(postId,title){
+ if(!state.user||!postId)return;
+ const profilesSnapshot=await get(dbref('profiles'));
+ const recipients=Object.keys(profilesSnapshot.val()||state.profiles);
+ if(!recipients.length)return;
+ const author=clean(state.profile?.displayName||state.user.displayName||t('member_default'));
+ const postTitle=String(title||'').slice(0,120),createdAt=now(),updates={};
+ recipients.forEach(uid=>updates[`notifications/${uid}/post_${postId}`]={
+  type:'new_post',postId,fromUid:state.user.uid,authorName:author,postTitle,
+  title:'🆕 منشور جديد',message:`نشر ${author} موضوعًا جديدًا: ${postTitle}`.slice(0,320),read:false,createdAt
+ });
+ await update(ref(db),updates);
+};
+
+renderLatest = function(){
+ const list=[...visiblePostsV20()].sort(sortPinnedFirstV22).slice(0,30),guest=!state.user;
+ $('latestList').innerHTML=list.length?list.map(p=>`<button class="latest-item ${guest?'guest-latest-v16':''}" data-latest="${esc(p.id)}"><strong>${p.pinned?'📌 ':''}${guest?t('guest_topics_title'):esc(p.title)}</strong><span>${guest?`🔒 ${t('guest_login')}`:`${authorHTML(p,false)} · ${ago(p.createdAt)}`}</span></button>`).join(''):`<div class="empty">${t('no_posts')}</div>`;
+ $('latestList').querySelectorAll('[data-latest]').forEach(b=>b.onclick=()=>openPost(b.dataset.latest));
+};
+
+openCategory = function(cid){
+ const c=displayCatV17(cid),posts=visiblePostsV20().filter(p=>p.categoryId===cid).sort(sortPinnedFirstV22);
+ $('categoryModalTitle').textContent=`${c.icon} ${c.title}`;
+ $('categoryModalBody').innerHTML=`<div style="padding:14px;border-radius:14px;background:rgba(255,255,255,.05);line-height:1.85;color:var(--text)">${esc(c.description||'')}</div><h3 style="margin-top:20px">${t('topic_category')}</h3>${posts.length?posts.map(p=>`<article class="comment"><b><button data-cat-post="${esc(p.id)}" style="color:var(--text);border:0;background:transparent;padding:0;font-weight:bold;text-align:inherit">${p.pinned?'📌 ':''}${esc(p.title)}</button></b><p>${esc(topicExcerptV17(p.body||''))}${String(p.body||'').length>170?'…':''}</p></article>`).join(''):`<div class="empty">${t('no_topics')}</div>`}`;
+ $('categoryModalBody').querySelectorAll('[data-cat-post]').forEach(b=>b.onclick=()=>{modal('categoryModal',false);openPost(b.dataset.catPost);});modal('categoryModal');
+};
+
+function bindAnnouncementV22(){
+ onValue(dbref('announcement'),s=>{state.announcement=s.val()||null;renderAnnouncementV22();});
+}
+
 applyStaticTranslationsV17();bindAppearanceV17();
-bindUI();bindPublic();bindSiteVisitsV21();setAuthMode("login");$("year").textContent=new Date().getFullYear();
+bindUI();bindPublic();bindSiteVisitsV21();bindAnnouncementV22();setAuthMode("login");$("year").textContent=new Date().getFullYear();
 onAuthStateChanged(auth,async user=>{
  state.user=user;resetPrivate();
  if(user){try{await ensureProfile(user);bindPrivate();await logActivity("login",t("joined_community"));}catch(e){toast(readError(e),"error");}}
