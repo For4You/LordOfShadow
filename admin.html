@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <title>NexusHub V11 — لوحة الإدارة</title>
 <style>
 /* NexusHub V8 Pro - shared styles */
@@ -65,6 +65,47 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding:32px 0;backgroun
 /* V11 moderation console */
 .staff-mode{padding:11px 14px;border:1px solid rgba(44,221,255,.28);border-radius:13px;background:rgba(44,221,255,.09);color:#b2f3ff;font-size:13px;line-height:1.75;margin-bottom:16px}
 .member-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.role-select{width:auto;min-width:140px;padding:7px 9px;border-radius:9px}.status-chip{display:inline-flex;align-items:center;gap:5px;margin-top:7px;padding:3px 7px;border-radius:99px;font-size:10px;font-weight:900}.status-chip.active{background:rgba(84,239,184,.12);color:#a6f9d3;border:1px solid rgba(84,239,184,.3)}.status-chip.warning{background:rgba(255,211,109,.12);color:#ffe4a5;border:1px solid rgba(255,211,109,.32)}.status-chip.banned{background:rgba(255,108,120,.14);color:#ffb2ba;border:1px solid rgba(255,108,120,.32)}.admin-only{transition:.2s}.staff-badge{display:inline-block;margin-right:6px;padding:3px 6px;border-radius:99px;background:rgba(44,221,255,.11);color:#9cefff;border:1px solid rgba(44,221,255,.28);font-size:10px}.warning-badge{display:inline-block;margin-right:6px;padding:3px 6px;border-radius:99px;background:rgba(255,211,109,.11);color:#ffe4a5;border:1px solid rgba(255,211,109,.28);font-size:10px}
+
+/* V15 — mobile dashboard layout */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent;scroll-padding-top:80px}
+body{overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom)}
+button,input,textarea,select{touch-action:manipulation}
+@media (max-width:900px){
+ .top{height:auto;min-height:64px;padding:10px max(14px,env(safe-area-inset-right)) 10px max(14px,env(safe-area-inset-left));gap:9px;flex-wrap:wrap}
+ .top .brand{font-size:21px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .top .row{display:flex;gap:7px;flex-wrap:wrap}
+ .top .btn{min-height:42px}
+ .shell{width:min(100% - 22px,1260px);margin:18px auto 45px}
+ .dash{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .metric{padding:14px}.metric b{font-size:25px}
+ .layout{grid-template-columns:1fr;gap:13px}.full{grid-column:auto}
+ .card{border-radius:16px}.head{padding:14px;font-size:17px}.body{padding:14px}
+ .grid2{grid-template-columns:1fr;gap:9px}
+ .admin-item,.item{overflow-wrap:anywhere;word-break:break-word}
+ .member-actions{gap:7px}.member-actions .btn{flex:1 1 130px;min-height:42px}
+ .role-select{width:100%;min-width:0;min-height:42px}
+ input,textarea,select{font-size:16px}
+ textarea{min-height:120px}
+ .scroll{max-height:52dvh}
+}
+@media (max-width:480px){
+ .top{padding:8px 10px}
+ .top .brand{font-size:18px}
+ .top .row{width:100%}.top .row .btn{flex:1 1 130px;font-size:12px}
+ .shell{width:min(100% - 16px,1260px);margin-top:14px}
+ .dash{gap:8px}.metric{padding:12px}.metric span{font-size:11px}.metric b{font-size:22px}
+ .head{padding:12px;font-size:16px}.body{padding:12px}
+ .notice,.staff-mode{padding:10px 11px;font-size:12px}
+ .member-actions .btn{flex-basis:100%}
+ .status-chip{max-width:100%;white-space:normal;line-height:1.45}
+}
+@media (max-height:520px) and (orientation:landscape){
+ .top{position:relative}.shell{margin-top:12px}.scroll{max-height:44dvh}
+}
+@media (prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
 </style>
 </head>
 <body>
