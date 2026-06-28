@@ -481,8 +481,11 @@ html[data-theme='light'] .warp-speed-v23{background:radial-gradient(circle at 50
 
 
 /* V24 — custom backgrounds and Messenger-like purple chat icon */
-body.has-custom-site-bg-v24{background-image:linear-gradient(rgba(5,7,22,.74),rgba(5,7,22,.84)),var(--site-bg-url-v24)!important;background-size:cover;background-position:center;background-attachment:fixed;background-repeat:no-repeat}
-.chat-wrap.has-chat-bg-v24{position:relative;overflow:hidden;background-image:linear-gradient(rgba(9,12,34,.76),rgba(9,12,34,.86)),var(--chat-bg-url-v24);background-size:cover;background-position:center;background-repeat:no-repeat}
+body.has-custom-site-bg-v24{background:linear-gradient(rgba(5,7,22,.34),rgba(5,7,22,.54)),var(--site-bg-url-v24) center center/cover fixed no-repeat!important}
+body.has-custom-site-bg-v24:before,body.has-custom-site-bg-v24:after{display:none!important}
+body.has-custom-site-bg-v24 .topbar{background:rgba(7,9,26,.58)}
+body.has-custom-site-bg-v24 .glass{background:rgba(19,23,57,.62)}
+.chat-wrap.has-chat-bg-v24{position:relative;overflow:hidden;background-image:linear-gradient(rgba(9,12,34,.50),rgba(9,12,34,.66)),var(--chat-bg-url-v24);background-size:cover;background-position:center;background-repeat:no-repeat}
 .chat-wrap.has-chat-bg-v24 .chat-log,.chat-wrap.has-chat-bg-v24 .chat-compose{position:relative;z-index:1;background:transparent}
 .chat-wrap.has-chat-bg-v24 .chat-message>div{padding:8px 10px;border-radius:14px;background:rgba(10,13,35,.42);backdrop-filter:blur(7px)}
 .messenger-icon-v16{position:relative;display:inline-grid;place-items:center;width:24px;height:24px;margin-left:6px;border-radius:50%;vertical-align:-6px;background:radial-gradient(circle at 28% 18%,#fff 0 7%,transparent 8%),linear-gradient(145deg,#a335ff 0%,#7b3cff 45%,#ff45c7 100%);box-shadow:0 0 16px rgba(163,53,255,.72),0 6px 14px rgba(0,0,0,.2);color:transparent;font-size:0;line-height:1}
@@ -745,9 +748,16 @@ function allowedPublicUrl(value=""){
  const url=String(value||"").trim();
  return /^(https?:\/\/|\/|\.\/|\.\.\/)/i.test(url) ? url : "";
 }
+function normalizeImageUrlV25(value=""){
+ let url=allowedPublicUrl(value);
+ if(!url)return "";
+ const drive=url.match(/drive\.google\.com\/file\/d\/([^/]+)/i)||url.match(/[?&]id=([^&]+)/i);
+ if(drive&&/drive\.google\.com/i.test(url))url=`https://drive.google.com/uc?export=view&id=${drive[1]}`;
+ return url;
+}
 function applyCustomBackgroundsV24(){
- const siteUrl=allowedPublicUrl(state.settings?.siteBackgroundUrl||'');
- const chatUrl=allowedPublicUrl(state.settings?.chatBackgroundUrl||'');
+ const siteUrl=normalizeImageUrlV25(state.settings?.siteBackgroundUrl||'');
+ const chatUrl=normalizeImageUrlV25(state.settings?.chatBackgroundUrl||'');
  document.body.classList.toggle('has-custom-site-bg-v24',!!siteUrl);
  if(siteUrl)document.body.style.setProperty('--site-bg-url-v24',`url('${siteUrl.replace(/'/g,"%27")}')`);else document.body.style.removeProperty('--site-bg-url-v24');
  const chatWrap=document.querySelector('.chat-wrap');
