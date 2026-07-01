@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<title>NexusHub V21 — لوحة الإدارة</title>
+<title>NexusHub V29 — لوحة الإدارة</title>
 <style>
 /* NexusHub V8 Pro - shared styles */
 
@@ -112,6 +112,27 @@ button,input,textarea,select{touch-action:manipulation}
 .admin-language-v17{height:39px;min-width:92px;border:1px solid rgba(255,255,255,.15);border-radius:10px;background:rgba(255,255,255,.07);color:#fff;padding:0 8px;font:inherit;font-size:12px;font-weight:800}
 html[data-theme="light"]{color-scheme:light;--bg:#edf3ff;--surface:rgba(255,255,255,.88);--surface-solid:#fff;--line:rgba(42,63,112,.15);--text:#16213b;--muted:#58647e;--purple:#7048d8;--pink:#d64c91;--cyan:#0c9fc0;--mint:#15996d;--gold:#a46a08;--danger:#cf4052}html[data-theme="light"] body{background:radial-gradient(circle at 9% 8%,rgba(112,72,216,.13),transparent 26rem),radial-gradient(circle at 92% 6%,rgba(12,159,192,.11),transparent 24rem),var(--bg)}html[data-theme="light"] .top,html[data-theme="light"] .card{background:rgba(255,255,255,.9);box-shadow:0 14px 36px rgba(40,62,112,.10)}html[data-theme="light"] input,html[data-theme="light"] textarea,html[data-theme="light"] select{color:var(--text);background:#fff;border-color:var(--line)}html[data-theme="light"] .btn:not(.primary):not(.cyan):not(.pink):not(.green):not(.danger),html[data-theme="light"] .admin-language-v17{color:var(--text);background:rgba(255,255,255,.85);border-color:var(--line)}html[dir="ltr"] .brand{margin-left:0;margin-right:auto}html[dir="ltr"] body,html[dir="ltr"] .item,html[dir="ltr"] .notice,html[dir="ltr"] .staff-mode{text-align:left}
 
+
+/* V29 — manual uploaded icons in admin category manager */
+.icon-upload-preview-v29{
+  width:58px;height:58px;border-radius:18px;display:grid;place-items:center;overflow:hidden;
+  border:1px solid rgba(255,255,255,.16);background:linear-gradient(135deg,rgba(140,91,255,.28),rgba(43,221,255,.18));
+  font-size:26px;margin-top:8px;
+}
+.icon-upload-preview-v29 img{width:100%;height:100%;object-fit:cover;display:block}
+.admin-category-title-v29{display:flex;align-items:center;gap:9px}
+.admin-category-title-v29 .icon-upload-preview-v29{width:34px;height:34px;border-radius:11px;margin:0;font-size:16px;flex:0 0 auto}
+.icon-help-v29{display:block;margin-top:6px;color:var(--muted);font-size:11px;line-height:1.6}
+
+
+
+/* V32 — clearer admin dashboard navigation and community rules preview */
+.admin-nav-v32{position:sticky;top:82px;z-index:6;display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px;padding:10px;border:1px solid var(--line);border-radius:16px;background:rgba(15,18,48,.86);backdrop-filter:blur(14px)}
+.admin-nav-v32 a{color:var(--text);text-decoration:none;padding:9px 11px;border:1px solid rgba(255,255,255,.10);border-radius:12px;background:rgba(255,255,255,.05);font-size:12px;font-weight:900}.admin-nav-v32 a:hover{background:rgba(43,221,255,.12);border-color:rgba(43,221,255,.35)}
+.admin-rules-v32{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.admin-rule-v32{padding:11px;border:1px solid rgba(255,255,255,.10);border-radius:13px;background:rgba(255,255,255,.045);font-size:12px;line-height:1.7;color:var(--muted)}.admin-rule-v32 b{display:block;color:var(--text);font-size:17px;margin-bottom:5px}
+html[data-theme="light"] .admin-nav-v32{background:rgba(255,255,255,.92)}html[data-theme="light"] .admin-nav-v32 a{background:rgba(255,255,255,.88);color:var(--text);border-color:var(--line)}
+@media(max-width:760px){.admin-nav-v32{top:0;position:relative}.admin-nav-v32 a{flex:1 1 130px;text-align:center}.admin-rules-v32{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -130,9 +151,19 @@ html[data-theme="light"]{color-scheme:light;--bg:#edf3ff;--surface:rgba(255,255,
    <div class="card metric"><span>الإبلاغات</span><b id="countReports">0</b></div>
    <div class="card metric"><span>زيارات الموقع</span><b id="countVisits">0</b></div>
  </div>
+
+ <nav class="admin-nav-v32" aria-label="اختصارات لوحة التحكم">
+  <a href="#settingsForm">⚙️ إعدادات الموقع</a>
+  <a href="#categoryForm">🧩 الأقسام والأيقونات</a>
+  <a href="#postForm">📝 نشر وتثبيت</a>
+  <a href="#usersList">👥 الأعضاء والحظر</a>
+  <a href="#postsList">📌 المنشورات</a>
+  <a href="#reportsList">🚩 البلاغات</a>
+  <a href="#chatList">💬 الدردشة</a>
+ </nav>
  <div class="layout">
   <section class="card admin-only"><div class="head">✨ هوية الموقع وروابط المجتمع</div><div class="body"><form id="settingsForm"><div class="field"><label>اسم الموقع</label><input id="siteName" maxlength="32"></div><div class="field"><label>النص التعريفي</label><textarea id="heroText" maxlength="300"></textarea></div><div class="field"><label data-admin-i18n="facebook_url">رابط Facebook</label><input id="facebookUrl" type="url"></div><div class="field"><label data-admin-i18n="telegram_url">رابط Telegram</label><input id="telegramUrl" type="url"></div><div class="field"><label data-admin-i18n="background">نمط الخلفية</label><select id="backgroundMode"><option value="aurora" data-admin-i18n="background_aurora">Aurora — ألوان متوهجة</option><option value="grid" data-admin-i18n="background_grid">Grid — شبكة تقنية</option><option value="midnight" data-admin-i18n="background_midnight">Midnight — هادئ وعميق</option></select></div><div class="field"><label data-admin-i18n="site_background_url">رابط خلفية الموقع</label><input id="siteBackgroundUrl" type="text" placeholder="https://example.com/background.jpg"><small class="soft" data-admin-i18n="site_background_help">اتركه فارغًا للرجوع للخلفية الأصلية.</small></div><div class="field"><label data-admin-i18n="chat_background_url">رابط خلفية الدردشة</label><input id="chatBackgroundUrl" type="text" placeholder="https://example.com/chat-bg.jpg"><small class="soft" data-admin-i18n="chat_background_help">تظهر الخلفية داخل صندوق الدردشة فقط.</small></div><div class="field"><label data-admin-i18n-v20="retention_label">الحذف التلقائي للمواضيع</label><select id="topicRetentionDays"><option value="0" data-admin-i18n-v20="retention_off">معطّل — احتفظ بالمواضيع</option><option value="1" data-admin-i18n-v20="retention_1">بعد يوم واحد</option><option value="3" data-admin-i18n-v20="retention_3">بعد 3 أيام</option><option value="7" data-admin-i18n-v20="retention_7">بعد 7 أيام</option><option value="14" data-admin-i18n-v20="retention_14">بعد 14 يومًا</option><option value="30" data-admin-i18n-v20="retention_30">بعد 30 يومًا</option><option value="90" data-admin-i18n-v20="retention_90">بعد 90 يومًا</option></select><small class="soft" data-admin-i18n-v20="retention_help">تُطبق المدة على المواضيع الجديدة. اختر تطبيقها على الحالي لحساب موعد انتهاء للمواضيع الموجودة أيضًا.</small></div><label class="row" style="font-size:13px;margin:4px 0 11px"><input id="applyRetentionExisting" type="checkbox" style="width:auto"> <span data-admin-i18n-v20="retention_apply_existing">تطبيق المدة على المواضيع الحالية أيضًا</span></label><div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn cyan" data-admin-i18n="save">حفظ الإعدادات</button><button id="cleanupExpiredTopics" type="button" class="btn danger" data-admin-i18n-v20="cleanup_expired">حذف المواضيع المنتهية الآن</button></div></form></div></section>
-  <section class="card admin-only"><div class="head">🧩 إضافة قسم فني</div><div class="body"><form id="categoryForm"><div class="grid2"><div class="field"><label>اسم القسم</label><input id="categoryTitle" required maxlength="40"></div><div class="field"><label>الأيقونة</label><input id="categoryIcon" required maxlength="8" placeholder="🎨"></div></div><div class="field"><label>الوصف</label><textarea id="categoryDescription" required maxlength="220"></textarea></div><div class="field"><label>لون البطاقة</label><input id="categoryColor" type="color" value="#8c5bff"></div><button class="btn green">إضافة القسم</button><button id="seedBtn" type="button" class="btn" style="margin-right:7px">إضافة الافتراضي</button></form><div id="categoriesList" class="scroll" style="margin-top:14px"></div></div></section>
+  <section class="card admin-only"><div class="head">🧩 إضافة موقع / قسم بأيقونة</div><div class="body"><form id="categoryForm"><div class="grid2"><div class="field"><label>اسم الموقع / القسم</label><input id="categoryTitle" required maxlength="40" placeholder="مثال: Netflix"></div><div class="field"><label>رمز احتياطي اختياري</label><input id="categoryIcon" maxlength="8" placeholder="🎬"><span class="icon-help-v29">يظهر هذا الرمز إذا لم يتم رفع صورة.</span></div></div><div class="grid2"><div class="field"><label>رفع أيقونة الموقع</label><input id="categoryIconFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif"><span class="icon-help-v29">PNG / JPG / WEBP / GIF — الحد الأقصى 120KB حتى تبقى القاعدة سريعة.</span></div><div class="field"><label>معاينة الأيقونة</label><div id="categoryIconPreview" class="icon-upload-preview-v29">🧩</div></div></div><div class="field"><label>الوصف</label><textarea id="categoryDescription" required maxlength="220"></textarea></div><div class="field"><label>لون البطاقة</label><input id="categoryColor" type="color" value="#8c5bff"></div><button class="btn green">إضافة القسم</button><button id="seedBtn" type="button" class="btn" style="margin-right:7px">إضافة الافتراضي</button></form><div id="categoriesList" class="scroll" style="margin-top:14px"></div></div></section>
   <section class="card full admin-only"><div class="head">📝 نشر موضوع جديد</div><div class="body"><div class="notice" data-admin-i18n="post_notice">يدعم الموقع صور GIF عند النشر من صفحة المجتمع. إضافة قسم جديد أثناء النشر متاحة للـ Admin والمشرف من نافذة النشر في الموقع.</div><form id="postForm"><div class="grid2"><div class="field"><label>العنوان</label><input id="postTitle" required maxlength="180"></div><div class="field"><label>القسم</label><select id="postCategory"></select></div></div><div class="field"><label>رابط مستند مباشر</label><input id="postDocumentUrl" type="url" placeholder="https://example.com/file.pdf"></div><div class="field"><label>اسم المستند الظاهر</label><input id="postDocumentName" maxlength="180" placeholder="مثال: تقرير المشروع.pdf"></div><p class="soft" data-admin-i18n="free_document_note">الوضع المجاني: ضع رابط مستند مستضاف يدويًا في مستودعك أو مساحة ملفات تملكها.</p><div class="field"><label>المحتوى</label><textarea id="postBody" required maxlength="50000" placeholder="حد كبير: 50,000 حرف. لا تضع Cookies أو كلمات مرور أو بيانات دخول."></textarea></div><div class="row"><label style="font-size:13px"><input id="postPinned" type="checkbox" style="width:auto"> تثبيت الموضوع</label><button class="btn primary">نشر في الموقع</button></div></form></div></section>
   <section class="card full admin-only"><div class="head">🔐 بطاقات الوصول الخاصة</div><div class="body"><div class="notice" style="margin-bottom:12px" data-admin-i18n="resource_notice">للموارد والروابط القانونية فقط، ولا توضع كلمات مرور أو بيانات شخصية.</div><form id="resourceForm"><div class="grid2"><div class="field"><label>عنوان البطاقة</label><input id="resourceTitle" required maxlength="70"></div><div class="field"><label>الأيقونة</label><input id="resourceIcon" maxlength="8" placeholder="🔐"></div></div><div class="field"><label>وصف ظاهر للجميع</label><textarea id="resourceDescription" required maxlength="260"></textarea></div><div class="field"><label>المحتوى بعد فتح البطاقات</label><textarea id="resourceSecret" required maxlength="4000"></textarea></div><button class="btn pink">إضافة البطاقة</button></form><div id="resourcesList" class="scroll" style="margin-top:14px"></div></div></section>
   <section class="card full"><div class="head">👥 كل الأعضاء — الصلاحيات والتحذير والحظر</div><div class="body"><div class="notice" data-admin-i18n="members_notice">المشرف المحدود يستطيع: حذف المحتوى المخالف، التحذير، والحظر المؤقت للأعضاء العاديين. المدير الكامل فقط يمنح الصلاحيات أو يفرض الحظر الدائم.</div><div id="usersList" class="scroll"></div></div></section>
@@ -140,6 +171,8 @@ html[data-theme="light"]{color-scheme:light;--bg:#edf3ff;--surface:rgba(255,255,
   <section class="card"><div class="head">💬 إدارة الدردشة</div><div class="body"><div class="field admin-only"><label>مدة بقاء رسائل الدردشة</label><select id="chatRetentionHours"><option value="0">معطّل — احتفظ بالدردشة</option><option value="1">ساعة واحدة</option><option value="5">5 ساعات</option><option value="12">12 ساعة</option><option value="24">24 ساعة</option><option value="72">3 أيام</option><option value="168">7 أيام</option></select><small class="soft">تطبق المدة على العرض والحذف من لوحة التحكم. الرسائل الجديدة ستحمل تاريخ انتهاء تلقائيًا.</small></div><div class="row admin-only" style="gap:8px;flex-wrap:wrap;margin-bottom:12px"><button id="saveChatRetentionBtn" type="button" class="btn cyan small">حفظ مدة الدردشة</button><button id="cleanupExpiredChatBtn" type="button" class="btn danger small">حذف الرسائل المنتهية الآن</button><button id="clearAllChatBtn" type="button" class="btn danger small">حذف الدردشة بالكامل الآن</button></div><div class="scroll" id="chatList"></div></div></section>
   <section class="card"><div class="head">💭 إدارة التعليقات</div><div class="body scroll" id="commentsList"></div></section>
   <section class="card"><div class="head">🚩 الإبلاغات</div><div class="body scroll" id="reportsList"></div></section>
+
+  <section class="card full admin-only"><div class="head">📜 قوانين المجتمع الظاهرة للزوار</div><div class="body"><div class="admin-rules-v32"><div class="admin-rule-v32"><b>1</b>منع السبام والتكرار.</div><div class="admin-rule-v32"><b>2</b>منع كلمات المرور والـ Cookies والـ Tokens.</div><div class="admin-rule-v32"><b>3</b>احترام الأعضاء وعدم الإساءة.</div><div class="admin-rule-v32"><b>4</b>استعمال زر الإبلاغ للمخالفات.</div><div class="admin-rule-v32"><b>5</b>للإدارة حق التحذير والحظر والحذف.</div></div><p class="soft" style="margin-top:10px">هذه القوانين مضافة في واجهة الموقع داخل زر الإعدادات ورابط القوانين، ولا تحتاج قاعدة بيانات جديدة.</p></div></section>
   <section class="card full admin-only"><div class="head" data-admin-i18n="announcement">📢 إعلان الواجهة</div><div class="body"><form id="announcementForm"><div class="field"><label data-admin-i18n="announcement_text">نص الإعلان</label><textarea id="announcementText" required maxlength="1000" placeholder="اكتب الإعلان الذي سيظهر لزوّار الموقع."></textarea><small class="soft" data-admin-i18n="announcement_help">يظهر في واجهة الموقع فوق خلفية ضبابية، ويختفي تلقائيًا بعد 10 ثوانٍ أو عند النقر على «فهمت».</small></div><div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn primary" data-admin-i18n="publish_announcement">نشر الإعلان</button><button id="clearAnnouncementBtn" class="btn danger" type="button" data-admin-i18n="remove_announcement">حذف الإعلان</button></div></form></div></section>
  </div>
 </section>
@@ -178,6 +211,43 @@ async function uploadAdminDocument(file){
  return {url:await getDownloadURL(target),name:file.name,type:mime,size:file.size,extension:ext};
 }
 const cats=()=>state.categories.length?state.categories:DEFAULT_CATEGORIES;
+
+const CATEGORY_ICON_MAX_V29=120*1024;
+function isCategoryIconDataV29(value=''){
+ return /^data:image\/(png|jpe?g|webp|gif);base64,[a-z0-9+/=]+$/i.test(String(value||'').trim());
+}
+function categoryIconPreviewHTMLV29(c={},small=false){
+ const src=String(c.iconImage||c.iconUrl||'').trim();
+ const icon=esc(c.icon||'📁');
+ if(isCategoryIconDataV29(src)||/^https:\/\/[^\s"'<>]+\.(png|jpe?g|webp|gif)(\?[^\s"'<>]*)?$/i.test(src)){
+   return `<span class="icon-upload-preview-v29${small?' small':''}"><img src="${esc(src)}" alt=""></span>`;
+ }
+ return `<span class="icon-upload-preview-v29${small?' small':''}">${icon}</span>`;
+}
+function readCategoryIconFileV29(file){
+ return new Promise((resolve,reject)=>{
+   if(!file)return resolve('');
+   if(!/^image\/(png|jpeg|jpg|webp|gif)$/i.test(file.type))return reject(new Error('صيغة الأيقونة غير مدعومة.'));
+   if(file.size>CATEGORY_ICON_MAX_V29)return reject(new Error('حجم الأيقونة أكبر من 120KB.'));
+   const reader=new FileReader();
+   reader.onload=()=>resolve(String(reader.result||''));
+   reader.onerror=()=>reject(new Error('تعذر قراءة ملف الأيقونة.'));
+   reader.readAsDataURL(file);
+ });
+}
+function bindCategoryIconPreviewV29(){
+ const input=$('categoryIconFile'),preview=$('categoryIconPreview'),fallback=$('categoryIcon');
+ if(!input||!preview)return;
+ const refreshFallback=()=>{if(!input.files?.[0])preview.textContent=(fallback?.value||'🧩').trim()||'🧩';};
+ if(fallback)fallback.addEventListener('input',refreshFallback);
+ input.addEventListener('change',async()=>{
+   try{
+     const data=await readCategoryIconFileV29(input.files?.[0]);
+     preview.innerHTML=data?`<img src="${esc(data)}" alt="">`:((fallback?.value||'🧩').trim()||'🧩');
+   }catch(e){input.value='';preview.textContent=(fallback?.value||'🧩').trim()||'🧩';toast(e.message,'error');}
+ });
+}
+
 const cat=id=>cats().find(c=>c.id===id)||cats()[0];
 const isBoss=u=>String(u?.displayName||u?.authorName||"").toLowerCase().replace(/\s+/g,"")==="lordofshadow";
 const staff=()=>state.isAdmin||state.isModerator;
@@ -205,7 +275,7 @@ function render(){
  $("staffModeNote").innerHTML=state.isAdmin?"<b>👑 وضع المدير الكامل:</b> تملك التحكم في الإعدادات والبطاقات والأقسام وترقية الأعضاء والحظر الدائم.":"<b>🛡️ وضع المشرف المحدود:</b> يمكنك معالجة البلاغات، حذف المحتوى المخالف، التحذير والحظر المؤقت للأعضاء العاديين فقط.";
  document.querySelectorAll(".admin-only").forEach(e=>e.classList.toggle("hide",!state.isAdmin));
  const s=state.settings;$("siteName").value=s.siteName||"NexusHub";$("heroText").value=s.heroText||"";$("facebookUrl").value=s.facebookUrl||"https://www.facebook.com/WebStores0/";$("telegramUrl").value=s.telegramUrl||"https://t.me/Netflixs02";$("backgroundMode").value=s.backgroundMode||"aurora";$("siteBackgroundUrl").value=s.siteBackgroundUrl||"";$("chatBackgroundUrl").value=s.chatBackgroundUrl||"";const retention=$("topicRetentionDays");if(retention)retention.value=String([0,1,3,7,14,30,90].includes(Number(s.topicRetentionDays))?Number(s.topicRetentionDays):0);const chatRetention=$("chatRetentionHours");if(chatRetention)chatRetention.value=String([0,1,5,12,24,72,168].includes(Number(s.chatRetentionHours))?Number(s.chatRetentionHours):0);$("postCategory").innerHTML=cats().map(c=>`<option value="${esc(c.id)}">${esc(c.icon)} ${esc(c.title)}</option>`).join("");const announcementText=$("announcementText");if(announcementText&&document.activeElement!==announcementText)announcementText.value=state.announcement?.text||"";
- $("categoriesList").innerHTML=cats().map(c=>item(`${esc(c.icon)} ${esc(c.title)}`,esc(c.description),`ID: ${esc(c.id)}`,`<button class="btn danger small" data-del-cat="${esc(c.id)}">حذف</button>`)).join("")||'<div class="item">لا توجد أقسام.</div>';
+ $("categoriesList").innerHTML=cats().map(c=>item(`<span class="admin-category-title-v29">${categoryIconPreviewHTMLV29(c,true)}<span>${esc(c.title)}</span></span>`,esc(c.description),`ID: ${esc(c.id)}${c.iconImage?"<br>أيقونة مرفوعة يدويًا":""}`,`<button class="btn danger small" data-del-cat="${esc(c.id)}">حذف</button>`)).join("")||'<div class="item">لا توجد أقسام.</div>';
  document.querySelectorAll("[data-del-cat]").forEach(b=>b.onclick=()=>deleteCategory(b.dataset.delCat));
  const users=Object.entries(state.profiles).map(([uid,p])=>({uid,...p})).sort((a,b)=>(b.lastSeen||0)-(a.lastSeen||0));
  $("usersList").innerHTML=users.length?users.map(u=>{
@@ -244,7 +314,31 @@ function normalizeImageUrlV25(value=""){
 }
 async function saveSettings(e){e.preventDefault();if(!state.isAdmin)return;try{const days=[0,1,3,7,14,30,90].includes(Number($("topicRetentionDays").value))?Number($("topicRetentionDays").value):0;await set(R("settings"),{siteName:$("siteName").value.trim().slice(0,32)||"NexusHub",heroText:$("heroText").value.trim().slice(0,300),facebookUrl:$("facebookUrl").value.trim()||"https://www.facebook.com/WebStores0/",telegramUrl:$("telegramUrl").value.trim()||"https://t.me/Netflixs02",backgroundMode:$("backgroundMode").value,siteBackgroundUrl:normalizeImageUrlV25($("siteBackgroundUrl").value).slice(0,2000),chatBackgroundUrl:normalizeImageUrlV25($("chatBackgroundUrl").value).slice(0,2000),topicRetentionDays:days});if($("applyRetentionExisting").checked)await applyRetentionToExistingV20(days);toast("تم حفظ الإعدادات.","success");}catch(e){toast(errorText(e),"error")}}
 function slug(v){return(String(v).toLowerCase().trim().replace(/[^a-z0-9؀-ۿ]+/g,"-").replace(/^-|-$/g,"")||"section")+"-"+Date.now().toString(36).slice(-5)}
-async function addCategory(e){e.preventDefault();if(!state.isAdmin)return;try{const id=slug($("categoryTitle").value),order=Math.max(0,...cats().map(c=>c.order||0))+1;await set(R(`categories/${id}`),{title:$("categoryTitle").value.trim().slice(0,40),icon:$("categoryIcon").value.trim().slice(0,8),description:$("categoryDescription").value.trim().slice(0,220),color:$("categoryColor").value,order,createdAt:now()});e.target.reset();toast("تمت إضافة القسم.","success");}catch(e){toast(errorText(e),"error")}}
+async function addCategory(e){
+ e.preventDefault();
+ if(!state.isAdmin)return;
+ try{
+   const rawTitle=$('categoryTitle').value.trim();
+   if(!rawTitle)throw new Error('اكتب اسم الموقع أو القسم.');
+   const id=slug(rawTitle),order=Math.max(0,...cats().map(c=>c.order||0))+1;
+   const iconImage=await readCategoryIconFileV29($('categoryIconFile')?.files?.[0]);
+   const fallbackIcon=($('categoryIcon').value.trim()||'🧩').slice(0,8);
+   await set(R(`categories/${id}`),{
+     title:rawTitle.slice(0,40),
+     siteName:rawTitle.slice(0,40),
+     icon:fallbackIcon,
+     iconImage,
+     description:$('categoryDescription').value.trim().slice(0,220),
+     color:$('categoryColor').value,
+     order,
+     createdAt:now(),
+     createdBy:state.user.uid
+   });
+   e.target.reset();
+   const preview=$('categoryIconPreview');if(preview)preview.textContent='🧩';
+   toast('تمت إضافة الموقع / القسم مع الأيقونة.','success');
+ }catch(e){toast(errorText(e),'error')}
+}
 async function seed(){if(!state.isAdmin)return;try{const updates={};DEFAULT_CATEGORIES.forEach(c=>updates[`categories/${c.id}`]=c);await update(ref(db),updates);toast("تمت إضافة الأقسام الافتراضية.","success");}catch(e){toast(errorText(e),"error")}}
 async function addPost(e){
  e.preventDefault();if(!state.isAdmin)return;
@@ -343,9 +437,15 @@ Object.assign(ADMIN_I18N_V17.ar,{announcement:"📢 إعلان الواجهة",a
 Object.assign(ADMIN_I18N_V17.en,{announcement:"📢 Site announcement",announcement_text:"Announcement text",announcement_help:"It appears over a blurred background and closes after 10 seconds or when visitors select “Got it”.",publish_announcement:"Publish announcement",remove_announcement:"Remove announcement"});
 Object.assign(ADMIN_I18N_V17.fr,{announcement:"📢 Annonce du site",announcement_text:"Texte de l’annonce",announcement_help:"Elle s’affiche sur un fond flou et disparaît après 10 secondes ou après un clic sur « J’ai compris ».",publish_announcement:"Publier l’annonce",remove_announcement:"Supprimer l’annonce"});
 
+
+/* V29 — labels for manually uploaded category/site icons */
+Object.assign(ADMIN_I18N_V17.ar,{category_add:"🧩 إضافة موقع / قسم بأيقونة",site_or_category_name:"اسم الموقع / القسم",fallback_icon:"رمز احتياطي اختياري",category_icon_upload:"رفع أيقونة الموقع",category_icon_preview:"معاينة الأيقونة"});
+Object.assign(ADMIN_I18N_V17.en,{category_add:"🧩 Add site / section with icon",site_or_category_name:"Site / section name",fallback_icon:"Optional fallback symbol",category_icon_upload:"Upload site icon",category_icon_preview:"Icon preview"});
+Object.assign(ADMIN_I18N_V17.fr,{category_add:"🧩 Ajouter un site / une section avec icône",site_or_category_name:"Nom du site / de la section",fallback_icon:"Symbole de secours facultatif",category_icon_upload:"Téléverser l’icône du site",category_icon_preview:"Aperçu de l’icône"});
+
 let adminLanguageV17=["ar","en","fr"].includes(localStorage.getItem("nexushub-language"))?localStorage.getItem("nexushub-language"):"ar";let adminThemeV17=localStorage.getItem("nexushub-theme")==="light"?"light":"dark";
 function at(key){return ADMIN_I18N_V17[adminLanguageV17][key]||ADMIN_I18N_V17.ar[key]||key;}
-function applyAdminV17(){document.documentElement.lang=adminLanguageV17;document.documentElement.dir=adminLanguageV17==='ar'?'rtl':'ltr';document.documentElement.dataset.theme=adminThemeV17;const select=$("adminLanguageSelect");if(select){select.value=adminLanguageV17;select.title=adminLanguageV17==='ar'?'اللغة':adminLanguageV17==='fr'?'Langue':'Language';select.setAttribute('aria-label',select.title);}const label=$("adminThemeLabel");if(label)label.textContent=adminThemeV17==='light'?at('dark'):at('light');const text=[['#siteBtn','site'],['#logoutBtn','logout'],['#loginView h1','login_title'],['#loginView p','login_desc'],['#adminLoginForm label:nth-of-type(1)','email'],['#adminLoginForm label:nth-of-type(2)','password'],['#adminLoginForm .btn','login'],['#adminView .metric:nth-child(1) span','members'],['#adminView .metric:nth-child(2) span','online'],['#adminView .metric:nth-child(3) span','topics'],['#adminView .metric:nth-child(4) span','comments'],['#adminView .metric:nth-child(5) span','admin_cases'],['#adminView .metric:nth-child(6) span','reports'],['#adminView .metric:nth-child(7) span','site_visits']];text.forEach(([sel,key])=>{const el=document.querySelector(sel);if(el)el.textContent=at(key);});document.querySelectorAll('[data-admin-i18n]').forEach(el=>el.textContent=at(el.dataset.adminI18n));const heads=document.querySelectorAll('#adminView .head');const headKeys=['settings','category_add','post_new','cards','members_manage','posts_manage','chat_manage','comments_manage','reports_manage'];heads.forEach((h,i)=>{if(headKeys[i])h.textContent=at(headKeys[i]);});const labels=document.querySelectorAll('#adminView .field>label');const labelKeys=['site_name','intro','facebook_url','telegram_url','background','category_name','icon','description','card_color','title','section','document_url','document_name','content','card_title','icon','public_description','card_content'];labels.forEach((l,i)=>{if(labelKeys[i]&&!l.dataset.adminI18n)l.textContent=at(labelKeys[i]);});document.querySelectorAll('[data-admin-i18n]').forEach(el=>el.textContent=at(el.dataset.adminI18n));const buttons=[['#settingsForm .btn','save'],['#categoryForm .btn.green','add_category'],['#seedBtn','add_default'],['#postForm .btn.primary','publish'],['#resourceForm .btn.pink','add_card']];buttons.forEach(([sel,key])=>{const el=document.querySelector(sel);if(el)el.textContent=at(key);});const pinLabel=document.querySelector('#postPinned')?.parentElement;if(pinLabel){const input=pinLabel.querySelector('input');pinLabel.textContent=' ';if(input)pinLabel.prepend(input);pinLabel.append(document.createTextNode(at('pin')));}document.title=`NexusHub — ${at('login_title')}`;}
+function applyAdminV17(){document.documentElement.lang=adminLanguageV17;document.documentElement.dir=adminLanguageV17==='ar'?'rtl':'ltr';document.documentElement.dataset.theme=adminThemeV17;const select=$("adminLanguageSelect");if(select){select.value=adminLanguageV17;select.title=adminLanguageV17==='ar'?'اللغة':adminLanguageV17==='fr'?'Langue':'Language';select.setAttribute('aria-label',select.title);}const label=$("adminThemeLabel");if(label)label.textContent=adminThemeV17==='light'?at('dark'):at('light');const text=[['#siteBtn','site'],['#logoutBtn','logout'],['#loginView h1','login_title'],['#loginView p','login_desc'],['#adminLoginForm label:nth-of-type(1)','email'],['#adminLoginForm label:nth-of-type(2)','password'],['#adminLoginForm .btn','login'],['#adminView .metric:nth-child(1) span','members'],['#adminView .metric:nth-child(2) span','online'],['#adminView .metric:nth-child(3) span','topics'],['#adminView .metric:nth-child(4) span','comments'],['#adminView .metric:nth-child(5) span','admin_cases'],['#adminView .metric:nth-child(6) span','reports'],['#adminView .metric:nth-child(7) span','site_visits']];text.forEach(([sel,key])=>{const el=document.querySelector(sel);if(el)el.textContent=at(key);});document.querySelectorAll('[data-admin-i18n]').forEach(el=>el.textContent=at(el.dataset.adminI18n));const heads=document.querySelectorAll('#adminView .head');const headKeys=['settings','category_add','post_new','cards','members_manage','posts_manage','chat_manage','comments_manage','reports_manage'];heads.forEach((h,i)=>{if(headKeys[i])h.textContent=at(headKeys[i]);});const labels=document.querySelectorAll('#adminView .field>label');const labelKeys=['site_name','intro','facebook_url','telegram_url','background','site_or_category_name','fallback_icon','category_icon_upload','category_icon_preview','description','card_color','title','section','document_url','document_name','content','card_title','icon','public_description','card_content'];labels.forEach((l,i)=>{if(labelKeys[i]&&!l.dataset.adminI18n)l.textContent=at(labelKeys[i]);});document.querySelectorAll('[data-admin-i18n]').forEach(el=>el.textContent=at(el.dataset.adminI18n));const buttons=[['#settingsForm .btn','save'],['#categoryForm .btn.green','add_category'],['#seedBtn','add_default'],['#postForm .btn.primary','publish'],['#resourceForm .btn.pink','add_card']];buttons.forEach(([sel,key])=>{const el=document.querySelector(sel);if(el)el.textContent=at(key);});const pinLabel=document.querySelector('#postPinned')?.parentElement;if(pinLabel){const input=pinLabel.querySelector('input');pinLabel.textContent=' ';if(input)pinLabel.prepend(input);pinLabel.append(document.createTextNode(at('pin')));}document.title=`NexusHub — ${at('login_title')}`;}
 function bindAdminAppearanceV17(){const s=$("adminLanguageSelect"),b=$("adminThemeToggle");if(s)s.onchange=()=>{adminLanguageV17=s.value;localStorage.setItem('nexushub-language',adminLanguageV17);applyAdminV17();if(state.isStaff)render();};if(b)b.onclick=()=>{adminThemeV17=adminThemeV17==='light'?'dark':'light';localStorage.setItem('nexushub-theme',adminThemeV17);applyAdminV17();};}
 
 
@@ -386,7 +486,7 @@ const baseQueueCleanupExpiredTopicsV27=queueCleanupExpiredTopicsV20;
 queueCleanupExpiredTopicsV20=function(){baseQueueCleanupExpiredTopicsV27();if(state.isAdmin)setTimeout(()=>cleanupExpiredChatV27(false).catch(()=>{}),1100);};
 
 applyAdminV17();bindAdminAppearanceV17();
-$("siteBtn").onclick=()=>location.href="index.html";$("logoutBtn").onclick=()=>signOut(auth);$("adminLoginForm").onsubmit=login;$("settingsForm").onsubmit=saveSettings;$("categoryForm").onsubmit=addCategory;$("seedBtn").onclick=seed;$("postForm").onsubmit=addPost;$("resourceForm").onsubmit=addResource;$("announcementForm").onsubmit=saveAnnouncement;$("clearAnnouncementBtn").onclick=clearAnnouncement;$("cleanupExpiredTopics").onclick=()=>cleanupExpiredTopicsV20(true);$("saveChatRetentionBtn").onclick=saveChatRetentionV27;$("cleanupExpiredChatBtn").onclick=()=>cleanupExpiredChatV27(true);$("clearAllChatBtn").onclick=clearAllChatV27;bindPublic();applyAdminV20Labels();$("adminLanguageSelect").addEventListener("change",()=>setTimeout(applyAdminV20Labels,0));
+bindCategoryIconPreviewV29();$("siteBtn").onclick=()=>location.href="index.html";$("logoutBtn").onclick=()=>signOut(auth);$("adminLoginForm").onsubmit=login;$("settingsForm").onsubmit=saveSettings;$("categoryForm").onsubmit=addCategory;$("seedBtn").onclick=seed;$("postForm").onsubmit=addPost;$("resourceForm").onsubmit=addResource;$("announcementForm").onsubmit=saveAnnouncement;$("clearAnnouncementBtn").onclick=clearAnnouncement;$("cleanupExpiredTopics").onclick=()=>cleanupExpiredTopicsV20(true);$("saveChatRetentionBtn").onclick=saveChatRetentionV27;$("cleanupExpiredChatBtn").onclick=()=>cleanupExpiredChatV27(true);$("clearAllChatBtn").onclick=clearAllChatV27;bindPublic();applyAdminV20Labels();$("adminLanguageSelect").addEventListener("change",()=>setTimeout(applyAdminV20Labels,0));
 onAuthStateChanged(auth,user=>{state.user=user;state.isAdmin=false;state.isModerator=false;state.isStaff=false;state.unsubs.forEach(u=>u&&u());state.unsubs=[];if(!user){show();return;}onValue(R(`roles/${user.uid}`),s=>{const role=s.val()||{};state.isAdmin=!!role.admin;state.isModerator=!!role.moderator;state.isStaff=state.isAdmin||state.isModerator;bindPrivate();show();if(!state.isStaff){$("denied").textContent="تم تسجيل الدخول، لكن هذا الحساب لا يملك دور Admin أو مشرف محدود."; $("denied").classList.remove("hide");}else $("denied").classList.add("hide");});});
 </script>
 </body></html>
