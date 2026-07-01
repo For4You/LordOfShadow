@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>NexusHub V39 — مجتمع رقمي</title>
+<title>NexusHub V40 — مجتمع رقمي</title>
 <style>
 /* NexusHub V8 Pro - shared styles */
 
@@ -958,6 +958,16 @@ html[data-density="compact"] .post-card-v19,html[data-density="compact"] .catego
 }
 @media(max-width:520px){.category-filter-mobile-v39 .tab{padding:8px 10px;font-size:12px}}
 
+/* V40 — restore clean phone category strip while keeping V39 desktop pager */
+@media(max-width:900px){
+  .category-filter-desktop-v39{display:none!important}
+  .category-filter-mobile-v39{display:flex!important;align-items:center!important;gap:6px!important;white-space:nowrap!important;min-width:max-content!important;flex:0 0 auto!important}
+  .category-filter-mobile-v39 .category-filter-tab-v30{display:inline-flex!important;align-items:center!important;gap:6px!important;min-height:34px!important;padding:6px 9px!important;border-radius:11px!important;font-size:11px!important;scroll-snap-align:start!important;box-shadow:none!important}
+  .category-filter-mobile-v39 .manual-category-icon-v29.filter{width:20px!important;height:20px!important;min-width:20px!important;border-radius:7px!important;font-size:9px!important;overflow:hidden!important}
+  .category-filter-mobile-v39 .manual-category-icon-v29.filter img{width:100%!important;height:100%!important;object-fit:cover!important;display:block!important}
+  .category-filter-mobile-v39 .category-filter-tab-v30 span:last-child{max-width:90px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+}
+
 </style>
 </head>
 <body>
@@ -1104,7 +1114,7 @@ html[data-density="compact"] .post-card-v19,html[data-density="compact"] .catego
  <section class="settings-card-v32"><h3>كثافة الواجهة</h3><p>تحكم بحجم المسافات بين البطاقات بدون تغيير المحتوى.</p><div class="settings-actions-v32"><button class="setting-pill-v32" data-density-v32="normal" type="button">عادي</button><button class="setting-pill-v32" data-density-v32="compact" type="button">مضغوط</button><button class="setting-pill-v32" data-density-v32="comfortable" type="button">مريح</button></div></section>
  <section class="settings-card-v32"><h3>اختصارات</h3><div class="settings-actions-v32"><button id="settingsOpenRulesV32" class="btn small" type="button">📜 قوانين المجتمع</button><button id="settingsOpenSearchV32" class="btn small cyan" type="button">🔎 البحث</button></div></section>
 </div></div></div>
-<div id="rulesModalV32" class="modal"><div class="modal-box" style="width:min(640px,100%)"><div class="modal-head"><h2>📜 قوانين المجتمع</h2><button class="close" data-close="rulesModalV32">×</button></div><div class="modal-body"><div class="rules-list-v32"><div class="rule-item-v32"><b>1</b><span>ممنوع السبام أو تكرار نفس الرسالة أو نشر روابط عشوائية.</span></div><div class="rule-item-v32"><b>2</b><span>مسموح نشر كلمات مرور، Cookies، Tokens، أو بيانات دخول خاصة بأي حساب.</span></div><div class="rule-item-v32"><b>3</b><span>احترم الأعضاء، ولا تنشر إساءة أو تحريض أو محتوى مخالف.</span></div><div class="rule-item-v32"><b>4</b><span>استعمل زر الإبلاغ عند رؤية محتوى مخالف بدل الرد عليه.</span></div><div class="rule-item-v32"><b>5</b><span>الإدارة قد تثبّت، تخفي، تحذف، تحذر أو تحظر الحسابات المخالفة لحماية المجتمع.</span></div></div></div></div></div>
+<div id="rulesModalV32" class="modal"><div class="modal-box" style="width:min(640px,100%)"><div class="modal-head"><h2>📜 قوانين المجتمع</h2><button class="close" data-close="rulesModalV32">×</button></div><div class="modal-body"><div class="rules-list-v32"><div class="rule-item-v32"><b>1</b><spaممنوع السبام أو تكرار نفس الرسالة أو نشر روابط عشوائية.</span></div><div class="rule-item-v32"><b>2</b><spaمسموح نشر كلمات مرور، Cookies، Tokens، أو بيانات دخول خاصة بأي حساب.</span></div><div class="rule-item-v32"><b>3</b><span>احترم الأعضاء، ولا تنشر إساءة أو تحريض أو محتوى مخالف.</span></div><div class="rule-item-v32"><b>4</b><span>استعمل زر الإبلاغ عند رؤية محتوى مخالف بدل الرد عليه.</span></div><div class="rule-item-v32"><b>5</b><span>الإدارة قد تثبّت، تخفي، تحذف، تحذر أو تحظر الحسابات المخالفة لحماية المجتمع.</span></div></div></div></div></div>
 
 <div id="siteAnnouncement" class="site-announcement-v22" role="dialog" aria-modal="true" aria-labelledby="siteAnnouncementTitle" aria-hidden="true"><div class="site-announcement-card-v22"><div class="site-announcement-icon-v22" aria-hidden="true">📢</div><h2 id="siteAnnouncementTitle">إعلان الموقع</h2><p id="siteAnnouncementMessage"></p><button id="siteAnnouncementDismiss" class="btn primary" type="button">فهمت</button></div></div>
 
@@ -1406,13 +1416,16 @@ function categoryFilterIconV39(c){
 function categoryFilterButtonV39(c){
  return `<button class="tab ${state.filter===c.id?"active":""}" data-filter="${esc(c.id)}" title="${esc(c.title)}">${categoryFilterIconV39(c)}<span class="cat-filter-name-v39">${esc(c.title)}</span></button>`;
 }
+function categoryFilterMobileButtonV40(c){
+ return `<button class="tab category-filter-tab-v30 ${state.filter===c.id?"active":""}" data-filter="${esc(c.id)}" title="${esc(c.title)}">${categoryIconHTMLV29(c,'filter')}<span>${esc(c.title)}</span></button>`;
+}
 function renderCategoryFilterPagerV39(cats){
  const pageSize=9;
  const totalPages=Math.max(1,Math.ceil(cats.length/pageSize));
  state.catFilterPage=Math.max(0,Math.min(Number(state.catFilterPage||0),totalPages-1));
  const start=state.catFilterPage*pageSize;
  const pageCats=cats.slice(start,start+pageSize);
- const mobile=cats.map(categoryFilterButtonV39).join("");
+ const mobile=cats.map(categoryFilterMobileButtonV40).join("");
  const desktop=`<span class="category-filter-desktop-v39">
    <button class="cat-filter-arrow-v39" data-cat-page-v39="prev" type="button" ${state.catFilterPage<=0?"disabled":""} title="السابق">▲</button>
    <span class="cat-filter-window-v39"><span class="cat-filter-grid-v39">${pageCats.map(categoryFilterButtonV39).join("")}</span><span class="cat-filter-page-v39">${state.catFilterPage+1}/${totalPages}</span></span>
