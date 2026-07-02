@@ -968,6 +968,362 @@ html[data-density="compact"] .post-card-v19,html[data-density="compact"] .catego
   .category-filter-mobile-v39 .category-filter-tab-v30 span:last-child{max-width:90px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
 }
 
+
+/* V41 — comprehensive visual polish only: preserves all existing HTML IDs, classes and JavaScript behavior */
+:root{
+  color-scheme:dark;
+  --bg:#050713;
+  --bg2:#0d1230;
+  --surface:rgba(18,23,56,.72);
+  --surface-solid:#111735;
+  --line:rgba(255,255,255,.13);
+  --text:#fbfcff;
+  --muted:#b8bbd6;
+  --purple:#9b6cff;
+  --pink:#ff6fb4;
+  --cyan:#35ddff;
+  --mint:#62f3bf;
+  --gold:#ffdc7a;
+  --danger:#ff7180;
+  --radius-sm:12px;
+  --radius-md:18px;
+  --radius-lg:24px;
+  --shadow-soft:0 18px 50px rgba(0,0,0,.28);
+  --shadow-glow:0 0 0 1px rgba(255,255,255,.08),0 20px 55px rgba(57,106,242,.14);
+}
+html{
+  scrollbar-width:thin;
+  scrollbar-color:rgba(87,218,255,.72) rgba(255,255,255,.045);
+}
+body{
+  background:
+    radial-gradient(circle at 12% -4%,rgba(141,91,255,.34),transparent 34rem),
+    radial-gradient(circle at 92% 10%,rgba(53,221,255,.21),transparent 29rem),
+    radial-gradient(circle at 72% 94%,rgba(255,111,180,.16),transparent 34rem),
+    linear-gradient(180deg,#050713 0%,#080b1d 48%,#070916 100%)!important;
+  text-rendering:optimizeLegibility;
+}
+body::before,body::after{opacity:.32;mix-blend-mode:screen}
+::selection{background:rgba(53,221,255,.32);color:#fff}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:rgba(255,255,255,.045);border-radius:999px}
+::-webkit-scrollbar-thumb{border:3px solid transparent;border-radius:999px;background:linear-gradient(180deg,var(--cyan),var(--purple),var(--pink)) border-box;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#73ecff,#a986ff,#ff86c2) border-box}
+.scroll,.member-list,.feed-tabs,.post-actions,.post-tags-v10,.hero-actions,#latestList,.chat-log,.modal-box,.side-body,.category-filter-mobile-v39,.dm-messages-v34{
+  scrollbar-width:thin;
+  scrollbar-color:rgba(87,218,255,.72) rgba(255,255,255,.04);
+}
+.topbar{
+  background:linear-gradient(180deg,rgba(8,11,30,.84),rgba(8,11,30,.64));
+  border-bottom:1px solid rgba(255,255,255,.13);
+  box-shadow:0 16px 42px rgba(0,0,0,.2);
+  -webkit-backdrop-filter:blur(22px) saturate(1.35);
+  backdrop-filter:blur(22px) saturate(1.35);
+}
+.brand-icon,.avatar,.mini-avatar,.trend-number,.document-icon,.lock{
+  box-shadow:0 12px 32px rgba(0,0,0,.24),0 0 0 1px rgba(255,255,255,.12) inset;
+}
+.brand strong,.section-head h2,.login h1,.post-title-v12,.full-post h2{
+  letter-spacing:-.35px;
+}
+.glass,.card,.post-card-v12,.post-card-v19,.category,.trend,.metric,.item,.modal-box,.float-card,.mini-stat,.profile-stat,.category-topic-card-v32,.document-attachment,.staff-category-tools,.settings-panel-v32,.category-sphere-wrap-v35{
+  border-color:rgba(255,255,255,.14)!important;
+  background:linear-gradient(145deg,rgba(28,34,76,.78),rgba(10,14,36,.76))!important;
+  box-shadow:var(--shadow-soft),inset 0 1px 0 rgba(255,255,255,.06);
+  -webkit-backdrop-filter:blur(18px) saturate(1.25);
+  backdrop-filter:blur(18px) saturate(1.25);
+}
+.glass:hover,.card:hover,.post-card-v12:hover,.post-card-v19:hover,.category:hover,.trend:hover,.metric:hover,.item:hover,.category-topic-card-v32:hover,.document-attachment:hover{
+  border-color:rgba(99,230,255,.29)!important;
+  box-shadow:0 22px 60px rgba(0,0,0,.32),0 0 0 1px rgba(53,221,255,.08),inset 0 1px 0 rgba(255,255,255,.08);
+}
+.btn,.nav-link,.tab,.notification-btn,.category-view-toggle-v35,.sphere-auto-v35,.react,.close,.mobile-menu-toggle,.linkish,.chat-tools-v10 button{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  transition:transform .22s ease,box-shadow .22s ease,filter .22s ease,border-color .22s ease,background .22s ease,color .22s ease;
+}
+.btn,.notification-btn,.mobile-menu-toggle,.category-view-toggle-v35,.sphere-auto-v35{
+  border-color:rgba(255,255,255,.18)!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.055));
+  box-shadow:0 10px 26px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.1);
+}
+.btn::before,.nav-link::before,.tab::before,.notification-btn::before,.mobile-menu-toggle::before,.category-view-toggle-v35::before,.sphere-auto-v35::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  border-radius:inherit;
+  background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.18) 38%,transparent 72%);
+  transform:translateX(120%);
+  transition:transform .48s ease;
+}
+.btn:hover::before,.nav-link:hover::before,.tab:hover::before,.notification-btn:hover::before,.mobile-menu-toggle:hover::before,.category-view-toggle-v35:hover::before,.sphere-auto-v35:hover::before{transform:translateX(-120%)}
+.btn:hover,.notification-btn:hover,.mobile-menu-toggle:hover,.category-view-toggle-v35:hover,.sphere-auto-v35:hover{
+  transform:translateY(-3px);
+  border-color:rgba(94,231,255,.42)!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.28),0 0 22px rgba(53,221,255,.12);
+}
+.btn.primary{background:linear-gradient(135deg,#7047ea 0%,#9f65ff 55%,#bf78ff 100%)!important}
+.btn.cyan{background:linear-gradient(135deg,#0bbbd9 0%,#2f82ff 58%,#6a68ff 100%)!important}
+.btn.pink{background:linear-gradient(135deg,#ff5fa7 0%,#c757e7 58%,#8f5cff 100%)!important}
+.btn.green{background:linear-gradient(135deg,#1dbb77 0%,#5df3bc 100%)!important;color:#07151b!important}
+.btn.danger{background:linear-gradient(135deg,#d93f59 0%,#ff7b81 100%)!important}
+.btn:focus-visible,.nav-link:focus-visible,.tab:focus-visible,.notification-btn:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,.category:focus-visible,.member:focus-visible,a:focus-visible,button:focus-visible{
+  outline:3px solid rgba(53,221,255,.42)!important;
+  outline-offset:3px!important;
+}
+input,textarea,select{
+  border-color:rgba(255,255,255,.14)!important;
+  background:linear-gradient(145deg,rgba(7,10,27,.78),rgba(12,16,42,.68))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  transition:border-color .22s ease,box-shadow .22s ease,background .22s ease;
+}
+input:hover,textarea:hover,select:hover{border-color:rgba(255,255,255,.25)!important}
+input:focus,textarea:focus,select:focus{
+  border-color:rgba(53,221,255,.78)!important;
+  box-shadow:0 0 0 4px rgba(53,221,255,.13),0 14px 32px rgba(0,0,0,.16)!important;
+}
+.field label{color:#eef0ff}.notice,.moderation-banner,.free-mode-note,.staff-note-v11,.reply-banner-v10{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 12px 32px rgba(0,0,0,.16);
+}
+.hero{position:relative}.hero h1{text-shadow:0 16px 42px rgba(0,0,0,.3)}
+.hero h1 em,.author.gradient{
+  background-image:linear-gradient(90deg,var(--cyan),#b999ff,var(--pink),var(--gold));
+}
+.eyebrow,.tag,.topic-row-category-v19,.topic-row-pin-v19,.status-v11,.moderator-badge,.notification-count{
+  box-shadow:0 10px 24px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.08);
+}
+.category,.trend,.post,.post-card-v12,.post-card-v19,.topic-row-v19,.category-topic-card-v32,.member,.chat-message,.item,.document-attachment{
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,background .22s ease,filter .22s ease;
+}
+.category::after,.post-card-v12::after,.post-card-v19::after,.card::after,.glass::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border-radius:inherit;
+  background:radial-gradient(circle at 15% 0%,rgba(255,255,255,.11),transparent 31%);
+  opacity:.55;
+}
+.post-card-v12,.post-card-v19,.card,.glass{position:relative;overflow:hidden}
+.post-card-inner-v12,.card>.body,.glass>*{position:relative;z-index:1}
+.post:hover,.member:hover,.chat-message:hover,.item:hover,.topic-row-v19:hover{background:rgba(255,255,255,.055)!important}
+.post-card-v12:hover,.post-card-v19:hover,.topic-row-v19:hover,.category-topic-card-v32:hover{transform:translateY(-3px)}
+.post-card-v12::before{width:5px;background:linear-gradient(180deg,var(--cyan),var(--purple),var(--pink),var(--gold))!important;box-shadow:0 0 20px rgba(53,221,255,.36)}
+.post-actions,.feed-tabs,.hero-actions,.row,.category-hero-actions-v32{gap:9px}
+.tab.active,.tab:hover,.nav-link:hover,.category-view-toggle-v35.active,.sphere-auto-v35.active{
+  color:#fff!important;
+  background:linear-gradient(135deg,rgba(140,91,255,.24),rgba(53,221,255,.12))!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 10px 24px rgba(0,0,0,.13);
+}
+.feed-tabs{
+  background:rgba(255,255,255,.025);
+  border-radius:16px 16px 0 0;
+}
+.avatar,.mini-avatar{background-image:linear-gradient(145deg,#6e5af2,#b867ef)!important}
+.avatar.admin{background-image:linear-gradient(145deg,#ffcb67,#ff7a77)!important}
+.online-dot{box-shadow:0 0 0 3px rgba(8,12,36,.95),0 0 16px var(--mint)}
+.modal{
+  background:radial-gradient(circle at 50% 0%,rgba(53,221,255,.13),transparent 32rem),rgba(2,4,13,.66)!important;
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+}
+.modal-box{
+  border-radius:var(--radius-lg)!important;
+  animation:pop .24s ease both;
+}
+.close{
+  border-radius:12px!important;
+  background:rgba(255,255,255,.08)!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+}
+.close:hover{background:rgba(255,108,120,.16)!important;color:#fff!important}
+.chat-log,.member-list,#latestList,.scroll{
+  border-radius:16px;
+}
+.chat-message{
+  border-radius:14px;
+  padding:9px;
+}
+.document-attachment{border-style:solid!important}
+.document-open,.linkish{color:#a8f1ff!important;text-shadow:0 0 18px rgba(53,221,255,.28)}
+.scroll-top-v21{
+  background:conic-gradient(from 180deg,var(--cyan),var(--purple),var(--pink),var(--cyan))!important;
+  box-shadow:0 18px 38px rgba(0,0,0,.34),0 0 0 7px rgba(53,221,255,.09),0 0 34px rgba(140,91,255,.28)!important;
+}
+.scroll-top-v21:hover{transform:translateY(-5px) scale(1.03)!important}
+.category-sphere-button-v35,.category-filter-tab-v30,.latest-item,.react{
+  border-radius:14px!important;
+}
+.category-sphere-button-v35:hover,.category-filter-tab-v30:hover,.latest-item:hover,.react:hover{
+  filter:brightness(1.13);
+  box-shadow:0 12px 28px rgba(0,0,0,.18);
+}
+body[data-background="grid"]::before{opacity:.22}
+html[data-theme='light']{
+  color-scheme:light;
+  --bg:#f5f7ff;
+  --bg2:#e9eeff;
+  --surface:rgba(255,255,255,.76);
+  --surface-solid:#ffffff;
+  --line:rgba(35,45,88,.13);
+  --text:#17203a;
+  --muted:#63708f;
+}
+html[data-theme='light'] body{
+  background:radial-gradient(circle at 10% 0%,rgba(118,97,255,.2),transparent 31rem),radial-gradient(circle at 92% 10%,rgba(27,190,222,.16),transparent 26rem),linear-gradient(180deg,#f7f9ff,#edf2ff)!important;
+}
+html[data-theme='light'] .glass,html[data-theme='light'] .card,html[data-theme='light'] .post-card-v12,html[data-theme='light'] .post-card-v19,html[data-theme='light'] .category,html[data-theme='light'] .trend,html[data-theme='light'] .metric,html[data-theme='light'] .item,html[data-theme='light'] .modal-box{
+  background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(244,247,255,.78))!important;
+  box-shadow:0 18px 42px rgba(57,76,130,.13),inset 0 1px 0 rgba(255,255,255,.9);
+}
+html[data-theme='light'] input,html[data-theme='light'] textarea,html[data-theme='light'] select{background:rgba(255,255,255,.82)!important;color:var(--text)!important}
+@media (max-width:900px){
+  .topbar{border-bottom-color:rgba(255,255,255,.1)}
+  .nav{row-gap:10px}
+  .hero{padding-top:42px}
+  .hero-actions .btn,.row .btn{flex:1 1 auto}
+  .glass,.card,.post-card-v12,.post-card-v19,.category,.trend,.metric,.item{box-shadow:0 14px 34px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06)}
+}
+@media (max-width:620px){
+  :root{--radius-lg:20px}
+  .container,.shell{width:min(100% - 20px,1260px)!important}
+  .btn{padding-inline:13px}
+  .section-head{align-items:flex-start}
+  .category,.post-card-v12,.post-card-v19,.card,.glass{border-radius:18px!important}
+  .scroll-top-v21{width:46px;height:46px;border-radius:15px!important}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .btn:hover,.category:hover,.post-card-v12:hover,.post-card-v19:hover,.trend:hover,.item:hover{transform:none!important}
+}
+
+
+/* V42 — interaction fixes, richer composer, VIP cards, premium chat and enhanced icon systems */
+:root{--vip-gold-v42:#ffd36d;--vip-rose-v42:#ff6fb6;--vip-cyan-v42:#49e7ff;--vip-ink-v42:#0b1028}
+.categories{grid-template-columns:repeat(3,minmax(0,1fr))}.category{display:grid;align-content:start;gap:8px;border-radius:24px}.category .cat-icon,.manual-category-icon-v29,.brand-topic-icon-v28,.topic-row-icon-v19{box-shadow:0 14px 30px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.18)}
+.category .cat-icon{width:62px;height:62px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.15);font-size:34px}.category:hover .cat-icon{transform:translateY(-3px) scale(1.04);filter:drop-shadow(0 0 18px rgba(73,231,255,.35))}
+.category-sphere-wrap-v35{min-height:500px;border-radius:30px;background:radial-gradient(circle at 50% 50%,rgba(73,231,255,.14),transparent 36%),linear-gradient(145deg,rgba(18,22,56,.82),rgba(7,10,28,.88));box-shadow:0 26px 70px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.11)}
+.category-sphere-stage-v35{min-height:430px;perspective:1200px}.category-sphere-stage-v35::before{content:"";position:absolute;inset:9% 16%;border-radius:50%;border:1px dashed rgba(73,231,255,.20);box-shadow:inset 0 0 45px rgba(140,91,255,.16),0 0 80px rgba(73,231,255,.10);pointer-events:none}.category-sphere-button-v35{min-width:118px;min-height:92px;border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.20);box-shadow:0 18px 36px rgba(0,0,0,.28),0 0 22px rgba(73,231,255,.13);backdrop-filter:blur(12px)}.category-sphere-button-v35:hover{transform:translateY(-5px) scale(1.06);border-color:rgba(73,231,255,.55);box-shadow:0 26px 48px rgba(0,0,0,.34),0 0 32px rgba(73,231,255,.25)}.category-sphere-icon-v35{width:48px;height:48px;border-radius:18px;display:grid;place-items:center;margin:auto auto 7px;background:linear-gradient(145deg,rgba(73,231,255,.18),rgba(140,91,255,.18));font-size:26px}.category-sphere-button-v35 span:last-child{font-size:12px;font-weight:900;max-width:105px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.resource{border-radius:24px;border-color:rgba(255,211,109,.22)!important;background:linear-gradient(145deg,rgba(75,52,18,.42),rgba(19,18,47,.88) 38%,rgba(15,18,48,.92))!important;box-shadow:0 22px 55px rgba(0,0,0,.26),0 0 0 1px rgba(255,211,109,.10),inset 0 0 42px rgba(255,211,109,.055)}.resource:before{content:"VIP";position:absolute;top:12px;left:12px;z-index:3;padding:5px 9px;border-radius:999px;background:linear-gradient(135deg,#ffe9a6,#f7aa32,#ff6fb6);color:#241408;font-size:10px;font-weight:1000;letter-spacing:.08em;box-shadow:0 0 24px rgba(255,211,109,.35)}.resource h3{font-size:21px;text-shadow:0 0 18px rgba(255,211,109,.20)}.resource-secret{border-style:solid;border-color:rgba(255,211,109,.20);background:linear-gradient(145deg,rgba(255,211,109,.075),rgba(255,255,255,.035))}.resource-overlay{background:linear-gradient(145deg,rgba(12,10,28,.73),rgba(71,45,16,.62));backdrop-filter:blur(5px)}
+#chatNav{position:relative;overflow:hidden;border-color:rgba(120,91,255,.28);background:linear-gradient(135deg,rgba(114,78,255,.20),rgba(73,231,255,.10))}#chatNav::after{content:"";position:absolute;inset:-60% auto -60% -45%;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);transform:rotate(18deg);animation:chat-shine-v42 4s linear infinite}@keyframes chat-shine-v42{0%{left:-50%}55%,100%{left:120%}}#sendChatBtn,.dm-compose-v34 .btn{box-shadow:0 14px 30px rgba(44,221,255,.22),0 0 0 5px rgba(44,221,255,.07)}
+.chat-message>div{position:relative;border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:9px 11px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.035));box-shadow:0 10px 24px rgba(0,0,0,.14)}.chat-tools-v10,.comment-actions-v42,.dm-tools-v42{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.chat-tools-v10 button,.comment-actions-v42 button,.dm-tools-v42 button{border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(255,255,255,.055);color:var(--text);font-size:11px;padding:5px 8px}.chat-tools-v10 button:hover,.comment-actions-v42 button:hover,.dm-tools-v42 button:hover,.comment-actions-v42 button.active{border-color:rgba(73,231,255,.42);background:rgba(73,231,255,.12)}.chat-deleted-v42,.dm-deleted-v42{opacity:.68;font-style:italic;color:var(--muted)!important}.edited-pill-v42{display:inline-flex;margin-inline-start:6px;color:var(--muted);font-size:10px}.chat-admin-clear-v42{margin-inline-start:auto}
+.signup-language-v42{display:none;margin:10px 0 13px}.signup-language-v42.show{display:block}.signup-language-grid-v42{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.language-card-v42{border:1px solid rgba(255,255,255,.13);border-radius:14px;background:rgba(255,255,255,.045);padding:9px 8px;color:var(--text);font-weight:900;text-align:center;transition:.2s}.language-card-v42 b{display:block;font-size:24px;line-height:1}.language-card-v42 span{display:block;font-size:11px;margin-top:5px}.language-card-v42.active,.language-card-v42:hover{border-color:rgba(73,231,255,.55);background:rgba(73,231,255,.12);transform:translateY(-2px)}
+.topic-format-toolbar-v42{display:grid;gap:9px;margin:4px 0 10px;padding:10px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.035))}.topic-format-toolbar-v42 .toolbar-row-v42{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.topic-format-toolbar-v42 label{font-size:11px;color:var(--muted);font-weight:900}.topic-format-toolbar-v42 select,.topic-format-toolbar-v42 input[type=color]{width:auto;min-width:84px;height:36px;padding:6px;border-radius:10px}.topic-format-toolbar-v42 button{min-height:34px;padding:7px 10px;border-radius:11px}.rich-text-v42{border-radius:7px;padding:0 .12em}.content-separator-v42{height:14px;margin:19px 0;position:relative}.content-separator-v42::before{content:"";position:absolute;inset:50% 0 auto;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--purple),var(--pink),transparent)}.content-ornament-v42{display:flex;align-items:center;justify-content:center;gap:9px;margin:20px 0;color:var(--vip-gold-v42);font-weight:1000}.content-ornament-v42::before,.content-ornament-v42::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,rgba(255,211,109,.55),transparent)}
+.post-detail-head-v42{display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:start;padding:14px;border:1px solid rgba(255,255,255,.11);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.035))}.post-detail-icon-stack-v42{position:relative;display:grid;place-items:center}.post-detail-icon-stack-v42 .brand-topic-icon-v28,.post-detail-icon-stack-v42 .topic-row-icon-v19{width:74px!important;height:74px!important;border-radius:24px!important;font-size:34px!important}.post-detail-author-avatar-v42{position:absolute;inset:auto -8px -8px auto}.post-detail-author-avatar-v42 .avatar{width:42px;height:42px;border-radius:15px;border:3px solid var(--surface-solid);background-size:cover;background-position:center}.post-detail-main-v42{min-width:0}.post-detail-author-v42{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.post-detail-main-v42 h1{margin:10px 0 7px;font-size:26px;line-height:1.35}.post-detail-meta-v42{display:flex;gap:7px;flex-wrap:wrap;color:var(--muted);font-size:12px}.post-link-btn-v42{margin-inline-start:auto}.comment-v42{padding:12px;border-bottom:1px solid var(--line);border-radius:14px}.comment-v42:hover{background:rgba(255,255,255,.025)}.comment-reply-banner-v42,.dm-quote-v42{margin:7px 0;padding:7px 9px;border-inline-start:3px solid var(--cyan);border-radius:10px;background:rgba(44,221,255,.08);color:var(--muted);font-size:12px}.comment-form-v42{display:grid;gap:8px;margin:10px 0}.comment-form-v42 .reply-state-v42{padding:8px 10px;border-radius:12px;background:rgba(140,91,255,.12);border:1px solid rgba(140,91,255,.25);font-size:12px;color:#dacfff;cursor:pointer}.comment-form-v42 .comment-compose-row-v42{display:flex;gap:8px}.comment-form-v42 input{flex:1}
+.frame-swatch-v20.frame-neon-dragon{background:linear-gradient(115deg,#10183c,#2affaa,#8c5bff,#ff4aa4)}.frame-swatch-v20.frame-galaxy{background:radial-gradient(circle,#fff 0 2px,transparent 3px),linear-gradient(115deg,#110c35,#7038d8,#12d7ff)}.frame-swatch-v20.frame-matrix{background:linear-gradient(115deg,#061a14,#29ff88,#0b4936)}.frame-swatch-v20.frame-diamond{background:linear-gradient(115deg,#87f6ff,#f5feff,#8d7bff)}.frame-swatch-v20.frame-flame{background:linear-gradient(115deg,#5a120f,#ff793d,#ffd36d)}.frame-swatch-v20.frame-admin-vip{background:linear-gradient(115deg,#271405,#ffe7a6,#ff6fb6,#49e7ff)}.frame-swatch-v20.frame-admin-cosmic{background:linear-gradient(115deg,#050416,#7357ff,#ff6bd6,#ffe27a)}
+.profile-cover-frame-v20.frame-neon-dragon::before,.profile-preview-area-v20.frame-neon-dragon::before{opacity:1;border:2px solid #42ffaa;box-shadow:inset 0 0 23px rgba(42,255,170,.26),0 0 18px rgba(140,91,255,.25)}.profile-cover-frame-v20.frame-galaxy::before,.profile-preview-area-v20.frame-galaxy::before{opacity:1;border:2px solid #9a8cff;box-shadow:inset 0 0 28px rgba(112,56,216,.32),0 0 18px rgba(18,215,255,.20)}.profile-cover-frame-v20.frame-matrix::before,.profile-preview-area-v20.frame-matrix::before{opacity:1;border:2px solid #29ff88;box-shadow:inset 0 0 22px rgba(41,255,136,.28),0 0 16px rgba(41,255,136,.22)}.profile-cover-frame-v20.frame-diamond::before,.profile-preview-area-v20.frame-diamond::before{opacity:1;border:2px solid #c7fbff;box-shadow:inset 0 0 23px rgba(135,246,255,.30),0 0 17px rgba(141,123,255,.22)}.profile-cover-frame-v20.frame-flame::before,.profile-preview-area-v20.frame-flame::before{opacity:1;border:2px solid #ff9a4c;box-shadow:inset 0 0 22px rgba(255,121,61,.32),0 0 16px rgba(255,211,109,.24)}.profile-cover-frame-v20.frame-admin-vip::before,.profile-preview-area-v20.frame-admin-vip::before{opacity:1;border:3px solid #ffd36d;box-shadow:inset 0 0 24px rgba(255,211,109,.42),0 0 22px rgba(255,111,182,.38)}.profile-cover-frame-v20.frame-admin-vip::after{opacity:1;background:linear-gradient(120deg,transparent 20%,rgba(255,255,255,.48) 42%,transparent 62%);animation:frame-sheen-v20 3.4s linear infinite}.profile-cover-frame-v20.frame-admin-cosmic::before,.profile-preview-area-v20.frame-admin-cosmic::before{opacity:1;border:3px solid #9d8cff;box-shadow:inset 0 0 25px rgba(115,87,255,.45),0 0 24px rgba(255,107,214,.30)}
+.footer-topic-share-v42{margin-top:7px!important;display:inline-flex!important;align-items:center;gap:5px;color:#bff6ff!important}.footer-topic-copy-v42{margin-top:8px;border:1px solid rgba(73,231,255,.25);border-radius:999px;background:rgba(73,231,255,.09);color:var(--text);padding:6px 10px;font-size:12px;font-weight:900}
+@media(max-width:1080px){.categories{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:760px){.categories{grid-template-columns:1fr}.signup-language-grid-v42{grid-template-columns:1fr}.comment-form-v42 .comment-compose-row-v42{display:grid}.post-detail-head-v42{grid-template-columns:1fr}.post-detail-icon-stack-v42{justify-content:start}.post-detail-author-avatar-v42{inset:auto auto -8px 60px}.topic-format-toolbar-v42 .toolbar-row-v42{display:grid;grid-template-columns:1fr 1fr}.topic-format-toolbar-v42 select,.topic-format-toolbar-v42 input[type=color],.topic-format-toolbar-v42 button{width:100%}}
+
+
+
+/* V43 — refined 3D category sphere icons: true circular hit-area + color halo */
+.category-sphere-button-v35{
+  width:64px!important;
+  height:64px!important;
+  min-width:64px!important;
+  max-width:64px!important;
+  min-height:64px!important;
+  max-height:64px!important;
+  padding:0!important;
+  display:grid!important;
+  place-items:center!important;
+  gap:0!important;
+  border-radius:999px!important;
+  overflow:visible!important;
+  background:
+    radial-gradient(circle at 34% 24%,rgba(255,255,255,.34),rgba(255,255,255,.12) 31%,rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.16) 55%,rgba(7,10,30,.54) 100%)!important;
+  border:1px solid rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.52)!important;
+  box-shadow:
+    0 12px 26px rgba(0,0,0,.30),
+    0 0 0 4px rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.10),
+    0 0 21px rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.38),
+    inset 0 1px 0 rgba(255,255,255,.28),
+    inset 0 -12px 22px rgba(0,0,0,.20)!important;
+  -webkit-backdrop-filter:blur(10px) saturate(1.15);
+  backdrop-filter:blur(10px) saturate(1.15);
+}
+.category-sphere-button-v35::before{
+  content:"";
+  position:absolute;
+  inset:-7px;
+  border-radius:inherit;
+  background:radial-gradient(circle,rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.24),rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.08) 38%,transparent 72%);
+  filter:blur(5px);
+  opacity:.86;
+  pointer-events:none;
+  z-index:-1;
+}
+.category-sphere-button-v35:hover,
+.category-sphere-button-v35:focus-visible{
+  transform:translateY(-3px) scale(1.09)!important;
+  border-color:rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.84)!important;
+  box-shadow:
+    0 16px 32px rgba(0,0,0,.34),
+    0 0 0 6px rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.14),
+    0 0 32px rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.52),
+    inset 0 1px 0 rgba(255,255,255,.32),
+    inset 0 -12px 22px rgba(0,0,0,.18)!important;
+}
+.category-sphere-button-v35:hover::before,
+.category-sphere-button-v35:focus-visible::before{opacity:1;filter:blur(6px)}
+.category-sphere-icon-v35{
+  width:48px!important;
+  height:48px!important;
+  margin:0!important;
+  border-radius:999px!important;
+  display:grid!important;
+  place-items:center!important;
+  overflow:hidden!important;
+  background:
+    radial-gradient(circle at 34% 24%,rgba(255,255,255,.22),rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.18) 52%,rgba(5,8,24,.36) 100%)!important;
+  border:1px solid rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.34)!important;
+  box-shadow:inset 0 0 12px rgba(255,255,255,.14),0 0 12px rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.28)!important;
+  font-size:24px!important;
+  line-height:1!important;
+}
+.category-sphere-icon-v35 img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  border-radius:inherit!important;
+  display:block!important;
+}
+.category-sphere-button-v35 span:last-child{
+  top:calc(100% + 9px)!important;
+  background:rgba(8,12,34,.78)!important;
+  border-color:rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.28)!important;
+  box-shadow:0 10px 22px rgba(0,0,0,.26),0 0 14px rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.22)!important;
+}
+.category-sphere-node-v35.back-v35 .category-sphere-button-v35{box-shadow:0 8px 18px rgba(0,0,0,.22),0 0 14px rgba(var(--sphere-r,44),var(--sphere-g,221),var(--sphere-b,255),.18),inset 0 0 10px rgba(255,255,255,.08)!important}
+@media(max-width:760px){
+  .category-sphere-button-v35{width:52px!important;height:52px!important;min-width:52px!important;max-width:52px!important;min-height:52px!important;max-height:52px!important}
+  .category-sphere-icon-v35{width:40px!important;height:40px!important;font-size:20px!important}
+  .category-sphere-button-v35::before{inset:-5px;filter:blur(4px)}
+}
+
+
+
+/* V45 — compact and clearer three-dot message menus, positioned inside the message corner */
+.chat-message>div,.dm-msg-v34{position:relative;overflow:visible!important}
+.chat-bubble-v44,.dm-msg-v34{padding-inline-end:42px!important}
+.chat-message{margin-top:8px}
+.dm-msg-v34{margin-top:6px}
+.message-menu-toggle-v44{position:absolute;top:6px;inset-inline-end:7px;z-index:8;width:22px;height:22px;min-width:22px;padding:0;display:grid;place-items:center;border:1px solid rgba(255,255,255,.22);border-radius:8px;background:rgba(255,255,255,.075);color:var(--text);font-size:15px;font-weight:1000;line-height:1;cursor:pointer;box-shadow:0 7px 18px rgba(0,0,0,.20);user-select:none;transition:border-color .16s ease,background .16s ease,transform .16s ease}
+.message-menu-toggle-v44:hover,.message-menu-toggle-v44.active{border-color:rgba(73,231,255,.58);background:rgba(73,231,255,.16);transform:translateY(-1px)}
+.chat-tools-v10.message-menu-v44,.dm-tools-v42.message-menu-v44{display:none!important;position:absolute;top:32px;inset-inline-end:7px;z-index:30;min-width:112px;max-width:min(190px,72vw);padding:6px;border:1px solid rgba(73,231,255,.28);border-radius:12px;background:rgba(13,17,43,.98);backdrop-filter:blur(12px);box-shadow:0 16px 36px rgba(0,0,0,.36);margin-top:0!important;white-space:nowrap}
+.chat-tools-v10.message-menu-v44.open,.dm-tools-v42.message-menu-v44.open{display:grid!important;gap:5px}
+.chat-tools-v10.message-menu-v44 button,.dm-tools-v42.message-menu-v44 button{width:100%;min-height:30px;text-align:center;border-radius:9px;cursor:pointer;font-size:12px!important;font-weight:900;padding:6px 9px!important;background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.13)!important;color:var(--text)!important}
+.chat-tools-v10.message-menu-v44 button:hover,.dm-tools-v42.message-menu-v44 button:hover{border-color:rgba(73,231,255,.5)!important;background:rgba(73,231,255,.13)!important}
+html[dir="ltr"] .chat-bubble-v44,html[dir="ltr"] .dm-msg-v34{padding-inline-end:11px!important;padding-inline-start:42px!important}
+html[dir="ltr"] .message-menu-toggle-v44,html[dir="ltr"] .chat-tools-v10.message-menu-v44,html[dir="ltr"] .dm-tools-v42.message-menu-v44{inset-inline-end:auto;inset-inline-start:7px}
+@media(max-width:620px){.message-menu-toggle-v44{width:20px;height:20px;min-width:20px;font-size:14px;top:5px}.chat-bubble-v44,.dm-msg-v34{padding-inline-end:38px!important}.chat-tools-v10.message-menu-v44,.dm-tools-v42.message-menu-v44{top:29px;min-width:104px}html[dir="ltr"] .chat-bubble-v44,html[dir="ltr"] .dm-msg-v34{padding-inline-end:11px!important;padding-inline-start:38px!important}}
+.footer-topic-copy-v42{display:none!important}
+.footer-topic-share-v42{cursor:pointer!important;user-select:none!important;-webkit-user-select:none!important;text-decoration:none!important}
+.footer-topic-share-v42:hover{cursor:pointer!important;color:#fff!important}
+
 </style>
 </head>
 <body>
@@ -1114,7 +1470,7 @@ html[data-density="compact"] .post-card-v19,html[data-density="compact"] .catego
  <section class="settings-card-v32"><h3>كثافة الواجهة</h3><p>تحكم بحجم المسافات بين البطاقات بدون تغيير المحتوى.</p><div class="settings-actions-v32"><button class="setting-pill-v32" data-density-v32="normal" type="button">عادي</button><button class="setting-pill-v32" data-density-v32="compact" type="button">مضغوط</button><button class="setting-pill-v32" data-density-v32="comfortable" type="button">مريح</button></div></section>
  <section class="settings-card-v32"><h3>اختصارات</h3><div class="settings-actions-v32"><button id="settingsOpenRulesV32" class="btn small" type="button">📜 قوانين المجتمع</button><button id="settingsOpenSearchV32" class="btn small cyan" type="button">🔎 البحث</button></div></section>
 </div></div></div>
-<div id="rulesModalV32" class="modal"><div class="modal-box" style="width:min(640px,100%)"><div class="modal-head"><h2>📜 قوانين المجتمع</h2><button class="close" data-close="rulesModalV32">×</button></div><div class="modal-body"><div class="rules-list-v32"><div class="rule-item-v32"><b>1</b><spaممنوع السبام أو تكرار نفس الرسالة أو نشر روابط عشوائية.</span></div><div class="rule-item-v32"><b>2</b><spaمسموح نشر كلمات مرور، Cookies، Tokens، أو بيانات دخول خاصة بأي حساب.</span></div><div class="rule-item-v32"><b>3</b><span>احترم الأعضاء، ولا تنشر إساءة أو تحريض أو محتوى مخالف.</span></div><div class="rule-item-v32"><b>4</b><span>استعمل زر الإبلاغ عند رؤية محتوى مخالف بدل الرد عليه.</span></div><div class="rule-item-v32"><b>5</b><span>الإدارة قد تثبّت، تخفي، تحذف، تحذر أو تحظر الحسابات المخالفة لحماية المجتمع.</span></div></div></div></div></div>
+<div id="rulesModalV32" class="modal"><div class="modal-box" style="width:min(640px,100%)"><div class="modal-head"><h2>📜 قوانين المجتمع</h2><button class="close" data-close="rulesModalV32">×</button></div><div class="modal-body"><div class="rules-list-v32"><div class="rule-item-v32"><b>1</b><span>ممنوع السبام أو تكرار نفس الرسالة أو نشر روابط عشوائية.</span></div><div class="rule-item-v32"><b>2</b><span>ممنوع نشر كلمات مرور، Cookies، Tokens، أو بيانات دخول خاصة بأي حساب.</span></div><div class="rule-item-v32"><b>3</b><span>احترم الأعضاء، ولا تنشر إساءة أو تحريض أو محتوى مخالف.</span></div><div class="rule-item-v32"><b>4</b><span>استعمل زر الإبلاغ عند رؤية محتوى مخالف بدل الرد عليه.</span></div><div class="rule-item-v32"><b>5</b><span>الإدارة قد تثبّت، تخفي، تحذف، تحذر أو تحظر الحسابات المخالفة لحماية المجتمع.</span></div></div></div></div></div>
 
 <div id="siteAnnouncement" class="site-announcement-v22" role="dialog" aria-modal="true" aria-labelledby="siteAnnouncementTitle" aria-hidden="true"><div class="site-announcement-card-v22"><div class="site-announcement-icon-v22" aria-hidden="true">📢</div><h2 id="siteAnnouncementTitle">إعلان الموقع</h2><p id="siteAnnouncementMessage"></p><button id="siteAnnouncementDismiss" class="btn primary" type="button">فهمت</button></div></div>
 
@@ -2420,7 +2776,8 @@ function ensureCategorySphereV35(){const section=$('categoriesSection');if(!sect
 }
 function setCategoryViewV35(mode){state.categoryViewV35=mode==='sphere'?'sphere':'grid';localStorage.setItem('nexushub-category-view-v35',state.categoryViewV35);syncCategoryViewV35();renderCategorySphereV35();}
 function syncCategoryViewV35(){ensureCategorySphereV35();const grid=$('categoriesGrid'),sphere=$('categorySphereV35');if(grid)grid.classList.toggle('category-grid-hidden-v35',state.categoryViewV35==='sphere');if(sphere)sphere.classList.toggle('hide',state.categoryViewV35!=='sphere');$('categoryGridBtnV35')?.classList.toggle('active',state.categoryViewV35==='grid');$('categorySphereBtnV35')?.classList.toggle('active',state.categoryViewV35==='sphere');const auto=$('sphereAutoBtnV35');if(auto){auto.classList.toggle('active',state.sphereAutoV35);auto.innerHTML=(state.sphereAutoV35?'↻ ':'⏸ ')+(state.sphereAutoV35?v35Txt('stop'):v35Txt('auto'));}if(state.categoryViewV35==='sphere')startSphereLoopV35();}
-function renderCategorySphereV35(){ensureCategorySphereV35();const stage=$('categorySphereStageV35');if(!stage)return;const cats=localizedCategoriesV17();$('categorySphereCountV35')&&( $('categorySphereCountV35').textContent=`${cats.length} ${v35Txt('count')}` );stage.innerHTML=cats.map((c,i)=>`<div class="category-sphere-node-v35" data-sphere-node-v35="${i}"><button class="category-sphere-button-v35" type="button" data-sphere-category-v35="${esc(c.id)}" title="${esc(c.siteName||c.title)}">${categorySphereIconV35(c)}<span>${esc(c.siteName||c.title)}</span></button></div>`).join('');stage.querySelectorAll('[data-sphere-category-v35]').forEach(b=>b.onclick=(e)=>{e.stopPropagation();openCategory(b.dataset.sphereCategoryV35);});positionSphereNodesV35();syncCategoryViewV35();}
+function sphereColorVarsV43(c={}){const hex=color(c.color||'#8c5bff'),n=parseInt(hex.slice(1),16);return `--sphere-color:${hex};--sphere-r:${(n>>16)&255};--sphere-g:${(n>>8)&255};--sphere-b:${n&255};`;}
+function renderCategorySphereV35(){ensureCategorySphereV35();const stage=$('categorySphereStageV35');if(!stage)return;const cats=localizedCategoriesV17();$('categorySphereCountV35')&&( $('categorySphereCountV35').textContent=`${cats.length} ${v35Txt('count')}` );stage.innerHTML=cats.map((c,i)=>`<div class="category-sphere-node-v35" data-sphere-node-v35="${i}"><button class="category-sphere-button-v35" style="${sphereColorVarsV43(c)}" type="button" data-sphere-category-v35="${esc(c.id)}" title="${esc(c.siteName||c.title)}">${categorySphereIconV35(c)}<span>${esc(c.siteName||c.title)}</span></button></div>`).join('');stage.querySelectorAll('[data-sphere-category-v35]').forEach(b=>b.onclick=(e)=>{e.stopPropagation();openCategory(b.dataset.sphereCategoryV35);});positionSphereNodesV35();syncCategoryViewV35();}
 function positionSphereNodesV35(){const stage=$('categorySphereStageV35');if(!stage)return;const nodes=[...stage.querySelectorAll('.category-sphere-node-v35')];const n=Math.max(nodes.length,1);const w=stage.clientWidth||560,h=stage.clientHeight||380;const radius=Math.min(w,h)*0.42;const cx=w/2,cy=h/2;const rx=state.sphereRotV35.x,ry=state.sphereRotV35.y;nodes.forEach((node,i)=>{const k=i+0.5;const phi=Math.acos(1-2*k/n);const theta=Math.PI*(1+Math.sqrt(5))*i;let x=Math.cos(theta)*Math.sin(phi),y=Math.sin(theta)*Math.sin(phi),z=Math.cos(phi);let y1=y*Math.cos(rx)-z*Math.sin(rx),z1=y*Math.sin(rx)+z*Math.cos(rx);let x2=x*Math.cos(ry)+z1*Math.sin(ry),z2=-x*Math.sin(ry)+z1*Math.cos(ry);const scale=0.66+(z2+1)*0.23;const opacity=0.44+(z2+1)*0.28;node.style.transform=`translate(-50%,-50%) translate(${x2*radius}px,${y1*radius}px) scale(${scale})`;node.style.zIndex=String(Math.round((z2+1)*1000));node.style.opacity=String(Math.max(.35,Math.min(1,opacity)));node.classList.toggle('back-v35',z2<-.15);});}
 function bindSphereDragV35(){const stage=$('categorySphereStageV35');if(!stage||stage.dataset.boundV35)return;stage.dataset.boundV35='1';
   const reset=()=>{state.sphereDragV35.active=false;state.sphereDragV35.downCat=null;stage.classList.remove('dragging');};
@@ -2434,6 +2791,217 @@ function startSphereLoopV35(){if(state.sphereFrameV35)return;const loop=()=>{sta
 const oldRenderCategoriesV35=renderCategories;
 renderCategories=function(){oldRenderCategoriesV35();ensureCategorySphereV35();renderCategorySphereV35();syncCategoryViewV35();};
 setTimeout(()=>{ensureCategorySphereV35();renderCategorySphereV35();syncCategoryViewV35();},0);
+
+
+/* V42 — profile avatar fixes, rich topics, comment replies/reactions, editable chat/DM and deep links */
+state.commentReactionsV42 = {};
+state.commentReplyToV42 = null;
+state.signupLangV42 = localStorage.getItem('nexushub-signup-lang-v42') || 'ar';
+state.editingChatV42 = null;
+state.dmReplyToV42 = null;
+state.dmEditIdV42 = null;
+
+function liveProfileV42(obj={}){
+ const uid=obj.uid||obj.authorUid||obj.fromUid||'';
+ const prof=uid?state.profiles[uid]:null;
+ if(!prof)return obj;
+ const merged={...obj,uid,authorUid:obj.authorUid||uid};
+ merged.displayName=prof.displayName||obj.displayName||obj.authorName||'عضو';
+ merged.authorName=prof.displayName||obj.authorName||obj.displayName||'عضو';
+ merged.nameColor=prof.nameColor||obj.nameColor||obj.authorColor;
+ merged.authorColor=prof.nameColor||obj.authorColor||obj.nameColor;
+ merged.nameStyle=prof.nameStyle||obj.nameStyle||obj.authorStyle;
+ merged.authorStyle=prof.nameStyle||obj.authorStyle||obj.nameStyle;
+ merged.avatarUrl=normalizeImageUrlV25(prof.avatarUrl||obj.avatarUrl||'');
+ merged.coverUrl=normalizeImageUrlV25(prof.coverUrl||obj.coverUrl||'');
+ merged.role=prof.role||obj.role;
+ merged.frameId=prof.frameId||obj.frameId;
+ return merged;
+}
+authorHTML=function(obj,badge=true){
+ const o=liveProfileV42(obj||{}),name=clean(o.authorName||o.displayName||'عضو'),s=style(o.nameStyle||o.authorStyle),c=color(o.nameColor||o.authorColor),role=o.role||(o.isAdmin?'admin':''),uid=o.uid||o.authorUid||'',trigger=uid?` data-profile="${esc(uid)}" role="button" tabindex="0"`:'';
+ return `<span${trigger} class="author ${s} author-profile-link-v16 ${uid?'profile-trigger-v16':''}" style="--name-color:${c};color:${s==='gradient'||s==='rainbow'?'':c}">${esc(name)}</span>${badge?rankHTML(o,role):''}`;
+};
+avatarHTML=function(obj,small=false,online=false){
+ const o=liveProfileV42(obj||{}),name=clean(o.displayName||o.authorName||'عضو'),url=normalizeImageUrlV25(o.avatarUrl||''),uid=o.uid||o.authorUid||'',bg=url?`style="background-image:url('${esc(url)}')"`:'',trigger=uid?` data-profile="${esc(uid)}" role="button" tabindex="0"`:'';
+ return `<span ${bg}${trigger} class="${small?'mini-avatar':'avatar'} ${(o.role==='admin'||o.isAdmin||isLordProfile(o))?'admin':''} ${uid?'profile-trigger-v16':''}">${url?'':esc(name.slice(0,1).toUpperCase())}${online?'<i class="online-dot"></i>':''}</span>`;
+};
+function postShareUrlV42(pid){return `${location.origin}${location.pathname}#post-${encodeURIComponent(pid)}`;}
+async function copyTextV42(text,msg='تم النسخ.'){
+ try{await navigator.clipboard.writeText(text);toast(msg,'success');}
+ catch{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast(msg,'success');}
+}
+function renderRichBodyV42(text=''){
+ let html=esc(text);
+ html=html.replace(/\[hr\]/gi,'<div class="content-separator-v42" aria-hidden="true"></div>');
+ html=html.replace(/\[ornament\]/gi,'<div class="content-ornament-v42" aria-hidden="true">✦ ✧ ✦</div>');
+ html=html.replace(/\[style([^\]]*)\]([\s\S]*?)\[\/style\]/gi,(m,attrs,inner)=>{
+  const css=[];const color=(attrs.match(/color=["']?(#[0-9a-fA-F]{6})["']?/i)||[])[1];
+  const size=(attrs.match(/size=["']?(1[2-9]|2[0-8])["']?/i)||[])[1];
+  const weight=(attrs.match(/weight=["']?(normal|600|700|800|900|bold)["']?/i)||[])[1];
+  const deco=(attrs.match(/deco=["']?(underline|overline|line-through)["']?/i)||[])[1];
+  if(color)css.push(`color:${color}`); if(size)css.push(`font-size:${size}px`); if(weight)css.push(`font-weight:${weight==='bold'?'800':weight}`); if(deco)css.push(`text-decoration:${deco}`);
+  return `<span class="rich-text-v42" style="${css.join(';')}">${inner}</span>`;
+ });
+ return html.replace(/\n/g,'<br>');
+}
+function insertComposerTokenV42(tokenBefore,tokenAfter='',fallback='النص هنا'){
+ const ta=$('newPostBody');if(!ta)return;const start=ta.selectionStart||0,end=ta.selectionEnd||0,selected=ta.value.slice(start,end)||fallback;
+ const insert=tokenBefore+selected+tokenAfter;ta.value=ta.value.slice(0,start)+insert+ta.value.slice(end);ta.focus();ta.setSelectionRange(start+tokenBefore.length,start+tokenBefore.length+selected.length);
+}
+function ensureComposerToolbarV42(){
+ const ta=$('newPostBody');if(!ta||$('topicFormatToolbarV42'))return;
+ ta.closest('.field')?.insertAdjacentHTML('beforebegin',`<div id="topicFormatToolbarV42" class="topic-format-toolbar-v42" aria-label="أدوات تنسيق محتوى الموضوع"><div class="toolbar-row-v42"><label>لون الخط <input id="topicTextColorV42" type="color" value="#7eeaff"></label><label>حجم الخط <select id="topicTextSizeV42"><option value="14">14</option><option value="16" selected>16</option><option value="18">18</option><option value="22">22</option><option value="26">26</option></select></label><label>سُمك الخط <select id="topicTextWeightV42"><option value="normal">عادي</option><option value="700">عريض</option><option value="900">VIP</option></select></label><label>خط على النص <select id="topicTextDecoV42"><option value="">بدون</option><option value="underline">تحته</option><option value="overline">فوقه</option><option value="line-through">وسطه</option></select></label></div><div class="toolbar-row-v42"><button type="button" class="btn small cyan" id="applyTopicStyleV42">تطبيق على النص المحدد</button><button type="button" class="btn small" id="insertHrV42">＋ خط فاصل</button><button type="button" class="btn small" id="insertOrnamentV42">✦ فاصل زخرفي</button></div></div>`);
+ $('applyTopicStyleV42').onclick=()=>{const color=$('topicTextColorV42').value,size=$('topicTextSizeV42').value,weight=$('topicTextWeightV42').value,deco=$('topicTextDecoV42').value;insertComposerTokenV42(`[style color="${color}" size="${size}" weight="${weight}"${deco?` deco="${deco}"`:''}]`,'[/style]');};
+ $('insertHrV42').onclick=()=>insertComposerTokenV42('\n[hr]\n','','');
+ $('insertOrnamentV42').onclick=()=>insertComposerTokenV42('\n[ornament]\n','','');
+}
+function ensureSignupLanguageV42(){
+ const form=$('authForm');if(!form||$('signupLanguageV42'))return;
+ const html=`<div id="signupLanguageV42" class="signup-language-v42"><div class="field"><label>اختر لغة الحساب</label><div class="signup-language-grid-v42"><button type="button" class="language-card-v42" data-signup-lang-v42="ar"><b>🇩🇿</b><span>العربية</span></button><button type="button" class="language-card-v42" data-signup-lang-v42="fr"><b>🇫🇷</b><span>Français</span></button><button type="button" class="language-card-v42" data-signup-lang-v42="en"><b>🇬🇧</b><span>English</span></button></div></div></div>`;
+ $('signupNameField')?.insertAdjacentHTML('afterend',html);
+ document.querySelectorAll('[data-signup-lang-v42]').forEach(b=>b.onclick=()=>{state.signupLangV42=b.dataset.signupLangV42;localStorage.setItem('nexushub-signup-lang-v42',state.signupLangV42);syncSignupLanguageV42();});
+ syncSignupLanguageV42();
+}
+function syncSignupLanguageV42(){
+ const box=$('signupLanguageV42');if(box)box.classList.toggle('show',state.authMode==='signup');
+ document.querySelectorAll('[data-signup-lang-v42]').forEach(b=>b.classList.toggle('active',b.dataset.signupLangV42===state.signupLangV42));
+}
+const oldSetAuthModeV42=setAuthMode;setAuthMode=function(mode){oldSetAuthModeV42(mode);ensureSignupLanguageV42();syncSignupLanguageV42();};
+const oldSubmitAuthV42=submitAuth;submitAuth=async function(e){const wasSignup=state.authMode==='signup',lang=state.signupLangV42;await oldSubmitAuthV42(e);if(wasSignup&&state.user&&lang){update(dbref(`profiles/${state.user.uid}`),{preferredLanguage:lang,lastSeen:now()}).catch(()=>{});}};
+
+function commentReactionsForV42(pid,cid){return state.commentReactionsV42?.[pid]?.[cid]||{};}
+function commentReactionCountV42(pid,cid){return Object.keys(commentReactionsForV42(pid,cid)).length;}
+function myCommentReactionV42(pid,cid){return state.user?commentReactionsForV42(pid,cid)?.[state.user.uid]?.type:'';}
+function notifyUserV42(uid,payload={}){if(!state.user||!uid||uid===state.user.uid)return Promise.resolve();const id=payload.id||`${payload.type||'note'}_${Date.now()}_${Math.random().toString(36).slice(2,7)}`;return update(ref(db),{[`notifications/${uid}/${id}`]:{...payload,fromUid:state.user.uid,read:false,createdAt:now()}}).catch(()=>{});}
+function bindCommentActionsV42(pid){
+ document.querySelectorAll('[data-comment-reply-v42]').forEach(b=>b.onclick=()=>{const c=(state.comments[pid]||{})[b.dataset.commentReplyV42];if(!c)return;state.commentReplyToV42={id:c.id,authorUid:c.authorUid,authorName:c.authorName,text:(c.text||'').slice(0,120)};openCommentForm(pid);});
+ document.querySelectorAll('[data-comment-react-v42]').forEach(b=>b.onclick=()=>{const [postId,cid,type]=b.dataset.commentReactV42.split('|');reactCommentV42(postId,cid,type);});
+}
+function commentHTMLV42(pid,c){
+ const mine=myCommentReactionV42(pid,c.id),buttons=[['like','👍'],['love','❤️'],['laugh','😂'],['wow','😮'],['support','🔥']].map(([type,icon])=>`<button type="button" class="${mine===type?'active':''}" data-comment-react-v42="${esc(pid)}|${esc(c.id)}|${type}">${icon}</button>`).join('');
+ return `<article class="comment comment-v42"><div><b>${authorHTML(c)}</b><span class="date" style="display:inline;margin-inline-start:6px">${ago(c.createdAt)}</span></div>${c.replyTo?`<div class="comment-reply-banner-v42">↩ ${esc(c.replyTo.authorName||'عضو')}: ${esc(c.replyTo.text||'')}</div>`:''}<p dir="auto">${esc(c.text)}</p><div class="comment-actions-v42"><button type="button" data-comment-reply-v42="${esc(c.id)}">↩ رد</button>${buttons}<span class="topic-indicator-v17">${commentReactionCountV42(pid,c.id)} تفاعل</span></div></article>`;
+}
+function commentsListHTMLV42(pid,comments){return comments.length?comments.map(c=>commentHTMLV42(pid,c)).join(''):`<p style="color:var(--muted)">${t('no_comments')}</p>`;}
+openCommentForm=function(pid){if(requiresLogin(()=>openCommentForm(pid)))return;const spot=$('commentFormSpot');if(!spot)return;const reply=state.commentReplyToV42;spot.innerHTML=`<div class="comment-form-v42">${reply?`<div class="reply-state-v42" id="commentReplyStateV42">ترد على ${esc(reply.authorName)}: ${esc(reply.text)} — اضغط للإلغاء</div>`:''}<div class="comment-compose-row-v42"><input id="commentInput" maxlength="5000" placeholder="${reply?'اكتب ردك هنا...':'اكتب تعليقًا محترمًا...'}"><button id="sendCommentBtn" class="btn cyan">إرسال</button></div></div>`;if($('commentReplyStateV42'))$('commentReplyStateV42').onclick=()=>{state.commentReplyToV42=null;openCommentForm(pid);};$('sendCommentBtn').onclick=()=>sendComment(pid);$('commentInput').focus();};
+sendComment=async function(pid){const text=$('commentInput')?.value.trim();if(!text||requiresLogin(()=>sendComment(pid)))return;const reply=state.commentReplyToV42;try{const data={...myAuthor(),text:text.slice(0,5000),createdAt:now()};if(reply)data.replyTo={id:reply.id,authorUid:reply.authorUid||'',authorName:reply.authorName||'عضو',text:(reply.text||'').slice(0,160)};const refc=await push(dbref(`comments/${pid}`),data);const post=state.posts.find(p=>p.id===pid);if(reply?.authorUid)await notifyUserV42(reply.authorUid,{id:`comment_reply_${pid}_${refc.key}`,type:'comment_reply',postId:pid,commentId:refc.key,title:'↩ رد جديد على تعليقك',message:`رد ${clean(state.profile?.displayName||state.user.displayName||'عضو')} على تعليقك في: ${String(post?.title||'موضوع').slice(0,100)}`});else if(post?.authorUid)await notifyUserV42(post.authorUid,{id:`post_comment_${pid}_${refc.key}`,type:'comment_reply',postId:pid,commentId:refc.key,title:'💬 تعليق جديد',message:`علّق ${clean(state.profile?.displayName||state.user.displayName||'عضو')} على موضوعك: ${String(post.title||'موضوع').slice(0,100)}`});state.commentReplyToV42=null;await logActivity('comment',state.activePost?.title||'موضوع');toast(t('comment_published'),'success');}catch(e){toast(readError(e),'error');}};
+async function reactCommentV42(pid,cid,type='like'){if(requiresLogin(()=>reactCommentV42(pid,cid,type)))return;const existing=myCommentReactionV42(pid,cid),path=`commentReactions/${pid}/${cid}/${state.user.uid}`;try{if(existing===type)await remove(dbref(path));else await set(dbref(path),{type,createdAt:now()});const c=(state.comments[pid]||{})[cid],post=state.posts.find(p=>p.id===pid);if(c?.authorUid&&existing!==type)await notifyUserV42(c.authorUid,{id:`comment_reaction_${pid}_${cid}_${state.user.uid}`,type:'comment_reaction',postId:pid,commentId:cid,title:'✨ تفاعل على تعليقك',message:`تفاعل ${clean(state.profile?.displayName||state.user.displayName||'عضو')} مع تعليقك في: ${String(post?.title||'موضوع').slice(0,100)}`});}catch(e){toast(readError(e),'error');}}
+
+renderPostModal=function(){
+ const p=state.activePost?state.posts.find(x=>x.id===state.activePost.id)||state.activePost:null;if(!p)return;state.activePost=p;const live=liveProfileV42(p);
+ const category=displayCatV17(p.categoryId),comments=Object.values(state.comments[p.id]||{}).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0)),myReaction=state.user&&state.reactions[p.id]?.[state.user.uid]?.type,categoryLabel=esc(category.siteName||category.title||t('topic_category'));
+ const topicIcon=(typeof topicIconHTMLV28==='function')?topicIconHTMLV28(p,'hero-v31'):`<span class="topic-row-icon-v19">${esc(category.icon||'📝')}</span>`;
+ $('postModalBody').innerHTML=`<article class="full-post full-post-v31 full-post-v42"><div class="post-detail-head-v42"><div class="post-detail-icon-stack-v42">${topicIcon}<div class="post-detail-author-avatar-v42">${avatarHTML(live)}</div></div><div class="post-detail-main-v42"><div class="post-detail-author-v42">${authorHTML(live)}<span class="date">${ago(p.createdAt)}</span></div><h1>${p.pinned?'📌 ':''}${esc(p.title)}</h1><div class="post-detail-meta-v42"><span>${categoryLabel}</span><span>👁 ${p.viewCount||0} ${t('views')}</span><span>💬 ${comments.length}</span><span>👍 ${countReactions(p.id)}</span></div></div></div>${mediaHTML(p)}${documentHTML(p)}<div class="post-content" dir="auto">${renderRichBodyV42(p.body||'')}</div><div class="post-tags-v10">${(p.tags||[]).map(tag=>`<span class="tag">#${esc(tag)}</span>`).join('')}</div><div class="post-actions"><button id="fullReact" class="react ${myReaction?'active':''}">${t('react')} ${countReactions(p.id)}</button><button id="fullComment" class="react">💬 ${t('comment')}</button><button id="copyPostLinkV42" class="react post-link-btn-v42">🔗 نسخ رابط الموضوع</button><button id="fullReport" class="react">🚩 ${t('report')}</button>${isStaff()?`<button id="fullPinV32" class="react">${p.pinned?'📌 '+v32Copy('unpin'):'📌 '+v32Copy('pin')}</button>`:''}</div><h3 style="margin:17px 0 4px">${t('post_comments')} (${comments.length})</h3><div id="commentFormSpot"></div><div id="commentsListV42">${commentsListHTMLV42(p.id,comments)}</div></article>`;
+ $('fullReact').onclick=()=>reactPost(p.id);$('fullComment').onclick=()=>openCommentForm(p.id);$('fullReport').onclick=()=>reportPost(p.id);$('copyPostLinkV42').onclick=()=>copyTextV42(postShareUrlV42(p.id),'تم نسخ رابط الموضوع.');if($('fullPinV32'))$('fullPinV32').onclick=()=>togglePinPostV32(p.id);bindCommentActionsV42(p.id);
+};
+const oldOpenPostV42=openPost;openPost=async function(pid,opts={}){await oldOpenPostV42(pid);if(pid&&!opts.skipHash&&state.activePost?.id===pid)history.replaceState(null,'',`#post-${encodeURIComponent(pid)}`);};
+
+function renderChatMessageTextV42(m){if(m.deleted)return `<p class="chat-deleted-v42">تم حذف هذه الرسالة.</p>`;return `<p>${esc(m.text||'')}${m.editedAt?'<span class="edited-pill-v42">تم التعديل</span>':''}</p>`;}
+renderChat=function(){
+ const input=$('chatInput'),send=$('sendChatBtn');ensureChatClearButtonV42();if(!canReadCommunityV27()){if(input){input.disabled=true;input.placeholder=deniedMessageV27();}if(send)send.disabled=true;$('chatLog').innerHTML=`<div class="guest-post-mask-v16" style="min-height:190px"><div class="post-card-inner-v12"><div class="chat-message"><span class="mini-avatar">?</span><div><b>${t('guest_topics_title')}</b><p>████████████████████████</p></div></div></div><button class="guest-post-veil-v16" data-guest-login><span><b>${isBannedNowV27()?'⛔ الحساب محظور':t('guest_topics_title')}</b><span>${deniedMessageV27()}</span></span></button></div>`;$('chatLog').querySelector('[data-guest-login]').onclick=promptAccessV27;return;}if(input){input.disabled=false;input.placeholder=state.editingChatV42?'عدّل رسالتك ثم اضغط إرسال':t('chat_placeholder');}if(send)send.disabled=false;
+ const list=visibleChatV27().sort((a,b)=>(a.createdAt||0)-(b.createdAt||0)).slice(-120);$('chatLog').innerHTML=list.length?list.map(m=>{const can=m.authorUid===state.user?.uid||isAdmin();return `<div class="chat-message">${avatarHTML(m,true)}<div><b>${authorHTML(m)}</b><span class="date" style="display:inline;margin-inline-start:6px">${ago(m.createdAt)}</span>${m.replyTo?`<div class="reply-banner-v10">↩ ${esc(m.replyTo.authorName)}: ${esc(m.replyTo.text||'')}</div>`:''}${renderChatMessageTextV42(m)}<div class="chat-tools-v10"><button data-chat-react="${esc(m.id)}">${t('react')} ${Object.keys(state.chatReactions[m.id]||{}).length}</button><button data-chat-reply="${esc(m.id)}">اقتباس</button>${can&&!m.deleted?`<button data-chat-edit-v42="${esc(m.id)}">تعديل</button><button data-chat-delete="${esc(m.id)}">${t('delete')}</button>`:''}</div></div></div>`;}).join(''):`<div class="empty">${t('start_chat')}</div>`;
+ $('chatLog').querySelectorAll('[data-chat-react]').forEach(b=>b.onclick=()=>reactChat(b.dataset.chatReact));$('chatLog').querySelectorAll('[data-chat-reply]').forEach(b=>b.onclick=()=>replyChat(b.dataset.chatReply));$('chatLog').querySelectorAll('[data-chat-delete]').forEach(b=>b.onclick=()=>deleteChatMessage(b.dataset.chatDelete));$('chatLog').querySelectorAll('[data-chat-edit-v42]').forEach(b=>b.onclick=()=>editChatMessageV42(b.dataset.chatEditV42));requestAnimationFrame(()=>{$('chatLog').scrollTop=$('chatLog').scrollHeight;});
+};
+const oldSendChatV42=sendChat;sendChat=async function(){const text=$('chatInput').value.trim();if(!text||requiresLogin(sendChat))return;if(state.editingChatV42){try{await update(dbref(`chat/${state.editingChatV42}`),{text:text.slice(0,3000),editedAt:now(),editedBy:state.user.uid});state.editingChatV42=null;$('chatInput').value='';toast('تم تعديل الرسالة.','success');renderChat();}catch(e){toast(readError(e),'error');}return;}return oldSendChatV42();};
+function editChatMessageV42(id){const m=state.chat.find(x=>x.id===id);if(!m||m.deleted||!(m.authorUid===state.user?.uid||isAdmin()))return;state.editingChatV42=id;$('chatInput').value=m.text||'';$('chatInput').focus();toast('أنت تعدّل رسالة. اضغط إرسال للحفظ.','success');}
+deleteChatMessage=async function(id){const m=state.chat.find(x=>x.id===id);if(!m||!(m.authorUid===state.user?.uid||isAdmin()))return;if(!confirm('حذف الرسالة؟'))return;try{await update(dbref(`chat/${id}`),{text:'تم حذف الرسالة',deleted:true,deletedAt:now(),deletedBy:state.user.uid});toast('تم حذف الرسالة.','success');}catch(e){toast(readError(e),'error');}};
+function ensureChatClearButtonV42(){const head=$('chatSection')?.querySelector('.section-head');if(!head||$('clearChatV42'))return;const btn=document.createElement('button');btn.id='clearChatV42';btn.className='btn small danger chat-admin-clear-v42';btn.type='button';btn.textContent='🧹 حذف كامل للدردشة';btn.onclick=clearPublicChatV42;head.appendChild(btn);btn.style.display=isAdmin()?'inline-flex':'none';}
+async function clearPublicChatV42(){if(!isAdmin())return toast('الحذف الكامل للدردشة العامة متاح للإدارة فقط.','error');if(!confirm('حذف كل رسائل الدردشة العامة؟'))return;try{await remove(dbref('chat'));toast('تم حذف الدردشة العامة بالكامل.','success');}catch(e){toast(readError(e),'error');}}
+
+function dmMessageTextV42(m){if(m.deleted)return `<span class="dm-deleted-v42">تم حذف هذه الرسالة.</span>`;return `${esc(m.text||'')}${m.editedAt?'<small>تم التعديل</small>':''}`;}
+renderDmPanelV34=function(){const panel=$('dmPanelV34');if(!panel)return;const uid=state.dmActiveUidV34;if(!uid){panel.innerHTML=`<div class="dm-empty-v34">${v34Text('chooseMember')}</div>`;return;}const p=liveProfileV42({uid,...(state.profiles[uid]||{})});const blocked=!!state.messageBlocksV34[uid];const msgs=Object.entries(state.dmBoxV34?.[uid]?.messages||{}).map(([id,v])=>({id,...v})).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));panel.innerHTML=`<div class="dm-panel-head-v34"><div class="dm-panel-user-v34">${avatarHTML(p)}<span><b>${esc(p.displayName||'عضو')}</b><small>${state.presence[uid]?t('online'):t('offline')}</small></span></div><div class="dm-actions-v34"><button id="dmOpenProfileV34" class="btn small">👤 البروفيل</button><button id="dmClearThreadV42" class="btn small danger">🧹 حذف كامل</button><button id="dmBlockV34" class="btn small ${blocked?'green':'danger'}">${blocked?v34Text('unblock'):v34Text('block')}</button></div></div>${blocked?`<div class="dm-block-note-v34">${v34Text('youBlocked')}</div>`:''}${state.dmReplyToV42?`<div class="dm-block-note-v34" id="dmReplyStateV42">تقتبس: ${esc(state.dmReplyToV42.text)} — اضغط للإلغاء</div>`:''}<div id="dmMessagesV34" class="dm-messages-v34">${msgs.length?msgs.map(m=>{const me=m.fromUid===state.user?.uid;return `<div class="dm-msg-v34 ${me?'me':'them'}" dir="auto">${m.replyTo?`<div class="dm-quote-v42">↩ ${esc(m.replyTo.authorName||'عضو')}: ${esc(m.replyTo.text||'')}</div>`:''}${dmMessageTextV42(m)}<small>${ago(m.createdAt)}</small><div class="dm-tools-v42"><button data-dm-reply-v42="${esc(m.id)}">اقتباس</button>${me&&!m.deleted?`<button data-dm-edit-v42="${esc(m.id)}">تعديل</button><button data-dm-delete-v42="${esc(m.id)}">حذف</button>`:''}</div></div>`;}).join(''):`<div class="dm-empty-v34">${v34Text('noMessages')}</div>`}</div><div class="dm-compose-v34"><textarea id="dmInputV34" maxlength="2000" placeholder="${state.dmEditIdV42?'عدّل الرسالة...':'اكتب رسالتك...'}"></textarea><button id="dmSendV34" class="btn cyan" ${blocked?'disabled':''}>${state.dmEditIdV42?'حفظ':v34Text('send')}</button></div>`;
+ $('dmSendV34').onclick=sendDmV34;$('dmBlockV34').onclick=()=>toggleBlockV34(uid);$('dmOpenProfileV34').onclick=()=>{modal('dmModalV34',false);openMember(uid);};$('dmClearThreadV42').onclick=()=>clearDmThreadV42(uid);$('dmReplyStateV42')&&($('dmReplyStateV42').onclick=()=>{state.dmReplyToV42=null;renderDmPanelV34();});panel.querySelectorAll('[data-dm-reply-v42]').forEach(b=>b.onclick=()=>replyDmV42(b.dataset.dmReplyV42));panel.querySelectorAll('[data-dm-edit-v42]').forEach(b=>b.onclick=()=>editDmV42(b.dataset.dmEditV42));panel.querySelectorAll('[data-dm-delete-v42]').forEach(b=>b.onclick=()=>deleteDmV42(b.dataset.dmDeleteV42));markThreadReadV34(uid).catch(()=>{});requestAnimationFrame(()=>{const box=$('dmMessagesV34');if(box)box.scrollTop=box.scrollHeight;});};
+function replyDmV42(id){const uid=state.dmActiveUidV34,m=state.dmBoxV34?.[uid]?.messages?.[id];if(!m)return;state.dmReplyToV42={id,authorName:m.fromName||state.profiles[m.fromUid]?.displayName||'عضو',text:(m.text||'').slice(0,140)};state.dmEditIdV42=null;renderDmPanelV34();$('dmInputV34')?.focus();}
+function editDmV42(id){const uid=state.dmActiveUidV34,m=state.dmBoxV34?.[uid]?.messages?.[id];if(!m||m.fromUid!==state.user?.uid||m.deleted)return;state.dmEditIdV42=id;state.dmReplyToV42=null;renderDmPanelV34();$('dmInputV34').value=m.text||'';$('dmInputV34').focus();}
+async function deleteDmV42(id){const uid=state.dmActiveUidV34,m=state.dmBoxV34?.[uid]?.messages?.[id];if(!uid||!m||m.fromUid!==state.user?.uid)return;if(!confirm('حذف هذه الرسالة؟'))return;const updates={};updates[`directMessages/${state.user.uid}/${uid}/messages/${id}`]={...m,text:'تم حذف الرسالة',deleted:true,deletedAt:now()};updates[`directMessages/${uid}/${state.user.uid}/messages/${id}`]={...m,text:'تم حذف الرسالة',deleted:true,deletedAt:now()};try{await update(ref(db),updates);toast('تم حذف الرسالة.','success');}catch(e){toast(readError(e),'error');}}
+async function clearDmThreadV42(uid){if(!state.user||!uid)return;if(!confirm('حذف كامل لهذه المحادثة من الطرفين؟'))return;try{await update(ref(db),{[`directMessages/${state.user.uid}/${uid}`]:null,[`directMessages/${uid}/${state.user.uid}`]:null});state.dmActiveUidV34='';state.dmReplyToV42=null;state.dmEditIdV42=null;renderInboxV34();toast('تم حذف المحادثة بالكامل.','success');}catch(e){toast(readError(e),'error');}}
+sendDmV34=async function(){if(!state.user)return;const to=state.dmActiveUidV34,txt=$('dmInputV34')?.value.trim();if(!to||!txt)return;if(state.messageBlocksV34[to]){toast(v34Text('youBlocked'),'error');return;}if(state.dmEditIdV42){const id=state.dmEditIdV42,m=state.dmBoxV34?.[to]?.messages?.[id];if(!m||m.fromUid!==state.user.uid)return;const updates={};updates[`directMessages/${state.user.uid}/${to}/messages/${id}/text`]=txt.slice(0,2000);updates[`directMessages/${state.user.uid}/${to}/messages/${id}/editedAt`]=now();updates[`directMessages/${to}/${state.user.uid}/messages/${id}/text`]=txt.slice(0,2000);updates[`directMessages/${to}/${state.user.uid}/messages/${id}/editedAt`]=now();try{await update(ref(db),updates);state.dmEditIdV42=null;$('dmInputV34').value='';toast('تم تعديل الرسالة.','success');}catch(e){toast(readError(e),'error');}return;}const otherBlock=await get(dbref(`messageBlocks/${to}/${state.user.uid}`)).catch(()=>null);if(otherBlock&&otherBlock.exists()){toast(v34Text('blockedYou'),'error');return;}const id=push(dbref(`directMessages/${state.user.uid}/${to}/messages`)).key,author=clean(state.profile?.displayName||state.user.displayName||'عضو'),createdAt=now();const msg={fromUid:state.user.uid,toUid:to,fromName:author,text:txt.slice(0,2000),createdAt,read:false};if(state.dmReplyToV42)msg.replyTo=state.dmReplyToV42;const updates={};updates[`directMessages/${state.user.uid}/${to}/messages/${id}`]={...msg,read:true};updates[`directMessages/${to}/${state.user.uid}/messages/${id}`]=msg;updates[`notifications/${to}/dm_${state.user.uid}_${id}`]={type:'private_message',fromUid:state.user.uid,authorName:author,text:txt.slice(0,120),read:false,createdAt,expiresAt:createdAt+5*3600000};try{await update(ref(db),updates);$('dmInputV34').value='';state.dmReplyToV42=null;await logActivity('رسالة خاصة',`إلى ${state.profiles[to]?.displayName||'عضو'}`);}catch(e){toast(readError(e),'error');}};
+
+function enhanceFooterLinksV42(){const latest=document.querySelector('footer [data-i18n="latest_posts"]');if(latest&&!$('footerTopicsLinkV42')){latest.insertAdjacentHTML('afterend',`<a id="footerTopicsLinkV42" class="footer-topic-share-v42" href="#topics">🧭 رابط المواضيع</a><button id="copyTopicsLinkV42" type="button" class="footer-topic-copy-v42">نسخ رابط المواضيع</button>`);$('copyTopicsLinkV42').onclick=()=>copyTextV42(`${location.origin}${location.pathname}#topics`,'تم نسخ رابط قسم المواضيع.');}}
+function handleHashV42(){const h=decodeURIComponent(location.hash||'');if(!h)return;if(h==='#topics'||h==='#feedSection'){setTimeout(()=>$('feedSection')?.scrollIntoView({behavior:'smooth',block:'start'}),120);return;}const m=h.match(/^#post-(.+)$/);if(m){const pid=m[1];if(state.user)openPost(pid,{skipHash:true});else{state.pendingAction=()=>openPost(pid,{skipHash:true});modal('authModal');toast('سجّل الدخول لفتح رابط الموضوع.','error');}}}
+const oldBindUIV42=bindUI;bindUI=function(){oldBindUIV42();ensureSignupLanguageV42();ensureComposerToolbarV42();enhanceFooterLinksV42();window.addEventListener('hashchange',handleHashV42);setTimeout(handleHashV42,700);};
+const oldBindPublicV42=bindPublic;bindPublic=function(){oldBindPublicV42();onValue(dbref('commentReactions'),s=>{state.commentReactionsV42=s.val()||{};renderTrending();renderPosts();if(state.activePost)renderPostModal();});onValue(dbref('profiles'),()=>{setTimeout(()=>{renderMembers();renderPosts();renderLatest();renderTrending();renderChat();if(state.activePost)renderPostModal();if($('dmModalV34')?.classList.contains('show'))renderInboxV34();},0);});};
+
+if(Array.isArray(FRAME_CATALOG_V20)&&!FRAME_CATALOG_V20.some(f=>f.id==='neon-dragon')){
+ Object.assign(I18N_V17.ar,{frame_neon_dragon:'تنين نيون',frame_galaxy:'مجرة',frame_matrix:'ماتريكس',frame_diamond:'ألماس',frame_flame:'لهب',frame_admin_vip:'VIP ملكي',frame_admin_cosmic:'كوني إداري'});
+ Object.assign(I18N_V17.en,{frame_neon_dragon:'Neon Dragon',frame_galaxy:'Galaxy',frame_matrix:'Matrix',frame_diamond:'Diamond',frame_flame:'Flame',frame_admin_vip:'Royal VIP',frame_admin_cosmic:'Admin Cosmic'});
+ Object.assign(I18N_V17.fr,{frame_neon_dragon:'Dragon néon',frame_galaxy:'Galaxie',frame_matrix:'Matrix',frame_diamond:'Diamant',frame_flame:'Flamme',frame_admin_vip:'VIP royal',frame_admin_cosmic:'Cosmique admin'});
+ const extra=[{id:'neon-dragon',nameKey:'frame_neon_dragon'},{id:'galaxy',nameKey:'frame_galaxy'},{id:'matrix',nameKey:'frame_matrix'},{id:'diamond',nameKey:'frame_diamond'},{id:'flame',nameKey:'frame_flame'}];
+ FRAME_CATALOG_V20.splice(Math.max(1,FRAME_CATALOG_V20.length-4),0,...extra);FRAME_CATALOG_V20.push({id:'admin-vip',nameKey:'frame_admin_vip',adminOnly:true},{id:'admin-cosmic',nameKey:'frame_admin_cosmic',adminOnly:true});
+}
+
+
+
+/* V44 — requested UI polish: hide chat/DM action text behind a three-dot button and remove footer copy-link button */
+function closeMessageMenusV44(){document.querySelectorAll('.message-menu-v44.open').forEach(menu=>menu.classList.remove('open'));document.querySelectorAll('.message-menu-toggle-v44.active').forEach(btn=>btn.classList.remove('active'));}
+function bindMessageMenusV44(root=document){
+ root.querySelectorAll('.message-menu-v44').forEach(menu=>{menu.onclick=e=>e.stopPropagation();});
+ root.querySelectorAll('[data-menu-toggle-v44]').forEach(btn=>{
+  btn.onclick=e=>{
+   e.preventDefault();e.stopPropagation();
+   const bubble=btn.closest('.chat-message>div,.dm-msg-v34');
+   const menu=bubble?.querySelector('.message-menu-v44');
+   if(!menu)return;
+   const wasOpen=menu.classList.contains('open');
+   closeMessageMenusV44();
+   menu.classList.toggle('open',!wasOpen);
+   btn.classList.toggle('active',!wasOpen);
+  };
+ });
+ if(!window.__messageMenusV44Bound){window.__messageMenusV44Bound=true;document.addEventListener('click',closeMessageMenusV44);document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMessageMenusV44();});}
+}
+
+renderChat=function(){
+ const input=$('chatInput'),send=$('sendChatBtn');ensureChatClearButtonV42();
+ if(!canReadCommunityV27()){
+  if(input){input.disabled=true;input.placeholder=deniedMessageV27();}
+  if(send)send.disabled=true;
+  $('chatLog').innerHTML=`<div class="guest-post-mask-v16" style="min-height:190px"><div class="post-card-inner-v12"><div class="chat-message"><span class="mini-avatar">?</span><div><b>${t('guest_topics_title')}</b><p>████████████████████████</p></div></div></div><button class="guest-post-veil-v16" data-guest-login><span><b>${isBannedNowV27()?'⛔ الحساب محظور':t('guest_topics_title')}</b><span>${deniedMessageV27()}</span></span></button></div>`;
+  $('chatLog').querySelector('[data-guest-login]').onclick=promptAccessV27;return;
+ }
+ if(input){input.disabled=false;input.placeholder=state.editingChatV42?'عدّل رسالتك ثم اضغط إرسال':t('chat_placeholder');}
+ if(send)send.disabled=false;
+ const list=visibleChatV27().sort((a,b)=>(a.createdAt||0)-(b.createdAt||0)).slice(-120);
+ $('chatLog').innerHTML=list.length?list.map(m=>{
+  const can=m.authorUid===state.user?.uid||isAdmin();
+  return `<div class="chat-message">${avatarHTML(m,true)}<div class="chat-bubble-v44"><button type="button" class="message-menu-toggle-v44" data-menu-toggle-v44 aria-label="خيارات الرسالة" title="خيارات الرسالة">⋮</button><b>${authorHTML(m)}</b><span class="date" style="display:inline;margin-inline-start:6px">${ago(m.createdAt)}</span>${m.replyTo?`<div class="reply-banner-v10">↩ ${esc(m.replyTo.authorName)}: ${esc(m.replyTo.text||'')}</div>`:''}${renderChatMessageTextV42(m)}<div class="chat-tools-v10 message-menu-v44" role="menu"><button type="button" data-chat-react="${esc(m.id)}">${t('react')} ${Object.keys(state.chatReactions[m.id]||{}).length}</button><button type="button" data-chat-reply="${esc(m.id)}">اقتباس</button>${can&&!m.deleted?`<button type="button" data-chat-edit-v42="${esc(m.id)}">تعديل</button><button type="button" data-chat-delete="${esc(m.id)}">${t('delete')}</button>`:''}</div></div></div>`;
+ }).join(''):`<div class="empty">${t('start_chat')}</div>`;
+ $('chatLog').querySelectorAll('[data-chat-react]').forEach(b=>b.onclick=()=>reactChat(b.dataset.chatReact));
+ $('chatLog').querySelectorAll('[data-chat-reply]').forEach(b=>b.onclick=()=>replyChat(b.dataset.chatReply));
+ $('chatLog').querySelectorAll('[data-chat-delete]').forEach(b=>b.onclick=()=>deleteChatMessage(b.dataset.chatDelete));
+ $('chatLog').querySelectorAll('[data-chat-edit-v42]').forEach(b=>b.onclick=()=>editChatMessageV42(b.dataset.chatEditV42));
+ bindMessageMenusV44($('chatLog'));
+ requestAnimationFrame(()=>{$('chatLog').scrollTop=$('chatLog').scrollHeight;});
+};
+
+renderDmPanelV34=function(){
+ const panel=$('dmPanelV34');if(!panel)return;
+ const uid=state.dmActiveUidV34;
+ if(!uid){panel.innerHTML=`<div class="dm-empty-v34">${v34Text('chooseMember')}</div>`;return;}
+ const p=liveProfileV42({uid,...(state.profiles[uid]||{})});
+ const blocked=!!state.messageBlocksV34[uid];
+ const msgs=Object.entries(state.dmBoxV34?.[uid]?.messages||{}).map(([id,v])=>({id,...v})).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+ panel.innerHTML=`<div class="dm-panel-head-v34"><div class="dm-panel-user-v34">${avatarHTML(p)}<span><b>${esc(p.displayName||'عضو')}</b><small>${state.presence[uid]?t('online'):t('offline')}</small></span></div><div class="dm-actions-v34"><button id="dmOpenProfileV34" class="btn small">👤 البروفيل</button><button id="dmClearThreadV42" class="btn small danger">🧹 حذف كامل</button><button id="dmBlockV34" class="btn small ${blocked?'green':'danger'}">${blocked?v34Text('unblock'):v34Text('block')}</button></div></div>${blocked?`<div class="dm-block-note-v34">${v34Text('youBlocked')}</div>`:''}${state.dmReplyToV42?`<div class="dm-block-note-v34" id="dmReplyStateV42">تقتبس: ${esc(state.dmReplyToV42.text)} — اضغط للإلغاء</div>`:''}<div id="dmMessagesV34" class="dm-messages-v34">${msgs.length?msgs.map(m=>{const me=m.fromUid===state.user?.uid;return `<div class="dm-msg-v34 ${me?'me':'them'}" dir="auto"><button type="button" class="message-menu-toggle-v44" data-menu-toggle-v44 aria-label="خيارات الرسالة" title="خيارات الرسالة">⋮</button>${m.replyTo?`<div class="dm-quote-v42">↩ ${esc(m.replyTo.authorName||'عضو')}: ${esc(m.replyTo.text||'')}</div>`:''}${dmMessageTextV42(m)}<small>${ago(m.createdAt)}</small><div class="dm-tools-v42 message-menu-v44" role="menu"><button type="button" data-dm-reply-v42="${esc(m.id)}">اقتباس</button>${me&&!m.deleted?`<button type="button" data-dm-edit-v42="${esc(m.id)}">تعديل</button><button type="button" data-dm-delete-v42="${esc(m.id)}">حذف</button>`:''}</div></div>`;}).join(''):`<div class="dm-empty-v34">${v34Text('noMessages')}</div>`}</div><div class="dm-compose-v34"><textarea id="dmInputV34" maxlength="2000" placeholder="${state.dmEditIdV42?'عدّل الرسالة...':'اكتب رسالتك...'}"></textarea><button id="dmSendV34" class="btn cyan" ${blocked?'disabled':''}>${state.dmEditIdV42?'حفظ':v34Text('send')}</button></div>`;
+ $('dmSendV34').onclick=sendDmV34;
+ $('dmBlockV34').onclick=()=>toggleBlockV34(uid);
+ $('dmOpenProfileV34').onclick=()=>{modal('dmModalV34',false);openMember(uid);};
+ $('dmClearThreadV42').onclick=()=>clearDmThreadV42(uid);
+ $('dmReplyStateV42')&&($('dmReplyStateV42').onclick=()=>{state.dmReplyToV42=null;renderDmPanelV34();});
+ panel.querySelectorAll('[data-dm-reply-v42]').forEach(b=>b.onclick=()=>replyDmV42(b.dataset.dmReplyV42));
+ panel.querySelectorAll('[data-dm-edit-v42]').forEach(b=>b.onclick=()=>editDmV42(b.dataset.dmEditV42));
+ panel.querySelectorAll('[data-dm-delete-v42]').forEach(b=>b.onclick=()=>deleteDmV42(b.dataset.dmDeleteV42));
+ bindMessageMenusV44(panel);
+ markThreadReadV34(uid).catch(()=>{});
+ requestAnimationFrame(()=>{const box=$('dmMessagesV34');if(box)box.scrollTop=box.scrollHeight;});
+};
+
+enhanceFooterLinksV42=function(){
+ const latest=document.querySelector('footer [data-i18n="latest_posts"]');
+ if($('copyTopicsLinkV42'))$('copyTopicsLinkV42').remove();
+ if(latest&&!$('footerTopicsLinkV42')){latest.insertAdjacentHTML('afterend',`<a id="footerTopicsLinkV42" class="footer-topic-share-v42" href="#topics">المواضيع</a>`);}
+ const link=$('footerTopicsLinkV42');
+ if(link){link.textContent='المواضيع';link.href='#topics';link.style.cursor='pointer';link.setAttribute('role','link');link.setAttribute('aria-label','المواضيع');}
+};
 
 applyStaticTranslationsV17();bindAppearanceV17();
 bindUI();bindPublic();bindSiteVisitsV21();bindAnnouncementV22();setAuthMode("login");$("year").textContent=new Date().getFullYear();
