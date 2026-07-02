@@ -1484,7 +1484,7 @@ html[dir="ltr"] .message-menu-toggle-v44,html[dir="ltr"] .chat-tools-v10.message
  <section class="settings-card-v32"><h3>كثافة الواجهة</h3><p>تحكم بحجم المسافات بين البطاقات بدون تغيير المحتوى.</p><div class="settings-actions-v32"><button class="setting-pill-v32" data-density-v32="normal" type="button">عادي</button><button class="setting-pill-v32" data-density-v32="compact" type="button">مضغوط</button><button class="setting-pill-v32" data-density-v32="comfortable" type="button">مريح</button></div></section>
  <section class="settings-card-v32"><h3>اختصارات</h3><div class="settings-actions-v32"><button id="settingsOpenRulesV32" class="btn small" type="button">📜 قوانين المجتمع</button><button id="settingsOpenSearchV32" class="btn small cyan" type="button">🔎 البحث</button></div></section>
 </div></div></div>
-<div id="rulesModalV32" class="modal"><div class="modal-box" style="width:min(640px,100%)"><div class="modal-head"><h2>📜 قوانين المجتمع</h2><button class="close" data-close="rulesModalV32">×</button></div><div class="modal-body"><div class="rules-list-v32"><div class="rule-item-v32"><b>1</b><span>ممنوع السبام أو تكرار نفس الرسالة أو نشر روابط عشوائية.</span></div><div class="rule-item-v32"><b>2</b><span>ممنوع نشر كلمات مرور، Cookies، Tokens، أو بيانات دخول خاصة بأي حساب.</span></div><div class="rule-item-v32"><b>3</b><span>احترم الأعضاء، ولا تنشر إساءة أو تحريض أو محتوى مخالف.</span></div><div class="rule-item-v32"><b>4</b><span>استعمل زر الإبلاغ عند رؤية محتوى مخالف بدل الرد عليه.</span></div><div class="rule-item-v32"><b>5</b><span>الإدارة قد تثبّت، تخفي، تحذف، تحذر أو تحظر الحسابات المخالفة لحماية المجتمع.</span></div></div></div></div></div>
+<div id="rulesModalV32" class="modal"><div class="modal-box" style="width:min(640px,100%)"><div class="modal-head"><h2>📜 قوانين المجتمع</h2><button class="close" data-close="rulesModalV32">×</button></div><div class="modal-body"><div class="rules-list-v32"><div class="rule-item-v32"><b>1</b><span>ممنوع السبام أو تكرار نفس الرسالة أو نشر روابط عشوائية.</span></div><div class="rule-item-v32"><b>2</b><span>مسموح نشر كلمات مرور، Cookies، Tokens، أو بيانات دخول خاصة بأي حساب.</span></div><div class="rule-item-v32"><b>3</b><span>احترم الأعضاء، ولا تنشر إساءة أو تحريض أو محتوى مخالف.</span></div><div class="rule-item-v32"><b>4</b><span>استعمل زر الإبلاغ عند رؤية محتوى مخالف بدل الرد عليه.</span></div><div class="rule-item-v32"><b>5</b><span>الإدارة قد تثبّت، تخفي، تحذف، تحذر أو تحظر الحسابات المخالفة لحماية المجتمع.</span></div></div></div></div></div>
 
 <div id="siteAnnouncement" class="site-announcement-v22" role="dialog" aria-modal="true" aria-labelledby="siteAnnouncementTitle" aria-hidden="true"><div class="site-announcement-card-v22"><div class="site-announcement-icon-v22" aria-hidden="true">📢</div><h2 id="siteAnnouncementTitle">إعلان الموقع</h2><p id="siteAnnouncementMessage"></p><button id="siteAnnouncementDismiss" class="btn primary" type="button">فهمت</button></div></div>
 
@@ -3114,6 +3114,63 @@ openPost=async function(pid,opts={}){
  }
  await openPostWithoutCommentGateV48(pid,opts);
 };
+
+/* V49 — harden comment gate for every topic render path */
+canBypassTopicCommentGateV48=function(post){
+ return !!(state.user&&isStaff());
+};
+function topicNeedsCommentGateV49(postOrPid){
+ const p=typeof postOrPid==='string'?state.posts.find(x=>x.id===postOrPid):postOrPid;
+ return !!(p&&state.user&&!canBypassTopicCommentGateV48(p)&&!hasUserCommentedOnPostV48(p.id));
+}
+function topicLockedPreviewTextV49(){
+ const copy={
+  ar:'اكتب تعليقًا أو ردًا أولًا لعرض محتوى هذا الموضوع.',
+  en:'Write a comment or reply first to view this topic content.',
+  fr:'Écrivez d’abord un commentaire ou une réponse pour voir le contenu de ce sujet.'
+ };
+ return copy[state.language]||copy.ar;
+}
+const renderTopicCommentGateBaseV49=renderTopicCommentGateV48;
+renderTopicCommentGateV48=function(pid,opts={}){
+ state.topicGatePidV49=pid;
+ return renderTopicCommentGateBaseV49(pid,opts);
+};
+const renderPostModalBaseV49=renderPostModal;
+renderPostModal=function(){
+ const pid=state.activePost?.id;
+ const p=pid?(state.posts.find(x=>x.id===pid)||state.activePost):null;
+ if(p&&topicNeedsCommentGateV49(p)){
+  renderTopicCommentGateV48(p.id,{skipHash:true});
+  return;
+ }
+ state.topicGatePidV49=null;
+ return renderPostModalBaseV49();
+};
+const openPostBaseV49=openPost;
+openPost=async function(pid,opts={}){
+ const p=state.posts.find(x=>x.id===pid);
+ if(p&&topicNeedsCommentGateV49(p)){
+  renderTopicCommentGateV48(pid,opts);
+  return;
+ }
+ state.topicGatePidV49=null;
+ return openPostBaseV49(pid,opts);
+};
+const openCategoryBaseV49=openCategory;
+openCategory=function(cid){
+ openCategoryBaseV49(cid);
+ const body=$('categoryModalBody');
+ if(!body||!state.user)return;
+ body.querySelectorAll('[data-cat-post]').forEach(btn=>{
+  const p=state.posts.find(x=>x.id===btn.dataset.catPost);
+  if(!topicNeedsCommentGateV49(p))return;
+  const card=btn.closest('article')||btn.closest('.comment');
+  const preview=card?.querySelector('p');
+  if(preview)preview.textContent='🔒 '+topicLockedPreviewTextV49();
+ });
+};
+
 
 applyStaticTranslationsV17();bindAppearanceV17();
 bindUI();bindPublic();bindSiteVisitsV21();bindAnnouncementV22();setAuthMode("login");$("year").textContent=new Date().getFullYear();
