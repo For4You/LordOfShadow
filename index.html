@@ -1484,7 +1484,7 @@ html[dir="ltr"] .message-menu-toggle-v44,html[dir="ltr"] .chat-tools-v10.message
  <section class="settings-card-v32"><h3>كثافة الواجهة</h3><p>تحكم بحجم المسافات بين البطاقات بدون تغيير المحتوى.</p><div class="settings-actions-v32"><button class="setting-pill-v32" data-density-v32="normal" type="button">عادي</button><button class="setting-pill-v32" data-density-v32="compact" type="button">مضغوط</button><button class="setting-pill-v32" data-density-v32="comfortable" type="button">مريح</button></div></section>
  <section class="settings-card-v32"><h3>اختصارات</h3><div class="settings-actions-v32"><button id="settingsOpenRulesV32" class="btn small" type="button">📜 قوانين المجتمع</button><button id="settingsOpenSearchV32" class="btn small cyan" type="button">🔎 البحث</button></div></section>
 </div></div></div>
-<div id="rulesModalV32" class="modal"><div class="modal-box" style="width:min(640px,100%)"><div class="modal-head"><h2>📜 قوانين المجتمع</h2><button class="close" data-close="rulesModalV32">×</button></div><div class="modal-body"><div class="rules-list-v32"><div class="rule-item-v32"><b>1</b><span>ممنوع السبام أو تكرار نفس الرسالة أو نشر روابط عشوائية.</span></div><div class="rule-item-v32"><b>2</b><spanمسموح نشر كلمات مرور، Cookies، Tokens، أو بيانات دخول خاصة بأي حساب.</span></div><div class="rule-item-v32"><b>3</b><span>احترم الأعضاء، ولا تنشر إساءة أو تحريض أو محتوى مخالف.</span></div><div class="rule-item-v32"><b>4</b><span>استعمل زر الإبلاغ عند رؤية محتوى مخالف بدل الرد عليه.</span></div><div class="rule-item-v32"><b>5</b><span>الإدارة قد تثبّت، تخفي، تحذف، تحذر أو تحظر الحسابات المخالفة لحماية المجتمع.</span></div></div></div></div></div>
+<div id="rulesModalV32" class="modal"><div class="modal-box" style="width:min(640px,100%)"><div class="modal-head"><h2>📜 قوانين المجتمع</h2><button class="close" data-close="rulesModalV32">×</button></div><div class="modal-body"><div class="rules-list-v32"><div class="rule-item-v32"><b>1</b><span>ممنوع السبام أو تكرار نفس الرسالة أو نشر روابط عشوائية.</span></div><div class="rule-item-v32"><b>2</b><span>ممنوع نشر كلمات مرور، Cookies، Tokens، أو بيانات دخول خاصة بأي حساب.</span></div><div class="rule-item-v32"><b>3</b><span>احترم الأعضاء، ولا تنشر إساءة أو تحريض أو محتوى مخالف.</span></div><div class="rule-item-v32"><b>4</b><span>استعمل زر الإبلاغ عند رؤية محتوى مخالف بدل الرد عليه.</span></div><div class="rule-item-v32"><b>5</b><span>الإدارة قد تثبّت، تخفي، تحذف، تحذر أو تحظر الحسابات المخالفة لحماية المجتمع.</span></div></div></div></div></div>
 
 <div id="siteAnnouncement" class="site-announcement-v22" role="dialog" aria-modal="true" aria-labelledby="siteAnnouncementTitle" aria-hidden="true"><div class="site-announcement-card-v22"><div class="site-announcement-icon-v22" aria-hidden="true">📢</div><h2 id="siteAnnouncementTitle">إعلان الموقع</h2><p id="siteAnnouncementMessage"></p><button id="siteAnnouncementDismiss" class="btn primary" type="button">فهمت</button></div></div>
 
@@ -3062,6 +3062,58 @@ function applyProfileLanguageV47(profile){
  state.applyingProfileLanguageV47=true;
  try{setLanguageV17(lang);}finally{state.applyingProfileLanguageV47=false;}
 }
+
+
+/* V48 — require a comment/reply before opening a topic */
+function hasUserCommentedOnPostV48(pid){
+ if(!state.user)return false;
+ return Object.values(state.comments[pid]||{}).some(c=>c&&c.authorUid===state.user.uid);
+}
+function canBypassTopicCommentGateV48(post){
+ return !!(state.user&&(post?.authorUid===state.user.uid||isStaff()));
+}
+function topicGateTextV48(key){
+ const copy={
+  ar:{title:'شارك أولًا لفتح الموضوع',desc:'للحفاظ على تفاعل المجتمع، اكتب تعليقًا أو ردًا قصيرًا قبل فتح محتوى هذا الموضوع.',placeholder:'اكتب تعليقك أو ردك هنا...',send:'إرسال وفتح الموضوع',already:'تم نشر تعليقك، سيتم فتح الموضوع الآن.',empty:'اكتب تعليقًا أو ردًا أولًا.',login:'سجّل الدخول ثم اكتب تعليقًا لفتح الموضوع.'},
+  en:{title:'Comment first to open this topic',desc:'To keep the community active, write a short comment or reply before opening this topic.',placeholder:'Write your comment or reply here...',send:'Send and open topic',already:'Your comment was posted. Opening the topic now.',empty:'Write a comment or reply first.',login:'Log in, then write a comment to open the topic.'},
+  fr:{title:'Commentez d’abord pour ouvrir le sujet',desc:'Pour garder la communauté active, écrivez un commentaire ou une réponse courte avant d’ouvrir ce sujet.',placeholder:'Écrivez votre commentaire ou réponse ici...',send:'Envoyer et ouvrir le sujet',already:'Votre commentaire est publié. Ouverture du sujet.',empty:'Écrivez d’abord un commentaire ou une réponse.',login:'Connectez-vous puis écrivez un commentaire pour ouvrir le sujet.'}
+ };
+ return (copy[state.language]||copy.ar)[key]||copy.ar[key]||key;
+}
+function renderTopicCommentGateV48(pid,opts={}){
+ const p=state.posts.find(x=>x.id===pid);if(!p)return false;
+ state.activePost=p;
+ const category=displayCatV17(p.categoryId),categoryLabel=esc(category.siteName||category.title||t('topic_category'));
+ const topicIcon=(typeof topicIconHTMLV28==='function')?topicIconHTMLV28(p,'hero-v31'):`<span class="topic-row-icon-v19">${esc(category.icon||'📝')}</span>`;
+ $('postModalBody').innerHTML=`<article class="full-post full-post-v31 full-post-v42"><div class="post-detail-head-v42"><div class="post-detail-icon-stack-v42">${topicIcon}<div class="post-detail-author-avatar-v42">${avatarHTML(p)}</div></div><div class="post-detail-main-v42"><div class="post-detail-author-v42">${authorHTML(p)}<span class="date">${ago(p.createdAt)}</span></div><h1>${p.pinned?'📌 ':''}${esc(p.title)}</h1><div class="post-detail-meta-v42"><span>${categoryLabel}</span><span>💬 ${countComments(p.id)}</span><span>👍 ${countReactions(p.id)}</span></div></div></div><div class="unlock" style="padding:24px 4px"><div class="symbol">💬</div><h3>${topicGateTextV48('title')}</h3><p>${topicGateTextV48('desc')}</p><div class="comment-form-v42" style="margin-top:16px"><div class="comment-compose-row-v42"><input id="topicOpenCommentInputV48" maxlength="5000" placeholder="${esc(topicGateTextV48('placeholder'))}"><button id="topicOpenCommentBtnV48" class="btn cyan">${topicGateTextV48('send')}</button></div></div></div></article>`;
+ $('topicOpenCommentBtnV48').onclick=()=>submitTopicOpenCommentV48(pid,opts);
+ $('topicOpenCommentInputV48').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();submitTopicOpenCommentV48(pid,opts);}});
+ modal('postModal');
+ setTimeout(()=>$('topicOpenCommentInputV48')?.focus(),80);
+ return true;
+}
+async function submitTopicOpenCommentV48(pid,opts={}){
+ if(!state.user){modal('authModal');toast(topicGateTextV48('login'),'error');return;}
+ const input=$('topicOpenCommentInputV48'),btn=$('topicOpenCommentBtnV48'),text=input?.value.trim();
+ if(!text){toast(topicGateTextV48('empty'),'error');input?.focus();return;}
+ if(btn)btn.disabled=true;
+ try{
+  await push(dbref(`comments/${pid}`),{...myAuthor(),text:text.slice(0,5000),createdAt:now()});
+  await logActivity('comment',state.posts.find(p=>p.id===pid)?.title||'موضوع');
+  toast(topicGateTextV48('already'),'success');
+  await openPostWithoutCommentGateV48(pid,opts);
+ }catch(e){toast(readError(e),'error');if(btn)btn.disabled=false;}
+}
+const openPostWithoutCommentGateV48=openPost;
+openPost=async function(pid,opts={}){
+ if(!state.user){modal('authModal');toast(topicGateTextV48('login'),'error');return;}
+ const p=state.posts.find(x=>x.id===pid);if(!p)return;
+ if(!canBypassTopicCommentGateV48(p)&&!hasUserCommentedOnPostV48(pid)){
+  renderTopicCommentGateV48(pid,opts);
+  return;
+ }
+ await openPostWithoutCommentGateV48(pid,opts);
+};
 
 applyStaticTranslationsV17();bindAppearanceV17();
 bindUI();bindPublic();bindSiteVisitsV21();bindAnnouncementV22();setAuthMode("login");$("year").textContent=new Date().getFullYear();
