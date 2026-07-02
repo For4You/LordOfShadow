@@ -1338,6 +1338,9 @@ html[dir="ltr"] .message-menu-toggle-v44,html[dir="ltr"] .chat-tools-v10.message
 .language-card-v42.active::after{content:"✓";display:grid;place-items:center;width:18px;height:18px;border-radius:999px;background:rgba(84,239,184,.18);color:#54efb8;font-size:12px;font-weight:1000}
 @media(max-width:760px){.signup-language-grid-v42{grid-template-columns:1fr!important}.language-card-v42{justify-content:flex-start!important}.language-card-v42.active::after{margin-inline-start:auto}}
 
+
+/* V50 — publish option: require a comment before opening selected topics */
+.topic-comment-gate-field-v50{border:1px solid rgba(73,231,255,.22);border-radius:14px;padding:12px 13px;background:rgba(73,231,255,.06);margin:10px 0}.topic-comment-gate-v50{display:flex!important;align-items:flex-start;gap:10px;font-weight:900;cursor:pointer;line-height:1.7}.topic-comment-gate-v50 input{width:18px;height:18px;margin-top:4px;accent-color:var(--cyan);flex:0 0 auto}.topic-comment-gate-field-v50 .soft{display:block;margin-top:6px}.topic-gate-badge-v50{display:inline-flex;align-items:center;gap:4px;border:1px solid rgba(255,211,109,.3);background:rgba(255,211,109,.12);color:var(--gold);border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900}
 </style>
 </head>
 <body>
@@ -1456,6 +1459,13 @@ html[dir="ltr"] .message-menu-toggle-v44,html[dir="ltr"] .chat-tools-v10.message
   <div class="field"><label data-i18n="document_name">اسم المستند الظاهر</label><input id="newPostDocumentName" maxlength="180" placeholder="مثال: دليل الاستخدام.pdf" data-i18n-placeholder="document_name_example"></div>
 </div>
 <small class="soft" data-i18n="direct_document_note">لإرفاق ملف مجانًا: ارفعه يدويًا إلى مستودعك أو مساحة ملفات تملكها، ثم ضع رابطه المباشر هنا.</small>
+<div class="field topic-comment-gate-field-v50">
+  <label class="topic-comment-gate-v50" for="newPostRequireComment">
+    <input id="newPostRequireComment" type="checkbox">
+    <span>يتطلب تعليقًا أو ردًا قبل فتح الموضوع</span>
+  </label>
+  <small class="soft">عند تفعيل هذا الخيار، لن يظهر محتوى الموضوع للعضو العادي حتى يكتب تعليقًا أو ردًا أولًا. الإدارة والمشرفون يمكنهم الفتح للمراجعة.</small>
+</div>
 <div id="staffCategoryTools" class="staff-category-tools hide">
   <div class="staff-category-head">
     <div><b data-i18n="new_section_publish">🧩 إضافة قسم جديد أثناء النشر</b><span data-i18n="staff_only">متاح للـ Admin والمشرف فقط.</span></div>
@@ -3169,6 +3179,96 @@ openCategory=function(cid){
   const preview=card?.querySelector('p');
   if(preview)preview.textContent='🔒 '+topicLockedPreviewTextV49();
  });
+};
+
+
+/* V50 — selectable comment gate at publish time */
+function topicGateEnabledV50(post){
+ return !!(post&&(post.requiresCommentToOpen===true||post.requiresCommentToOpen==='true'||post.commentGateEnabled===true||post.commentGateEnabled==='true'||post.requireCommentBeforeOpen===true||post.requireCommentBeforeOpen==='true'));
+}
+function topicGateBadgeV50(){
+ const copy={ar:'🔐 يتطلب تعليقًا',en:'🔐 Comment required',fr:'🔐 Commentaire requis'};
+ return copy[state.language]||copy.ar;
+}
+function setTopicGateCheckboxV50(value=false){
+ const el=$('newPostRequireComment');if(el)el.checked=!!value;
+}
+const openComposeBaseV50=openCompose;
+openCompose=function(){
+ const result=openComposeBaseV50();
+ setTimeout(()=>setTopicGateCheckboxV50(false),0);
+ return result;
+};
+const openPostBaseV50=openPost;
+openPost=async function(pid,opts={}){
+ const p=state.posts.find(x=>x.id===pid);
+ if(!state.user){modal('authModal');toast(topicGateTextV48('login'),'error');return;}
+ if(p&&topicNeedsCommentGateV49(p)){
+  renderTopicCommentGateV48(pid,opts);
+  return;
+ }
+ return openPostBaseV50(pid,opts);
+};
+topicNeedsCommentGateV49=function(postOrPid){
+ const p=typeof postOrPid==='string'?state.posts.find(x=>x.id===postOrPid):postOrPid;
+ return !!(p&&topicGateEnabledV50(p)&&state.user&&!canBypassTopicCommentGateV48(p)&&!hasUserCommentedOnPostV48(p.id));
+};
+const renderPostModalBaseV50=renderPostModal;
+renderPostModal=function(){
+ const pid=state.activePost?.id;
+ const p=pid?(state.posts.find(x=>x.id===pid)||state.activePost):null;
+ if(p&&topicNeedsCommentGateV49(p)){
+  renderTopicCommentGateV48(p.id,{skipHash:true});
+  return;
+ }
+ return renderPostModalBaseV50();
+};
+const openCategoryBaseV50=openCategory;
+openCategory=function(cid){
+ openCategoryBaseV50(cid);
+ const body=$('categoryModalBody');if(!body)return;
+ body.querySelectorAll('[data-cat-post]').forEach(btn=>{
+  const p=state.posts.find(x=>x.id===btn.dataset.catPost);if(!p||!topicGateEnabledV50(p))return;
+  const card=btn.closest('article')||btn.closest('.comment');
+  const preview=card?.querySelector('p');
+  if(preview)preview.textContent=topicNeedsCommentGateV49(p)?('🔒 '+topicLockedPreviewTextV49()):preview.textContent;
+  const meta=card?.querySelector('.category-topic-meta-v32');
+  if(meta&&!meta.querySelector('.topic-gate-badge-v50'))meta.insertAdjacentHTML('beforeend',`<span class="topic-gate-badge-v50">${topicGateBadgeV50()}</span>`);
+ });
+};
+const renderPostsBaseV50=renderPosts;
+renderPosts=function(){
+ renderPostsBaseV50();
+ const feed=$('postsFeed');if(!feed)return;
+ feed.querySelectorAll('[data-open-post]').forEach(btn=>{
+  const p=state.posts.find(x=>x.id===btn.dataset.openPost);if(!p||!topicGateEnabledV50(p))return;
+  const card=btn.closest('article');
+  const meta=card?.querySelector('.topic-row-info-v19');
+  if(meta&&!meta.querySelector('.topic-gate-badge-v50'))meta.insertAdjacentHTML('beforeend',`<span class="topic-gate-badge-v50">${topicGateBadgeV50()}</span>`);
+ });
+};
+publishPost=async function(e){
+ if(e)e.preventDefault();
+ if(typeof cooldownReadyV32==='function'&&!cooldownReadyV32('nexushub-post-cooldown-v32',25000))return;
+ if(requiresLogin(openCompose))return;
+ const title=$('newPostTitle').value.trim(),body=$('newPostBody').value.trim();
+ if(!title||!body)return;
+ if(hasSensitiveAccessData(`${title}\n${body}`)){
+  toast(state.language==='ar'?"لا تنشر كلمات مرور أو Cookie أو رموز وصول أو بيانات حسابات.":state.language==='fr'?"Ne publiez ni mots de passe, ni cookies, ni jetons d’accès, ni données de compte.":"Do not publish passwords, cookies, access tokens, or account data.",'error');return;
+ }
+ try{
+  const tags=$('newPostTags').value.split(',').map(x=>x.trim().replace(/^#/,'')).filter(Boolean).slice(0,12),mediaUrl=allowedPublicUrl($('newPostMedia').value),documentUrl=allowedPublicUrl($('newPostDocumentUrl').value),documentName=$('newPostDocumentName').value.trim()||filenameFromUrl(documentUrl),inferredGif=/\.gif(\?|$)/i.test(mediaUrl),documentExt=documentExtension(documentName||documentUrl),requiresCommentToOpen=!!$('newPostRequireComment')?.checked;
+  let categoryId=$('newPostCategory').value;
+  const createdCategoryId=await createQuickCategoryFromComposer();if(createdCategoryId)categoryId=createdCategoryId;
+  const postRef=push(dbref('posts')),createdAt=now(),record={...myAuthor(),title:title.slice(0,180),body:body.slice(0,50000),categoryId,tags,mediaUrl,mediaName:inferredGif?'GIF':'',mediaType:inferredGif?'image/gif':'',documentUrl,documentName:documentUrl?documentName:'',documentType:'',documentSize:0,documentExtension:documentUrl?documentExt:'',createdAt,pinned:false,viewCount:0,requiresCommentToOpen,commentGateEnabled:requiresCommentToOpen};
+  const expiresAt=expiryForNewTopicV20(createdAt);if(expiresAt)record.expiresAt=expiresAt;
+  await set(postRef,record);
+  await notifyMembersOfNewPost(postRef.key,title);
+  await logActivity('publish_post',title);
+  e?.target?.reset();setTopicGateCheckboxV50(false);
+  modal('composeModal',false);
+  toast(t(createdCategoryId?'topic_published_category':'topic_published'),'success');
+ }catch(e2){toast(readError(e2),'error');}
 };
 
 
