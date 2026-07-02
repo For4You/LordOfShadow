@@ -1340,7 +1340,7 @@ html[dir="ltr"] .message-menu-toggle-v44,html[dir="ltr"] .chat-tools-v10.message
 
 
 /* V50 — publish option: require a comment before opening selected topics */
-.topic-comment-gate-field-v50{border:1px solid rgba(73,231,255,.22);border-radius:14px;padding:12px 13px;background:rgba(73,231,255,.06);margin:10px 0}.topic-comment-gate-v50{display:flex!important;align-items:flex-start;gap:10px;font-weight:900;cursor:pointer;line-height:1.7}.topic-comment-gate-v50 input{width:18px;height:18px;margin-top:4px;accent-color:var(--cyan);flex:0 0 auto}.topic-comment-gate-field-v50 .soft{display:block;margin-top:6px}.topic-gate-badge-v50{display:inline-flex;align-items:center;gap:4px;border:1px solid rgba(255,211,109,.3);background:rgba(255,211,109,.12);color:var(--gold);border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900}
+.topic-comment-gate-field-v50{border:1px solid rgba(73,231,255,.22);border-radius:14px;padding:12px 13px;background:rgba(73,231,255,.06);margin:10px 0}.topic-comment-gate-v50{display:flex!important;align-items:flex-start;gap:10px;font-weight:900;cursor:pointer;line-height:1.7}.topic-comment-gate-v50 input{width:18px;height:18px;margin-top:4px;accent-color:var(--cyan);flex:0 0 auto}.topic-comment-gate-field-v50 .soft{display:block;margin-top:6px}.topic-comment-gate-field-v51{border-color:rgba(255,211,109,.48)!important;background:linear-gradient(135deg,rgba(255,211,109,.14),rgba(73,231,255,.08))!important;box-shadow:0 12px 28px rgba(0,0,0,.18);margin:12px 0 16px!important}.topic-comment-gate-field-v51 span{font-size:15px}.topic-gate-badge-v50{display:inline-flex;align-items:center;gap:4px;border:1px solid rgba(255,211,109,.3);background:rgba(255,211,109,.12);color:var(--gold);border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900}
 </style>
 </head>
 <body>
@@ -1450,7 +1450,14 @@ html[dir="ltr"] .message-menu-toggle-v44,html[dir="ltr"] .chat-tools-v10.message
 
 <div id="categoryModal" class="modal"><div class="modal-box"><div class="modal-head"><h2 id="categoryModalTitle">القسم</h2><button class="close" data-close="categoryModal">×</button></div><div id="categoryModalBody" class="modal-body"></div></div></div>
 <div id="postModal" class="modal"><div class="modal-box"><div class="modal-head"><h2 data-i18n="topic_details">الموضوع</h2><button class="close" data-close="postModal">×</button></div><div id="postModalBody" class="modal-body"></div></div></div>
-<div id="composeModal" class="modal"><div class="modal-box"><div class="modal-head"><h2 data-i18n="publish_topic">نشر موضوع جديد</h2><button class="close" data-close="composeModal">×</button></div><div class="modal-body"><form id="composeForm"><div class="form-row"><div class="field"><label data-i18n="topic_title">عنوان الموضوع</label><input id="newPostTitle" required maxlength="180"></div><div class="field"><label data-i18n="section">القسم</label><select id="newPostCategory"></select></div></div><div class="form-row">
+<div id="composeModal" class="modal"><div class="modal-box"><div class="modal-head"><h2 data-i18n="publish_topic">نشر موضوع جديد</h2><button class="close" data-close="composeModal">×</button></div><div class="modal-body"><form id="composeForm"><div class="form-row"><div class="field"><label data-i18n="topic_title">عنوان الموضوع</label><input id="newPostTitle" required maxlength="180"></div><div class="field"><label data-i18n="section">القسم</label><select id="newPostCategory"></select></div></div><div class="field topic-comment-gate-field-v50 topic-comment-gate-field-v51">
+  <label class="topic-comment-gate-v50" for="newPostRequireComment">
+    <input id="newPostRequireComment" type="checkbox">
+    <span>🔐 يتطلب تعليقًا أو ردًا قبل فتح الموضوع</span>
+  </label>
+  <small class="soft">فعّل هذا الخيار إذا أردت أن لا يظهر محتوى الموضوع للعضو العادي حتى يكتب تعليقًا أو ردًا أولًا. الإدارة والمشرفون يمكنهم الفتح للمراجعة.</small>
+</div>
+<div class="form-row">
   <div class="field"><label data-i18n="tags">وسوم (فاصل بينها بفاصلة)</label><input id="newPostTags" maxlength="300" placeholder="فكرة, تصميم, مشروع" data-i18n-placeholder="tags_example"></div>
   <div class="field"><label data-i18n="media_url">رابط صورة أو GIF</label><input id="newPostMedia" type="url" placeholder="https://example.com/image.jpg أو .gif" data-i18n-placeholder="media_url_hint"><small class="soft" data-i18n="direct_image_note">تعمل الروابط المباشرة للصور وGIF بدون Firebase Storage.</small></div>
 </div>
@@ -1459,13 +1466,6 @@ html[dir="ltr"] .message-menu-toggle-v44,html[dir="ltr"] .chat-tools-v10.message
   <div class="field"><label data-i18n="document_name">اسم المستند الظاهر</label><input id="newPostDocumentName" maxlength="180" placeholder="مثال: دليل الاستخدام.pdf" data-i18n-placeholder="document_name_example"></div>
 </div>
 <small class="soft" data-i18n="direct_document_note">لإرفاق ملف مجانًا: ارفعه يدويًا إلى مستودعك أو مساحة ملفات تملكها، ثم ضع رابطه المباشر هنا.</small>
-<div class="field topic-comment-gate-field-v50">
-  <label class="topic-comment-gate-v50" for="newPostRequireComment">
-    <input id="newPostRequireComment" type="checkbox">
-    <span>يتطلب تعليقًا أو ردًا قبل فتح الموضوع</span>
-  </label>
-  <small class="soft">عند تفعيل هذا الخيار، لن يظهر محتوى الموضوع للعضو العادي حتى يكتب تعليقًا أو ردًا أولًا. الإدارة والمشرفون يمكنهم الفتح للمراجعة.</small>
-</div>
 <div id="staffCategoryTools" class="staff-category-tools hide">
   <div class="staff-category-head">
     <div><b data-i18n="new_section_publish">🧩 إضافة قسم جديد أثناء النشر</b><span data-i18n="staff_only">متاح للـ Admin والمشرف فقط.</span></div>
