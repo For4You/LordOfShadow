@@ -3634,29 +3634,42 @@ renderCategoryFilterPagerV39=function(cats){
  window.__catRowsV59Bound=true;
  let active=null;
  const getRow=e=>e.target&&e.target.closest?e.target.closest('.cat-filter-row-v59'):null;
+ const getButton=e=>e.target&&e.target.closest?e.target.closest('.cat-filter-row-v59 [data-filter]'):null;
+ const clearSuppress=row=>setTimeout(()=>{if(row&&row.dataset.suppressClickV59)row.dataset.suppressClickV59='';},140);
+ const activateFilter=filter=>{
+  if(!filter)return;
+  state.filter=filter;
+  state.postsPage=1;
+  document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x.dataset.filter===state.filter));
+  renderPosts();
+ };
  document.addEventListener('pointerdown',e=>{
   const row=getRow(e);
   if(!row||e.pointerType==='mouse'&&e.button!==0)return;
-  active={row,pointerId:e.pointerId,startX:e.clientX,scrollLeft:row.scrollLeft,moved:false};
+  active={row,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY,scrollLeft:row.scrollLeft,moved:false,button:getButton(e)};
   row.classList.add('is-dragging-v59');
-  try{row.setPointerCapture(e.pointerId);}catch(_e){}
  });
  document.addEventListener('pointermove',e=>{
   if(!active||active.pointerId!==e.pointerId)return;
-  const dx=e.clientX-active.startX;
-  if(Math.abs(dx)>3){
+  const dx=e.clientX-active.startX,dy=e.clientY-active.startY;
+  if(Math.abs(dx)>4||Math.abs(dy)>6){
    active.moved=true;
    active.row.scrollLeft=active.scrollLeft-dx;
   }
  });
  const finish=e=>{
   if(!active||active.pointerId!==e.pointerId)return;
-  const row=active.row,moved=active.moved;
+  const row=active.row,moved=active.moved,button=active.button;
   row.classList.remove('is-dragging-v59');
-  try{row.releasePointerCapture(e.pointerId);}catch(_e){}
   if(moved){
-   row.dataset.suppressClickV59='1';
-   setTimeout(()=>{if(row.dataset.suppressClickV59==='1')row.dataset.suppressClickV59='';},140);
+   row.dataset.suppressClickV59='drag';
+   clearSuppress(row);
+  }else if(button&&button.dataset.filter){
+   // Treat a true click/tap on the desktop app icon as category selection,
+   // while keeping drag-to-scroll independent for each row.
+   activateFilter(button.dataset.filter);
+   row.dataset.suppressClickV59='tap';
+   clearSuppress(row);
   }
   active=null;
  };
@@ -3664,7 +3677,7 @@ renderCategoryFilterPagerV39=function(cats){
  document.addEventListener('pointercancel',finish);
  document.addEventListener('click',e=>{
   const row=getRow(e);
-  if(row&&row.dataset.suppressClickV59==='1'){
+  if(row&&row.dataset.suppressClickV59){
    e.preventDefault();
    e.stopPropagation();
   }
