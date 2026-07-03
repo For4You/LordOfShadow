@@ -27,6 +27,7 @@
   "url": "./",
   "logo": "./logo.png"
 }
+
 </script>
 <!-- /NexusHub SEO images -->
 
@@ -1618,6 +1619,437 @@ html[dir="ltr"] .message-menu-toggle-v44,html[dir="ltr"] .chat-tools-v10.message
   .cat-filter-row-v59 .tab.active{box-shadow:0 13px 30px rgba(0,0,0,.19),0 0 18px rgba(44,221,255,.15),inset 0 0 0 1px rgba(255,255,255,.07)!important}
   .cat-filter-row-v59 .cat-filter-icon-v39{width:29px!important;height:29px!important;min-width:29px!important;flex:0 0 29px!important;border-radius:11px!important;font-size:14px!important;box-shadow:0 7px 14px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.10)!important}
   .cat-filter-row-v59 .cat-filter-name-v39{font-size:11.6px!important;line-height:1.2!important;font-weight:900!important;max-width:124px!important;letter-spacing:0!important;text-wrap:initial!important;overflow-wrap:break-word!important}
+}
+
+
+
+/* V43 — Lovable-ready scheduled reveal cards for index */
+.resources{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:stretch;
+}
+.reveal-card-v43{
+  --progress:0%;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  min-height:520px;
+  display:flex;
+  flex-direction:column;
+  border:1px solid rgba(255,255,255,.16)!important;
+  border-radius:28px!important;
+  background:
+    radial-gradient(circle at 18% 0%,rgba(53,221,255,.16),transparent 18rem),
+    radial-gradient(circle at 92% 18%,rgba(255,111,180,.14),transparent 18rem),
+    linear-gradient(145deg,rgba(26,31,74,.84),rgba(8,11,31,.92))!important;
+  box-shadow:0 28px 70px rgba(0,0,0,.34),0 0 0 1px rgba(255,255,255,.06),inset 0 1px 0 rgba(255,255,255,.08)!important;
+  transform:translateZ(0);
+}
+.reveal-card-v43::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  z-index:-2;
+  background:conic-gradient(from 170deg,rgba(53,221,255,.0),rgba(53,221,255,.34),rgba(155,108,255,.32),rgba(255,111,180,.28),rgba(53,221,255,.0));
+  opacity:.55;
+  filter:blur(18px);
+}
+.reveal-card-v43::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(120deg,transparent 20%,rgba(255,255,255,.08) 45%,transparent 70%);
+  transform:translateX(130%);
+  transition:transform .8s ease;
+}
+.reveal-card-v43:hover{transform:translateY(-7px);border-color:rgba(83,231,255,.34)!important;box-shadow:0 35px 82px rgba(0,0,0,.42),0 0 38px rgba(53,221,255,.12)!important}
+.reveal-card-v43:hover::after{transform:translateX(-130%)}
+.reveal-cover-v43{
+  position:relative;
+  height:178px;
+  overflow:hidden;
+  border-radius:24px 24px 0 0;
+  background:radial-gradient(circle at 40% 30%,rgba(255,255,255,.16),transparent 11rem),linear-gradient(135deg,#2c1a66,#0ea9cb 48%,#ff6fb4);
+}
+.reveal-cover-v43 img{width:100%;height:100%;display:block;object-fit:cover;filter:saturate(1.08) contrast(1.04)}
+.reveal-cover-v43.no-image{display:grid;place-items:center}
+.reveal-cover-symbol-v43{font-size:62px;text-shadow:0 18px 35px rgba(0,0,0,.34);filter:drop-shadow(0 0 22px rgba(255,255,255,.22))}
+.reveal-cover-v43 .orb-v43{position:absolute;border-radius:999px;filter:blur(2px);opacity:.72}.orb-v43.a{width:120px;height:120px;background:rgba(53,221,255,.34);right:22px;top:16px}.orb-v43.b{width:88px;height:88px;background:rgba(255,220,122,.28);left:28px;bottom:22px}.orb-v43.c{width:66px;height:66px;background:rgba(255,111,180,.34);left:44%;top:52%}
+.reveal-body-v43{position:relative;flex:1;display:flex;flex-direction:column;gap:13px;padding:18px}
+.reveal-meta-v43{display:flex;justify-content:space-between;align-items:center;gap:9px;flex-wrap:wrap}
+.reveal-status-v43,.reveal-date-v43{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:1000;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);backdrop-filter:blur(10px)}
+.reveal-status-v43.locked{color:#b8f5ff;border-color:rgba(53,221,255,.25);background:rgba(53,221,255,.11)}
+.reveal-status-v43.open{color:#bbffdd;border-color:rgba(98,243,191,.28);background:rgba(98,243,191,.12)}
+.reveal-date-v43{color:#e9e4ff}
+.reveal-title-v43{margin:0!important;font-size:22px!important;line-height:1.35!important;text-shadow:0 0 24px rgba(53,221,255,.12)}
+.reveal-desc-v43{margin:0;color:#cdd1ec;font-size:14px;line-height:1.85;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap}
+.reveal-countdown-v43{margin-top:auto;padding:13px;border:1px solid rgba(255,255,255,.12);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.035));box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.reveal-countdown-head-v43{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;color:#aef4ff;font-size:12px;font-weight:1000}
+.reveal-live-dot-v43{width:9px;height:9px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 6px rgba(98,243,191,.08),0 0 17px var(--mint);animation:pulse 1.8s infinite}
+.reveal-time-grid-v43{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.reveal-time-unit-v43{position:relative;overflow:hidden;display:grid;place-items:center;padding:10px 4px;border-radius:15px;background:rgba(5,8,27,.56);border:1px solid rgba(255,255,255,.10)}
+.reveal-time-unit-v43::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.08),transparent);pointer-events:none}
+.reveal-time-unit-v43 strong{font-size:21px;line-height:1;color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 0 18px rgba(53,221,255,.26)}
+.reveal-time-unit-v43 small{margin-top:6px;color:#aeb1d1;font-size:10px;font-weight:900}
+.reveal-progress-v43{height:8px;margin-top:12px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}.reveal-progress-v43 span{display:block;height:100%;width:var(--progress);border-radius:inherit;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));box-shadow:0 0 18px rgba(53,221,255,.42);transition:width .5s ease}
+.reveal-secret-v43{margin-top:auto;border:1px solid rgba(98,243,191,.20);border-radius:20px;padding:14px;background:linear-gradient(145deg,rgba(98,243,191,.10),rgba(255,255,255,.04));animation:pop .26s ease both}
+.reveal-secret-v43 b{display:block;margin-bottom:8px;color:#bdffdf}.reveal-secret-v43 p{margin:0;color:#effff7;line-height:1.9;white-space:pre-wrap;max-height:160px;overflow:auto}
+.reveal-actions-v43{display:flex;gap:9px;flex-wrap:wrap;margin-top:3px}.reveal-actions-v43 .btn{flex:1}.reveal-muted-v43{opacity:.56;pointer-events:none}
+.reveal-card-v43.is-open .reveal-cover-v43{height:150px}.reveal-card-v43.is-open::before{opacity:.72}.reveal-card-v43.full-v34 .reveal-secret-v43{filter:blur(7px);user-select:none}
+.reveal-empty-v43{grid-column:1/-1;padding:26px;text-align:center;color:var(--muted)}
+.reveal-modal-v43 .reveal-modal-hero-v43{display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;align-items:center;margin-bottom:15px}.reveal-modal-cover-v43{width:110px;height:110px;border-radius:28px;display:grid;place-items:center;overflow:hidden;background:conic-gradient(from 120deg,var(--purple),var(--cyan),var(--pink),var(--purple));font-size:44px}.reveal-modal-cover-v43 img{width:100%;height:100%;object-fit:cover}.reveal-modal-v43 h3{margin:0 0 7px;font-size:26px}.reveal-modal-v43 p{line-height:1.9;color:var(--muted)}.reveal-modal-content-v43{padding:17px;border:1px solid rgba(98,243,191,.2);border-radius:18px;background:rgba(98,243,191,.08);white-space:pre-wrap;line-height:2;color:#f3fff9}
+html[data-theme="light"] .reveal-card-v43{background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(240,245,255,.89))!important;color:var(--text)}html[data-theme="light"] .reveal-desc-v43{color:#53607c}html[data-theme="light"] .reveal-time-unit-v43{background:rgba(255,255,255,.70)}html[data-theme="light"] .reveal-time-unit-v43 strong{color:#16213b}html[data-theme="light"] .reveal-secret-v43 p{color:#1d3d33}
+@media(max-width:1080px){.resources{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.resources{grid-template-columns:1fr}.reveal-card-v43{min-height:auto;border-radius:22px!important}.reveal-cover-v43{height:150px}.reveal-body-v43{padding:14px}.reveal-time-grid-v43{gap:6px}.reveal-time-unit-v43 strong{font-size:18px}.reveal-modal-v43 .reveal-modal-hero-v43{grid-template-columns:1fr;text-align:center}.reveal-modal-cover-v43{margin:auto}}
+
+
+/* V44 — fixes for scheduled private cards: compact card, large blocking timer, optional gate */
+#resourcesGrid.resources{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px!important}
+.reveal-card-v43{min-height:255px!important;border-radius:20px!important;box-shadow:0 18px 42px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.08)!important}
+.reveal-card-v43:hover{transform:translateY(-4px)!important;box-shadow:0 22px 54px rgba(0,0,0,.35),0 0 28px rgba(53,221,255,.10)!important}
+.reveal-cover-v43{height:92px!important;border-radius:18px 18px 0 0!important;display:grid;place-items:center}
+.reveal-card-v43.is-open .reveal-cover-v43{height:82px!important}
+.reveal-cover-symbol-v43{font-size:38px!important}.reveal-cover-symbol-v43 img{width:50px;height:50px;border-radius:16px;object-fit:cover;display:block;box-shadow:0 10px 24px rgba(0,0,0,.24)}
+.reveal-cover-v43 .orb-v43{opacity:.42!important}.orb-v43.a{width:76px!important;height:76px!important}.orb-v43.b{width:58px!important;height:58px!important}.orb-v43.c{width:42px!important;height:42px!important}
+.reveal-body-v43{gap:7px!important;padding:12px!important}.reveal-meta-v43{gap:6px!important}.reveal-status-v43,.reveal-date-v43{padding:5px 8px!important;font-size:9.5px!important}.reveal-title-v43{font-size:16px!important;line-height:1.3!important}.reveal-desc-v43{font-size:11.5px!important;line-height:1.55!important;-webkit-line-clamp:2!important}.reveal-actions-v43 .btn{min-height:34px!important;padding:7px 9px!important;font-size:11px!important}
+.reveal-content-preview-v44{margin-top:auto;border:1px dashed rgba(255,255,255,.13);border-radius:14px;padding:9px;background:rgba(0,0,0,.15);color:#dfe2ff;font-size:11.5px;line-height:1.55;min-height:48px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap}.reveal-content-preview-v44.locked{filter:blur(5px);opacity:.55;user-select:none}.reveal-content-preview-v44.ready{border-color:rgba(98,243,191,.24);background:rgba(98,243,191,.08);color:#ecfff6}
+.reveal-blocking-overlay-v44{position:absolute;inset:0;z-index:6;display:grid;place-items:center;padding:13px;background:radial-gradient(circle at 50% 0%,rgba(53,221,255,.18),transparent 16rem),linear-gradient(145deg,rgba(6,8,25,.78),rgba(15,18,48,.90));backdrop-filter:blur(8px) saturate(1.15);text-align:center}.reveal-blocking-overlay-v44::before{content:"";position:absolute;inset:9px;border:1px solid rgba(255,255,255,.13);border-radius:17px;pointer-events:none}.reveal-blocking-inner-v44{position:relative;z-index:1;width:100%;display:grid;gap:10px;justify-items:center}.reveal-overlay-title-v44{display:inline-flex;align-items:center;gap:7px;color:#f8fbff;font-size:13px;font-weight:1000}.reveal-overlay-sub-v44{margin:0;color:#cdd2ef;font-size:11.5px;line-height:1.6;max-width:270px}
+.reveal-big-countdown-v44{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.reveal-big-unit-v44{position:relative;overflow:hidden;border-radius:15px;padding:10px 3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}.reveal-big-unit-v44::after{content:"";position:absolute;inset:auto 8px 0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));border-radius:99px}.reveal-big-unit-v44 strong{display:block;font-size:23px;line-height:1;color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 0 18px rgba(53,221,255,.38)}.reveal-big-unit-v44 small{display:block;margin-top:5px;color:#bfc5e9;font-size:9px;font-weight:900}.reveal-ring-v44{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--cyan) var(--progress),rgba(255,255,255,.11) 0);box-shadow:0 0 0 7px rgba(53,221,255,.06),0 0 24px rgba(53,221,255,.18)}.reveal-ring-v44 span{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:rgba(9,11,31,.88);font-size:22px}.reveal-gate-button-v44{width:min(220px,100%)}.reveal-countdown-v43{display:none!important}
+.reveal-modal-gate-v44{position:relative;overflow:hidden;padding:18px;border:1px solid rgba(255,220,122,.24);border-radius:18px;background:linear-gradient(145deg,rgba(255,220,122,.10),rgba(53,221,255,.06));text-align:center}.reveal-modal-gate-v44 h3{margin:8px 0}.reveal-modal-gate-v44 p{margin:0 0 13px!important;color:var(--muted)!important}.reveal-modal-content-v43.locked{filter:blur(7px);user-select:none;opacity:.55}
+html[data-theme="light"] .reveal-blocking-overlay-v44{background:linear-gradient(145deg,rgba(246,249,255,.82),rgba(220,230,255,.92));color:var(--text)}html[data-theme="light"] .reveal-overlay-title-v44{color:var(--text)}html[data-theme="light"] .reveal-overlay-sub-v44{color:#54607c}html[data-theme="light"] .reveal-content-preview-v44{color:#47536f;background:rgba(255,255,255,.55)}
+@media(max-width:1080px){#resourcesGrid.resources{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){#resourcesGrid.resources{grid-template-columns:1fr}.reveal-card-v43{min-height:248px!important}.reveal-cover-v43{height:84px!important}.reveal-big-countdown-v44{gap:5px}.reveal-big-unit-v44 strong{font-size:20px}.reveal-big-unit-v44 small{font-size:8.5px}}
+
+
+
+/* V45 — VIP compact private cards: uploaded icons instead of emoji fallback */
+#resourcesGrid.resources{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px!important}
+.reveal-card-v43{min-height:230px!important;border-radius:18px!important;background:linear-gradient(145deg,rgba(22,27,66,.88),rgba(8,11,31,.94))!important;border-color:rgba(255,255,255,.14)!important}
+.reveal-card-v43::before{opacity:.42!important;filter:blur(14px)!important}
+.reveal-cover-v43{height:74px!important;border-radius:16px 16px 0 0!important;background:radial-gradient(circle at 50% 10%,rgba(255,211,109,.24),transparent 62%),linear-gradient(135deg,rgba(140,91,255,.82),rgba(44,221,255,.56),rgba(255,98,173,.70))!important}
+.reveal-card-v43.is-open .reveal-cover-v43{height:70px!important}
+.reveal-vip-badge-v45{position:absolute;top:9px;inset-inline-start:9px;z-index:3;display:inline-flex;align-items:center;justify-content:center;height:22px;min-width:43px;padding:0 10px;border-radius:999px;background:linear-gradient(135deg,#ffd36d,#ff8fc9,#8c5bff);color:#071021;font-size:10px;font-weight:1000;letter-spacing:1px;box-shadow:0 10px 20px rgba(255,211,109,.18)}
+.reveal-cover-symbol-v43{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:rgba(5,8,27,.42);border:1px solid rgba(255,255,255,.16);font-size:13px!important;font-weight:1000;letter-spacing:.7px;color:#fff;overflow:hidden;text-shadow:none!important;filter:none!important;box-shadow:0 12px 24px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.10)}
+.reveal-cover-symbol-v43 img,.reveal-ring-icon-v45 img{width:100%!important;height:100%!important;object-fit:cover!important;border-radius:inherit!important;box-shadow:none!important}
+.reveal-body-v43{gap:6px!important;padding:10px!important}.reveal-title-v43{font-size:15px!important}.reveal-desc-v43{font-size:11px!important;line-height:1.48!important;-webkit-line-clamp:2!important}.reveal-status-v43,.reveal-date-v43{font-size:9px!important;padding:4px 7px!important}.reveal-actions-v43 .btn{min-height:31px!important;padding:6px 8px!important;font-size:10.5px!important}
+.reveal-content-preview-v44{min-height:42px!important;font-size:10.8px!important;line-height:1.45!important;padding:8px!important;border-radius:12px!important}
+.reveal-blocking-overlay-v44{padding:10px!important;background:radial-gradient(circle at 50% 0%,rgba(255,211,109,.16),transparent 14rem),linear-gradient(145deg,rgba(5,8,27,.80),rgba(18,20,51,.93))!important}
+.reveal-blocking-overlay-v44::before{inset:7px!important;border-radius:14px!important}.reveal-blocking-inner-v44{gap:8px!important}.reveal-overlay-title-v44{font-size:12px!important}.reveal-overlay-sub-v44{font-size:10.8px!important;line-height:1.45!important;max-width:240px!important}
+.reveal-big-countdown-v44{gap:5px!important}.reveal-big-unit-v44{border-radius:12px!important;padding:8px 2px!important}.reveal-big-unit-v44 strong{font-size:20px!important}.reveal-big-unit-v44 small{font-size:8px!important}.reveal-ring-v44{width:54px!important;height:54px!important}.reveal-ring-v44 span{width:40px!important;height:40px!important;font-size:11px!important;font-weight:1000;color:#fff;overflow:hidden}.reveal-ring-icon-v45{border-radius:50%;display:grid;place-items:center;background:rgba(9,11,31,.88);letter-spacing:.5px}.reveal-gate-button-v44{min-height:34px!important;font-size:11px!important}
+.reveal-modal-cover-v43{font-size:13px!important;font-weight:1000;letter-spacing:.8px}.reveal-modal-cover-v43 .reveal-ring-icon-v45{width:100%;height:100%;border-radius:inherit}
+html[data-theme="light"] .reveal-card-v43{background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(240,245,255,.9))!important}html[data-theme="light"] .reveal-cover-symbol-v43{color:#182039;background:rgba(255,255,255,.58)}html[data-theme="light"] .reveal-blocking-overlay-v44{background:linear-gradient(145deg,rgba(248,250,255,.82),rgba(223,231,255,.94))!important}
+@media(max-width:1180px){#resourcesGrid.resources{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){#resourcesGrid.resources{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){#resourcesGrid.resources{grid-template-columns:1fr}.reveal-card-v43{min-height:220px!important}.reveal-cover-v43{height:72px!important}.reveal-big-unit-v44 strong{font-size:18px!important}}
+
+
+
+/* V46 — enforce 3-member VIP cap on every private card */
+.reveal-winner-count-v46{display:inline-flex;align-items:center;justify-content:center;gap:5px;margin-inline-start:auto;padding:4px 8px;border-radius:999px;border:1px solid rgba(255,211,109,.22);background:rgba(255,211,109,.09);color:#ffe6a6;font-size:9px;font-weight:1000;white-space:nowrap}
+.reveal-card-v43.is-full-v46 .reveal-content-preview-v44{filter:blur(6px)!important;opacity:.46!important;user-select:none!important}
+.reveal-full-note-v46{display:inline-flex;align-items:center;justify-content:center;min-height:25px;padding:5px 9px;border-radius:999px;border:1px solid rgba(255,113,128,.24);background:rgba(255,113,128,.10);color:#ffd4d9;font-size:10px;font-weight:1000}
+.reveal-modal-winners-v46{margin-top:9px;display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,211,109,.24);background:rgba(255,211,109,.09);color:#ffe8ad;font-size:12px;font-weight:1000}
+html[data-theme='light'] .reveal-winner-count-v46{background:rgba(164,106,8,.10);color:#8d5c07;border-color:rgba(164,106,8,.18)}
+html[data-theme='light'] .reveal-full-note-v46{background:rgba(207,64,82,.10);color:#9b2736;border-color:rgba(207,64,82,.18)}
+
+
+
+/* V48 — screenshot-style VIP private cards, icons only, mobile dimensions improved */
+#resourcesGrid.resources{
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr))!important;
+  gap:16px!important;
+}
+.reveal-card-v43.reveal-vip-card-v48{
+  min-height:360px!important;
+  padding:18px!important;
+  border-radius:34px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+  border:1px solid rgba(255,211,109,.20)!important;
+  background:
+    radial-gradient(circle at 7% 2%,rgba(93,128,159,.34),transparent 17rem),
+    radial-gradient(circle at 95% 3%,rgba(73,231,255,.08),transparent 15rem),
+    linear-gradient(145deg,rgba(34,42,67,.92) 0%,rgba(16,18,52,.96) 42%,rgba(14,19,50,.98) 100%)!important;
+  box-shadow:0 25px 72px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.08),0 0 0 1px rgba(255,211,109,.07)!important;
+}
+.reveal-card-v43.reveal-vip-card-v48::before{
+  opacity:.22!important;
+  filter:blur(20px)!important;
+  background:radial-gradient(circle at 0% 0%,rgba(255,211,109,.32),transparent 15rem),radial-gradient(circle at 100% 0%,rgba(73,231,255,.20),transparent 13rem)!important;
+}
+.reveal-card-v43.reveal-vip-card-v48::after{
+  display:none!important;
+}
+.reveal-card-v43.reveal-vip-card-v48:hover{
+  transform:translateY(-4px)!important;
+  border-color:rgba(255,211,109,.34)!important;
+  box-shadow:0 31px 82px rgba(0,0,0,.40),0 0 28px rgba(255,211,109,.10)!important;
+}
+.reveal-vip-head-v48{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:20px;
+  min-height:34px;
+}
+.reveal-vip-card-v48 .reveal-vip-badge-v45{
+  position:static!important;
+  inset:auto!important;
+  height:33px!important;
+  min-width:58px!important;
+  padding:0 15px!important;
+  border-radius:999px!important;
+  background:linear-gradient(135deg,#ffe188 0%,#ffbb42 48%,#ff7da9 100%)!important;
+  color:#1b1206!important;
+  font-size:15px!important;
+  line-height:1!important;
+  font-weight:1000!important;
+  letter-spacing:.07em!important;
+  box-shadow:0 16px 30px rgba(255,187,66,.20)!important;
+}
+.reveal-private-chip-v48{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  min-height:31px;
+  padding:5px 10px;
+  border:1px solid rgba(73,231,255,.24);
+  border-radius:999px;
+  background:linear-gradient(145deg,rgba(73,231,255,.14),rgba(140,91,255,.10));
+  color:#dff8ff;
+  font-size:12px;
+  font-weight:900;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 20px rgba(0,0,0,.12);
+}
+.reveal-private-chip-v48 .reveal-ring-icon-v45,
+.reveal-card-icon-v48 .reveal-ring-icon-v45{
+  width:22px!important;
+  height:22px!important;
+  min-width:22px!important;
+  border-radius:8px!important;
+  display:grid!important;
+  place-items:center!important;
+  overflow:hidden!important;
+  background:rgba(7,10,30,.64)!important;
+  border:1px solid rgba(255,255,255,.13)!important;
+  color:#fff!important;
+  font-size:9px!important;
+  font-weight:1000!important;
+  letter-spacing:.04em!important;
+}
+.reveal-private-chip-v48 .reveal-ring-icon-v45 img,
+.reveal-card-icon-v48 .reveal-ring-icon-v45 img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  border-radius:inherit!important;
+}
+.reveal-card-main-v48{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+.reveal-title-row-v48{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:start;
+  gap:12px;
+  margin-bottom:10px;
+}
+.reveal-title-copy-v48{min-width:0;}
+.reveal-vip-card-v48 .reveal-title-v43{
+  margin:0 0 8px!important;
+  color:#fff!important;
+  font-size:clamp(22px,3.2vw,31px)!important;
+  line-height:1.12!important;
+  letter-spacing:-.5px!important;
+  text-shadow:0 12px 28px rgba(0,0,0,.25)!important;
+}
+.reveal-vip-card-v48 .reveal-desc-v43{
+  margin:0!important;
+  color:#c6c8e2!important;
+  font-size:15px!important;
+  line-height:1.6!important;
+  -webkit-line-clamp:2!important;
+}
+.reveal-card-icon-v48{
+  width:44px;
+  height:44px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.12);
+  background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.04));
+  box-shadow:0 14px 28px rgba(0,0,0,.18);
+  overflow:hidden;
+}
+.reveal-winners-line-v48{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:8px;
+  flex-wrap:wrap;
+  color:#ffe7a6;
+  font-size:14px;
+  font-weight:1000;
+  margin:2px 0 17px;
+}
+.reveal-winners-line-v48 .reveal-winner-count-v46{
+  margin-inline-start:0!important;
+  min-height:24px!important;
+  padding:5px 9px!important;
+  font-size:13px!important;
+  color:#ffe9a9!important;
+  background:transparent!important;
+  border-color:rgba(255,211,109,.18)!important;
+}
+.reveal-panel-v48{
+  width:100%;
+  min-height:65px;
+  display:grid;
+  place-items:center;
+  margin-top:2px;
+  padding:10px 12px;
+  border:1px solid rgba(255,211,109,.18);
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.028));
+  color:#f7f8ff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+  overflow:hidden;
+}
+.reveal-panel-v48.is-preview{
+  align-items:start;
+  justify-items:start;
+  white-space:pre-wrap;
+  line-height:1.75;
+  font-size:13px;
+  color:#eef3ff;
+  max-height:118px;
+  overflow:auto;
+}
+.reveal-panel-v48.is-locked{
+  color:#cfd3ef;
+  user-select:none;
+}
+.reveal-panel-v48.is-locked .reveal-locked-text-v48{
+  opacity:.38;
+  filter:blur(3px);
+  letter-spacing:.18em;
+}
+.reveal-panel-v48.is-countdown{
+  min-height:122px;
+  padding:12px;
+  place-items:stretch;
+}
+.reveal-countdown-title-v48{
+  text-align:center;
+  color:#eaf8ff;
+  font-weight:1000;
+  font-size:13px;
+  margin-bottom:8px;
+}
+.reveal-vip-card-v48 .reveal-big-countdown-v44{
+  width:100%;
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:7px!important;
+}
+.reveal-vip-card-v48 .reveal-big-unit-v44{
+  border-radius:14px!important;
+  padding:9px 3px!important;
+  background:rgba(4,7,24,.38)!important;
+  border-color:rgba(255,255,255,.12)!important;
+}
+.reveal-vip-card-v48 .reveal-big-unit-v44 strong{
+  font-size:21px!important;
+  color:#fff!important;
+}
+.reveal-vip-card-v48 .reveal-big-unit-v44 small{
+  font-size:8.5px!important;
+  color:#bdc2e5!important;
+}
+.reveal-vip-card-v48 .reveal-ring-v44{display:none!important;}
+.reveal-vip-status-v48{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:max-content;
+  max-width:100%;
+  margin:10px 0 0;
+  padding:5px 9px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.11);
+  background:rgba(255,255,255,.055);
+  color:#d9ddf6;
+  font-size:11px;
+  font-weight:900;
+}
+.reveal-vip-status-v48.open{color:#bbffdd;border-color:rgba(98,243,191,.25);background:rgba(98,243,191,.09)}
+.reveal-vip-status-v48.full{color:#ffd4d9;border-color:rgba(255,113,128,.25);background:rgba(255,113,128,.09)}
+.reveal-vip-card-v48 .reveal-actions-v43{
+  margin-top:auto!important;
+  padding-top:18px!important;
+  display:flex!important;
+  justify-content:flex-start!important;
+}
+.reveal-vip-card-v48 .reveal-actions-v43 .btn{
+  flex:0 0 auto!important;
+  min-height:64px!important;
+  padding:0 20px!important;
+  border-radius:14px!important;
+  font-size:17px!important;
+  font-weight:1000!important;
+  background:linear-gradient(135deg,#2bd7ff 0%,#4c7cff 100%)!important;
+  box-shadow:0 16px 34px rgba(44,150,255,.24)!important;
+}
+.reveal-vip-card-v48 .reveal-actions-v43 .reveal-gate-button-v44{
+  width:auto!important;
+}
+.reveal-card-v43.reveal-vip-card-v48.full-v34 .reveal-panel-v48,
+.reveal-card-v43.reveal-vip-card-v48.is-full-v46 .reveal-panel-v48{
+  filter:none!important;
+  opacity:1!important;
+}
+.reveal-vip-card-v48 .reveal-blocking-overlay-v44{display:none!important;}
+html[data-theme='light'] .reveal-card-v43.reveal-vip-card-v48{
+  background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(231,237,255,.92))!important;
+  color:var(--text)!important;
+}
+html[data-theme='light'] .reveal-vip-card-v48 .reveal-title-v43{color:#17203a!important;text-shadow:none!important}
+html[data-theme='light'] .reveal-vip-card-v48 .reveal-desc-v43{color:#59657f!important}
+html[data-theme='light'] .reveal-panel-v48{background:rgba(255,255,255,.66);color:#17203a;border-color:rgba(164,106,8,.18)}
+html[data-theme='light'] .reveal-private-chip-v48{color:#0c6075;background:rgba(12,159,192,.10)}
+@media(max-width:900px){
+  #resourcesGrid.resources{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+  .reveal-card-v43.reveal-vip-card-v48{min-height:330px!important;border-radius:28px!important;padding:15px!important}
+  .reveal-vip-card-v48 .reveal-title-v43{font-size:24px!important}
+  .reveal-vip-card-v48 .reveal-actions-v43 .btn{min-height:50px!important;font-size:15px!important}
+}
+@media(max-width:560px){
+  #resourcesGrid.resources{grid-template-columns:1fr!important;gap:11px!important}
+  .reveal-card-v43.reveal-vip-card-v48{min-height:305px!important;border-radius:24px!important;padding:14px!important}
+  .reveal-vip-head-v48{margin-bottom:14px;gap:8px}
+  .reveal-vip-card-v48 .reveal-vip-badge-v45{height:28px!important;min-width:51px!important;font-size:13px!important;padding:0 12px!important}
+  .reveal-private-chip-v48{min-height:28px;padding:4px 8px;font-size:11px}
+  .reveal-title-row-v48{grid-template-columns:1fr auto;gap:8px;margin-bottom:7px}
+  .reveal-card-icon-v48{width:36px;height:36px;border-radius:12px}
+  .reveal-card-icon-v48 .reveal-ring-icon-v45{width:100%!important;height:100%!important;border-radius:12px!important}
+  .reveal-vip-card-v48 .reveal-title-v43{font-size:22px!important;line-height:1.18!important;margin-bottom:6px!important}
+  .reveal-vip-card-v48 .reveal-desc-v43{font-size:13px!important;line-height:1.45!important}
+  .reveal-winners-line-v48{font-size:12px;margin-bottom:12px}.reveal-winners-line-v48 .reveal-winner-count-v46{font-size:12px!important}
+  .reveal-panel-v48{min-height:56px;border-radius:16px;padding:9px 10px}.reveal-panel-v48.is-countdown{min-height:105px;padding:10px}
+  .reveal-vip-card-v48 .reveal-big-countdown-v44{gap:5px!important}.reveal-vip-card-v48 .reveal-big-unit-v44{border-radius:11px!important;padding:7px 2px!important}.reveal-vip-card-v48 .reveal-big-unit-v44 strong{font-size:18px!important}.reveal-vip-card-v48 .reveal-big-unit-v44 small{font-size:7.5px!important}
+  .reveal-vip-status-v48{font-size:10px;margin-top:8px}
+  .reveal-vip-card-v48 .reveal-actions-v43{padding-top:13px!important}.reveal-vip-card-v48 .reveal-actions-v43 .btn{width:auto!important;min-height:44px!important;padding:0 15px!important;font-size:14px!important;border-radius:13px!important}
+}
+@media(max-width:380px){
+  .reveal-card-v43.reveal-vip-card-v48{padding:12px!important;border-radius:21px!important;min-height:292px!important}
+  .reveal-vip-card-v48 .reveal-title-v43{font-size:20px!important}
+  .reveal-panel-v48.is-countdown{min-height:98px}.reveal-vip-card-v48 .reveal-big-unit-v44 strong{font-size:16px!important}.reveal-vip-card-v48 .reveal-big-unit-v44 small{font-size:7px!important}
 }
 
 </style>
@@ -3692,6 +4124,301 @@ onAuthStateChanged(auth,async user=>{
  renderHeader();renderProfileWidget();renderMembers();renderResources();renderChat();renderModerationBanner();
  if(user&&state.pendingAction){const act=state.pendingAction;state.pendingAction=null;setTimeout(act,100);}
 });
+
+
+
+/* V43 — scheduled reveal cards override for the existing private cards section */
+function revealMsV43(card={}){
+  const raw=card.revealAt??card.reveal_at??card.revealAtMs??card.reveal_at_ms;
+  if(raw===undefined||raw===null||raw==='')return Number(card.createdAt||0)||0;
+  if(typeof raw==='number')return raw;
+  const parsed=Date.parse(raw);
+  return Number.isFinite(parsed)?parsed:Number(raw)||0;
+}
+function isActiveRevealCardV43(card={}){return card.isActive!==false&&card.is_active!==false;}
+function isOpenRevealCardV43(card={}){return Date.now()>=revealMsV43(card);}
+function revealPadV43(v){return String(Math.max(0,Number(v)||0)).padStart(2,'0');}
+function remainingRevealPartsV43(card={}){const diff=Math.max(0,revealMsV43(card)-Date.now());const s=Math.floor(diff/1000);return{diff,days:Math.floor(s/86400),hours:Math.floor((s%86400)/3600),minutes:Math.floor((s%3600)/60),seconds:s%60};}
+function revealDateTextV43(ms){try{return new Intl.DateTimeFormat(state.language==='en'?'en-US':state.language==='fr'?'fr-FR':'ar-DZ',{dateStyle:'medium',timeStyle:'short'}).format(new Date(Number(ms)||Date.now()));}catch{return new Date(Number(ms)||Date.now()).toLocaleString('ar-DZ');}}
+function revealSecretV43(cardOrId){const id=typeof cardOrId==='object'?cardOrId.id:cardOrId;const card=typeof cardOrId==='object'?cardOrId:state.resources.find(x=>x.id===id);return state.secrets?.[id]?.content||card?.revealContent||card?.reveal_content||'';}
+function revealCountdownHTMLV43(card){
+  const p=remainingRevealPartsV43(card),windowMs=1000*60*60*48,progress=Math.max(0,Math.min(100,100-(p.diff/windowMs)*100));
+  return `<div class="reveal-countdown-v43" style="--progress:${progress}%"><div class="reveal-countdown-head-v43"><span>سيتم الكشف بعد</span><span class="reveal-live-dot-v43" aria-hidden="true"></span></div><div class="reveal-time-grid-v43"><span class="reveal-time-unit-v43"><strong>${revealPadV43(p.days)}</strong><small>أيام</small></span><span class="reveal-time-unit-v43"><strong>${revealPadV43(p.hours)}</strong><small>ساعات</small></span><span class="reveal-time-unit-v43"><strong>${revealPadV43(p.minutes)}</strong><small>دقائق</small></span><span class="reveal-time-unit-v43"><strong>${revealPadV43(p.seconds)}</strong><small>ثواني</small></span></div><div class="reveal-progress-v43"><span></span></div></div>`;
+}
+function revealCoverHTMLV43(card){const img=String(card.coverImageUrl||card.cover_image_url||'').trim();return `<div class="reveal-cover-v43 ${img?'':'no-image'}">${img?`<img src="${esc(img)}" alt="${esc(card.title||'بطاقة خاصة')}" loading="lazy">`:`<span class="orb-v43 a"></span><span class="orb-v43 b"></span><span class="orb-v43 c"></span><span class="reveal-cover-symbol-v43">${esc(card.icon||'✦')}</span>`}</div>`;}
+function revealCardHTMLV43(card,opts={}){
+  const open=isOpenRevealCardV43(card),ms=revealMsV43(card),secret=revealSecretV43(card),winners=typeof resourceWinnerListV34==='function'?resourceWinnerListV34(card.id):[],full=typeof resourceFullV34==='function'?resourceFullV34(card.id):false;
+  return `<article class="reveal-card-v43 ${open?'is-open':'is-locked'} ${full?'full-v34':''}" data-reveal-card="${esc(card.id)}">${revealCoverHTMLV43(card)}<div class="reveal-body-v43"><div class="reveal-meta-v43"><span class="reveal-status-v43 ${open?'open':'locked'}">${open?'تم فتح البطاقة':'مغلقة الآن'}</span><span class="reveal-date-v43">${esc(revealDateTextV43(ms))}</span></div><h3 class="reveal-title-v43">${esc(card.title||'بطاقة خاصة')}</h3><p class="reveal-desc-v43">${esc(card.description||card.public_description||'')}</p>${open?`<div class="reveal-secret-v43"><b>المحتوى الخاص</b><p>${esc(secret||'لا يوجد محتوى بعد.')}</p></div>`:revealCountdownHTMLV43(card)}${full?`<div class="resource-full-overlay-v34"><div><b>🏁 ${typeof v34Text==='function'?v34Text('winnersFull'):'اكتمل العدد'}</b><span>${typeof v34Text==='function'?v34Text('winnersWait'):'هذه البطاقة غير متاحة حالياً.'}</span></div></div>`:''}<div class="reveal-actions-v43"><button class="btn small cyan" data-resource="${esc(card.id)}">${open?'عرض المحتوى':'عرض التفاصيل'}</button></div></div></article>`;
+}
+renderResources = function(){
+  const grid=$('resourcesGrid');if(!grid)return;
+  const cards=state.resources.filter(isActiveRevealCardV43).sort((a,b)=>(Number(a.order||a.createdAt||0)-Number(b.order||b.createdAt||0)));
+  grid.innerHTML=cards.length?cards.map(r=>revealCardHTMLV43(r)).join(''):`<div class="glass empty reveal-empty-v43">لا توجد بطاقات خاصة حالياً. يضيفها المسؤول من لوحة التحكم.</div>`;
+  grid.querySelectorAll('[data-resource]').forEach(b=>b.onclick=()=>openResource(b.dataset.resource));
+};
+openResource = function(id){
+  const r=state.resources.find(x=>x.id===id);if(!r)return;
+  const open=isOpenRevealCardV43(r),cover=String(r.coverImageUrl||r.cover_image_url||'').trim();
+  $('categoryModalTitle').textContent=`${r.icon||'🔐'} ${r.title||'بطاقة خاصة'}`;
+  $('categoryModalBody').innerHTML=`<div class="reveal-modal-v43"><div class="reveal-modal-hero-v43"><div class="reveal-modal-cover-v43">${cover?`<img src="${esc(cover)}" alt="">`:esc(r.icon||'🔐')}</div><div><h3>${esc(r.title||'بطاقة خاصة')}</h3><p>${esc(r.description||'')}</p><span class="reveal-status-v43 ${open?'open':'locked'}">${open?'تم فتح البطاقة':'سيتم الكشف بعد'}</span></div></div>${open?`<div class="reveal-modal-content-v43">${esc(revealSecretV43(r)||'لا يوجد محتوى بعد.')}</div>`:revealCountdownHTMLV43(r)}</div>`;
+  modal('categoryModal');
+};
+clearInterval(window.__revealCardsTimerV43);
+window.__revealCardsTimerV43=setInterval(()=>{try{renderResources();if($('categoryModal')?.classList.contains('show')){const id=document.querySelector('#resourcesGrid [data-resource]')?.dataset?.resource;if(id){/* keep modal stable; cards update live */}}}catch{}},1000);
+try{
+  if(!window.__revealSecretsBoundV43){
+    window.__revealSecretsBoundV43=true;
+    onValue(dbref('resourceSecrets'),s=>{state.secrets=s.val()||{};renderResources();},()=>{});
+  }
+  renderResources();
+}catch{}
+
+
+
+/* V44 — fixed scheduled reveal behavior: timer blocks first, then optional member conditions */
+function revealImageSafeV44(value=''){
+  const src=String(value||'').trim();
+  return /^data:image\/(png|jpe?g|webp|gif);base64,[a-z0-9+/=]+$/i.test(src)||/^https?:\/\/[^\s"'<>]+$/i.test(src)?src:'';
+}
+function revealGateEnabledV44(card={}){return card.requireUnlock!==false&&card.disableGate!==true&&card.gateDisabled!==true&&card.blockContent!==false;}
+function revealIconHTMLV44(card={}){const src=revealImageSafeV44(card.iconImage||card.iconUrl||'');return src?`<img src="${esc(src)}" alt="" loading="lazy">`:esc(card.icon||'🔐');}
+revealCoverHTMLV43=function(card){const img=String(card.coverImageUrl||card.cover_image_url||'').trim();const safeCover=revealImageSafeV44(img);return `<div class="reveal-cover-v43 ${safeCover?'':'no-image'}">${safeCover?`<img src="${esc(safeCover)}" alt="${esc(card.title||'بطاقة خاصة')}" loading="lazy">`:`<span class="orb-v43 a"></span><span class="orb-v43 b"></span><span class="orb-v43 c"></span><span class="reveal-cover-symbol-v43">${revealIconHTMLV44(card)}</span>`}</div>`;};
+function revealIsWinnerV44(card={}){const winners=typeof resourceWinnerListV34==='function'?resourceWinnerListV34(card.id):[];return !!(state.user&&winners.includes(state.user.uid));}
+function revealIsFullV44(card={}){return revealGateEnabledV44(card)&&typeof resourceFullV34==='function'&&resourceFullV34(card.id);}
+function revealCanViewContentV44(card={}){if(!isOpenRevealCardV43(card))return false;if(!revealGateEnabledV44(card))return true;if(revealIsFullV44(card))return false;return !!(state.user&&(isStaff()||(canReadCommunityV27()&&!!state.unlock?.unlockedAt&&revealIsWinnerV44(card))));}
+function revealBigCountdownHTMLV44(card){const p=remainingRevealPartsV43(card),windowMs=1000*60*60*48,progress=Math.max(0,Math.min(100,100-(p.diff/windowMs)*100));return `<div class="reveal-ring-v44" style="--progress:${progress}%"><span>🔒</span></div><div class="reveal-big-countdown-v44"><span class="reveal-big-unit-v44"><strong>${revealPadV43(p.days)}</strong><small>أيام</small></span><span class="reveal-big-unit-v44"><strong>${revealPadV43(p.hours)}</strong><small>ساعات</small></span><span class="reveal-big-unit-v44"><strong>${revealPadV43(p.minutes)}</strong><small>دقائق</small></span><span class="reveal-big-unit-v44"><strong>${revealPadV43(p.seconds)}</strong><small>ثواني</small></span></div>`;}
+function revealOverlayHTMLV44(card){
+  const open=isOpenRevealCardV43(card),full=revealIsFullV44(card),gate=revealGateEnabledV44(card);
+  if(!open)return `<div class="reveal-blocking-overlay-v44"><div class="reveal-blocking-inner-v44"><div class="reveal-overlay-title-v44">⏳ سيتم الكشف بعد</div>${revealBigCountdownHTMLV44(card)}<p class="reveal-overlay-sub-v44">المحتوى محجوب بالكامل حتى انتهاء العداد.</p></div></div>`;
+  if(full)return `<div class="reveal-blocking-overlay-v44"><div class="reveal-blocking-inner-v44"><div class="reveal-ring-v44"><span>🏁</span></div><div class="reveal-overlay-title-v44">${typeof v34Text==='function'?v34Text('winnersFull'):'اكتمل العدد'}</div><p class="reveal-overlay-sub-v44">${typeof v34Text==='function'?v34Text('winnersWait'):'هذه البطاقة غير متاحة حالياً.'}</p></div></div>`;
+  if(gate&&!revealCanViewContentV44(card))return `<div class="reveal-blocking-overlay-v44"><div class="reveal-blocking-inner-v44"><div class="reveal-ring-v44" style="--progress:100%"><span>✅</span></div><div class="reveal-overlay-title-v44">اكتمل العداد</div><p class="reveal-overlay-sub-v44">لرؤية المحتوى يجب أن يتخطى العضو شروط الوصول التي وضعتها مسبقاً.</p><button class="btn small primary reveal-gate-button-v44" data-unlock-resource="${esc(card.id)}">تخطي الشروط وفتح المحتوى</button></div></div>`;
+  return '';
+}
+revealCardHTMLV43=function(card,opts={}){
+  const open=isOpenRevealCardV43(card),canView=revealCanViewContentV44(card),gate=revealGateEnabledV44(card),secret=revealSecretV43(card),status=!open?'مغلقة الآن':canView?'جاهزة للعرض':gate?'بانتظار الشروط':'تم فتح البطاقة';
+  const preview=canView?(secret||'لا يوجد محتوى بعد.'):'████████████████████████\n██████████████████';
+  return `<article class="reveal-card-v43 ${open?'is-open':'is-locked'} ${canView?'can-view-v44':''} ${revealIsFullV44(card)?'full-v34':''}" data-reveal-card="${esc(card.id)}">${revealCoverHTMLV43(card)}<div class="reveal-body-v43"><div class="reveal-meta-v43"><span class="reveal-status-v43 ${canView?'open':'locked'}">${status}</span><span class="reveal-date-v43">${esc(revealDateTextV43(revealMsV43(card)))}</span></div><h3 class="reveal-title-v43">${esc(card.title||'بطاقة خاصة')}</h3><p class="reveal-desc-v43">${esc(card.description||card.public_description||'')}</p><div class="reveal-content-preview-v44 ${canView?'ready':'locked'}">${esc(preview)}</div><div class="reveal-actions-v43"><button class="btn small cyan" data-resource="${esc(card.id)}">${canView?'عرض المحتوى':'عرض التفاصيل'}</button></div></div>${revealOverlayHTMLV44(card)}</article>`;
+};
+async function revealUnlockResourceV44(id){
+  const card=state.resources.find(x=>x.id===id);if(!card)return;
+  if(!canReadCommunityV27()){promptAccessV27();return;}
+  if(state.unlock?.unlockedAt){
+    if(typeof claimResourceWinnerV34==='function')await claimResourceWinnerV34(id);
+    toast('تم فتح البطاقة الخاصة.','success');
+    renderResources();
+    setTimeout(()=>openResource(id),120);
+    return;
+  }
+  state.pendingUnlockResourceV34=id;
+  openUnlock();
+}
+renderResources=function(){
+  const grid=$('resourcesGrid');if(!grid)return;
+  const cards=state.resources.filter(isActiveRevealCardV43).sort((a,b)=>(Number(a.order||a.createdAt||0)-Number(b.order||b.createdAt||0)));
+  grid.innerHTML=cards.length?cards.map(r=>revealCardHTMLV43(r)).join(''):`<div class="glass empty reveal-empty-v43">لا توجد بطاقات خاصة حالياً. يضيفها المسؤول من لوحة التحكم.</div>`;
+  grid.querySelectorAll('[data-resource]').forEach(b=>b.onclick=()=>openResource(b.dataset.resource));
+  grid.querySelectorAll('[data-unlock-resource]').forEach(b=>b.onclick=()=>revealUnlockResourceV44(b.dataset.unlockResource));
+};
+openResource=function(id){
+  const r=state.resources.find(x=>x.id===id);if(!r)return;
+  const open=isOpenRevealCardV43(r),canView=revealCanViewContentV44(r),cover=String(r.coverImageUrl||r.cover_image_url||'').trim(),safeCover=revealImageSafeV44(cover),gate=revealGateEnabledV44(r),full=revealIsFullV44(r);
+  $('categoryModalTitle').textContent=`${r.icon||'🔐'} ${r.title||'بطاقة خاصة'}`;
+  const heroIcon=safeCover?`<img src="${esc(safeCover)}" alt="">`:revealIconHTMLV44(r);
+  let body='';
+  if(!open){body=`<div class="reveal-modal-gate-v44"><div class="reveal-overlay-title-v44">⏳ المحتوى محجوب حتى انتهاء العداد</div>${revealBigCountdownHTMLV44(r)}<p>سيظهر خيار الفتح بعد اكتمال المؤقت.</p></div>`;}
+  else if(full){body=`<div class="reveal-modal-gate-v44"><h3>🏁 ${typeof v34Text==='function'?v34Text('winnersFull'):'اكتمل العدد'}</h3><p>${typeof v34Text==='function'?v34Text('winnersWait'):'هذه البطاقة غير متاحة حالياً.'}</p></div>`;}
+  else if(gate&&!canView){body=`<div class="reveal-modal-gate-v44"><h3>✅ اكتمل العداد</h3><p>بقيت خطوة الشروط الخاصة بالبطاقات. بعد إكمالها ستتمكن من رؤية المحتوى هنا.</p><button class="btn primary reveal-gate-button-v44" data-unlock-resource="${esc(r.id)}">تخطي الشروط وفتح المحتوى</button></div><div class="reveal-modal-content-v43 locked">████████████████████████\n██████████████████</div>`;}
+  else{body=`<div class="reveal-modal-content-v43">${esc(revealSecretV43(r)||'لا يوجد محتوى بعد.')}</div>`;}
+  $('categoryModalBody').innerHTML=`<div class="reveal-modal-v43"><div class="reveal-modal-hero-v43"><div class="reveal-modal-cover-v43">${heroIcon}</div><div><h3>${esc(r.title||'بطاقة خاصة')}</h3><p>${esc(r.description||'')}</p><span class="reveal-status-v43 ${canView?'open':'locked'}">${!open?'سيتم الكشف بعد':canView?'تم فتح البطاقة':'بانتظار الشروط'}</span></div></div>${body}</div>`;
+  $('categoryModalBody').querySelectorAll('[data-unlock-resource]').forEach(b=>b.onclick=()=>revealUnlockResourceV44(b.dataset.unlockResource));
+  modal('categoryModal');
+};
+try{renderResources();}catch{}
+
+
+
+/* V45 — VIP card rendering: uploaded icons only, no emoji placeholders */
+function revealTextIconV45(value=''){
+  const text=String(value||'').replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,'').trim();
+  return text?text.slice(0,8):'VIP';
+}
+function revealIconContentV45(card={}){
+  const src=revealImageSafeV44(card.iconImage||card.iconUrl||'');
+  if(src)return `<span class="reveal-ring-icon-v45"><img src="${esc(src)}" alt="" loading="lazy"></span>`;
+  return `<span class="reveal-ring-icon-v45">${esc(revealTextIconV45(card.icon||'VIP'))}</span>`;
+}
+revealIconHTMLV44=function(card={}){return revealIconContentV45(card);};
+revealCoverHTMLV43=function(card){
+  const img=String(card.coverImageUrl||card.cover_image_url||'').trim();
+  const safeCover=revealImageSafeV44(img);
+  return `<div class="reveal-cover-v43 ${safeCover?'':'no-image'}"><span class="reveal-vip-badge-v45">VIP</span>${safeCover?`<img src="${esc(safeCover)}" alt="${esc(card.title||'بطاقة خاصة')}" loading="lazy">`:`<span class="orb-v43 a"></span><span class="orb-v43 b"></span><span class="orb-v43 c"></span><span class="reveal-cover-symbol-v43">${revealIconContentV45(card)}</span>`}</div>`;
+};
+revealBigCountdownHTMLV44=function(card){
+  const p=remainingRevealPartsV43(card),windowMs=1000*60*60*48,progress=Math.max(0,Math.min(100,100-(p.diff/windowMs)*100));
+  return `<div class="reveal-ring-v44" style="--progress:${progress}%"><span>${revealIconContentV45(card)}</span></div><div class="reveal-big-countdown-v44"><span class="reveal-big-unit-v44"><strong>${revealPadV43(p.days)}</strong><small>أيام</small></span><span class="reveal-big-unit-v44"><strong>${revealPadV43(p.hours)}</strong><small>ساعات</small></span><span class="reveal-big-unit-v44"><strong>${revealPadV43(p.minutes)}</strong><small>دقائق</small></span><span class="reveal-big-unit-v44"><strong>${revealPadV43(p.seconds)}</strong><small>ثواني</small></span></div>`;
+};
+revealOverlayHTMLV44=function(card){
+  const open=isOpenRevealCardV43(card),full=revealIsFullV44(card),gate=revealGateEnabledV44(card);
+  if(!open)return `<div class="reveal-blocking-overlay-v44"><div class="reveal-blocking-inner-v44"><div class="reveal-overlay-title-v44">سيتم الكشف بعد</div>${revealBigCountdownHTMLV44(card)}<p class="reveal-overlay-sub-v44">المحتوى محجوب بالكامل حتى انتهاء العداد.</p></div></div>`;
+  if(full)return `<div class="reveal-blocking-overlay-v44"><div class="reveal-blocking-inner-v44"><div class="reveal-ring-v44" style="--progress:100%"><span>${revealIconContentV45(card)}</span></div><div class="reveal-overlay-title-v44">${typeof v34Text==='function'?v34Text('winnersFull'):'اكتمل العدد'}</div><p class="reveal-overlay-sub-v44">${typeof v34Text==='function'?v34Text('winnersWait'):'هذه البطاقة غير متاحة حالياً.'}</p></div></div>`;
+  if(gate&&!revealCanViewContentV44(card))return `<div class="reveal-blocking-overlay-v44"><div class="reveal-blocking-inner-v44"><div class="reveal-ring-v44" style="--progress:100%"><span>${revealIconContentV45(card)}</span></div><div class="reveal-overlay-title-v44">اكتمل العداد</div><p class="reveal-overlay-sub-v44">لرؤية المحتوى يجب أن يتخطى العضو شروط الوصول التي وضعتها مسبقاً.</p><button class="btn small primary reveal-gate-button-v44" data-unlock-resource="${esc(card.id)}">تخطي الشروط وفتح المحتوى</button></div></div>`;
+  return '';
+};
+revealCardHTMLV43=function(card,opts={}){
+  const open=isOpenRevealCardV43(card),canView=revealCanViewContentV44(card),gate=revealGateEnabledV44(card),secret=revealSecretV43(card),status=!open?'مغلقة الآن':canView?'جاهزة للعرض':gate?'بانتظار الشروط':'تم فتح البطاقة';
+  const preview=canView?(secret||'لا يوجد محتوى بعد.'):'████████████████████████\n██████████████████';
+  return `<article class="reveal-card-v43 ${open?'is-open':'is-locked'} ${canView?'can-view-v44':''} ${revealIsFullV44(card)?'full-v34':''}" data-reveal-card="${esc(card.id)}">${revealCoverHTMLV43(card)}<div class="reveal-body-v43"><div class="reveal-meta-v43"><span class="reveal-status-v43 ${canView?'open':'locked'}">${status}</span><span class="reveal-date-v43">${esc(revealDateTextV43(revealMsV43(card)))}</span></div><h3 class="reveal-title-v43">${esc(card.title||'بطاقة خاصة')}</h3><p class="reveal-desc-v43">${esc(card.description||card.public_description||'')}</p><div class="reveal-content-preview-v44 ${canView?'ready':'locked'}">${esc(preview)}</div><div class="reveal-actions-v43"><button class="btn small cyan" data-resource="${esc(card.id)}">${canView?'عرض المحتوى':'عرض التفاصيل'}</button></div></div>${revealOverlayHTMLV44(card)}</article>`;
+};
+openResource=function(id){
+  const r=state.resources.find(x=>x.id===id);if(!r)return;
+  const open=isOpenRevealCardV43(r),canView=revealCanViewContentV44(r),cover=String(r.coverImageUrl||r.cover_image_url||'').trim(),safeCover=revealImageSafeV44(cover),gate=revealGateEnabledV44(r),full=revealIsFullV44(r);
+  $('categoryModalTitle').textContent=`VIP ${r.title||'بطاقة خاصة'}`;
+  const heroIcon=safeCover?`<img src="${esc(safeCover)}" alt="">`:revealIconContentV45(r);
+  let body='';
+  if(!open){body=`<div class="reveal-modal-gate-v44"><div class="reveal-overlay-title-v44">المحتوى محجوب حتى انتهاء العداد</div>${revealBigCountdownHTMLV44(r)}<p>سيظهر خيار الفتح بعد اكتمال المؤقت.</p></div>`;}
+  else if(full){body=`<div class="reveal-modal-gate-v44"><h3>${typeof v34Text==='function'?v34Text('winnersFull'):'اكتمل العدد'}</h3><p>${typeof v34Text==='function'?v34Text('winnersWait'):'هذه البطاقة غير متاحة حالياً.'}</p></div>`;}
+  else if(gate&&!canView){body=`<div class="reveal-modal-gate-v44"><h3>اكتمل العداد</h3><p>بقيت خطوة الشروط الخاصة بالبطاقات. بعد إكمالها ستتمكن من رؤية المحتوى هنا.</p><button class="btn primary reveal-gate-button-v44" data-unlock-resource="${esc(r.id)}">تخطي الشروط وفتح المحتوى</button></div><div class="reveal-modal-content-v43 locked">████████████████████████\n██████████████████</div>`;}
+  else{body=`<div class="reveal-modal-content-v43">${esc(revealSecretV43(r)||'لا يوجد محتوى بعد.')}</div>`;}
+  $('categoryModalBody').innerHTML=`<div class="reveal-modal-v43"><div class="reveal-modal-hero-v43"><div class="reveal-modal-cover-v43">${heroIcon}</div><div><h3>${esc(r.title||'بطاقة خاصة')}</h3><p>${esc(r.description||'')}</p><span class="reveal-status-v43 ${canView?'open':'locked'}">${!open?'سيتم الكشف بعد':canView?'تم فتح البطاقة':'بانتظار الشروط'}</span></div></div>${body}</div>`;
+  $('categoryModalBody').querySelectorAll('[data-unlock-resource]').forEach(b=>b.onclick=()=>revealUnlockResourceV44(b.dataset.unlockResource));
+  modal('categoryModal');
+};
+try{renderResources();}catch{}
+
+
+/* V46 — every VIP card closes after the first 3 qualified members */
+const REVEAL_WINNER_LIMIT_V46 = 3;
+function revealWinnerIdsV46(cardOrId){
+  const id=typeof cardOrId==='object'?cardOrId.id:cardOrId;
+  return typeof resourceWinnerListV34==='function'?resourceWinnerListV34(id):Object.keys(state.resourceWinnersV34?.[id]||{});
+}
+function revealWinnerCountV46(cardOrId){return Math.min(revealWinnerIdsV46(cardOrId).length,REVEAL_WINNER_LIMIT_V46);}
+function revealUserIsWinnerV46(cardOrId){const id=typeof cardOrId==='object'?cardOrId.id:cardOrId;return !!(state.user&&revealWinnerIdsV46(id).includes(state.user.uid));}
+function revealLimitReachedV46(cardOrId){const id=typeof cardOrId==='object'?cardOrId.id:cardOrId;return revealWinnerIdsV46(id).length>=REVEAL_WINNER_LIMIT_V46;}
+function revealIsFullForCurrentUserV46(card={}){
+  return isOpenRevealCardV43(card)&&revealLimitReachedV46(card)&&!revealUserIsWinnerV46(card)&&!isStaff();
+}
+revealIsWinnerV44=function(card={}){return revealUserIsWinnerV46(card);};
+revealIsFullV44=function(card={}){return revealIsFullForCurrentUserV46(card);};
+revealCanViewContentV44=function(card={}){
+  if(!isOpenRevealCardV43(card))return false;
+  if(revealIsFullV44(card))return false;
+  if(!revealGateEnabledV44(card))return !!(state.user||isStaff());
+  return !!(state.user&&(isStaff()||(canReadCommunityV27()&&!!state.unlock?.unlockedAt&&revealIsWinnerV46(card))));
+};
+async function revealClaimOpenCardV46(card){
+  if(!card||!state.user||isStaff()||!isOpenRevealCardV43(card))return;
+  if(revealUserIsWinnerV46(card)||revealLimitReachedV46(card))return;
+  if(typeof claimResourceWinnerV34==='function')await claimResourceWinnerV34(card.id);
+}
+revealUnlockResourceV44 = async function(id){
+  const card=state.resources.find(x=>x.id===id);if(!card)return;
+  if(revealIsFullV44(card)){toast('اكتمل عدد أول 3 أعضاء لهذه البطاقة.','error');renderResources();return;}
+  if(!canReadCommunityV27()){promptAccessV27();return;}
+  if(!isOpenRevealCardV43(card)){openResource(id);return;}
+  if(state.unlock?.unlockedAt){
+    await revealClaimOpenCardV46(card);
+    toast('تم فتح البطاقة الخاصة.','success');
+    renderResources();
+    setTimeout(()=>openResource(id),120);
+    return;
+  }
+  state.pendingUnlockResourceV34=id;
+  openUnlock();
+}
+const completeUnlockBeforeV46 = completeUnlock;
+completeUnlock = async function(){
+  const target=state.pendingUnlockResourceV34||'';
+  const card=target?state.resources.find(x=>x.id===target):null;
+  if(card&&revealLimitReachedV46(card)&&!revealUserIsWinnerV46(card)&&!isStaff()){
+    toast('اكتمل عدد أول 3 أعضاء لهذه البطاقة.','error');
+    modal('unlockModal',false);
+    return;
+  }
+  await completeUnlockBeforeV46();
+};
+function revealWinnersBadgeV46(card){
+  const count=revealWinnerCountV46(card);
+  return `<span class="reveal-winner-count-v46">${count} / ${REVEAL_WINNER_LIMIT_V46} أعضاء</span>`;
+}
+revealOverlayHTMLV44=function(card){
+  const open=isOpenRevealCardV43(card),full=revealIsFullV44(card),gate=revealGateEnabledV44(card);
+  if(!open)return `<div class="reveal-blocking-overlay-v44"><div class="reveal-blocking-inner-v44"><div class="reveal-overlay-title-v44">سيتم الكشف بعد</div>${revealBigCountdownHTMLV44(card)}<p class="reveal-overlay-sub-v44">المحتوى محجوب بالكامل حتى انتهاء العداد.</p></div></div>`;
+  if(full)return `<div class="reveal-blocking-overlay-v44"><div class="reveal-blocking-inner-v44"><div class="reveal-ring-v44" style="--progress:100%"><span>${revealIconContentV45(card)}</span></div><div class="reveal-overlay-title-v44">اكتمل عدد أول 3 أعضاء</div><p class="reveal-overlay-sub-v44">هذه البطاقة أصبحت محجوبة تلقائياً لباقي الأعضاء.</p><span class="reveal-full-note-v46">${revealWinnerCountV46(card)} / ${REVEAL_WINNER_LIMIT_V46}</span></div></div>`;
+  if(gate&&!revealCanViewContentV44(card))return `<div class="reveal-blocking-overlay-v44"><div class="reveal-blocking-inner-v44"><div class="reveal-ring-v44" style="--progress:100%"><span>${revealIconContentV45(card)}</span></div><div class="reveal-overlay-title-v44">اكتمل العداد</div><p class="reveal-overlay-sub-v44">لرؤية المحتوى يجب أن يتخطى العضو شروط الوصول. أول 3 أعضاء فقط يمكنهم فتح هذه البطاقة.</p><button class="btn small primary reveal-gate-button-v44" data-unlock-resource="${esc(card.id)}">تخطي الشروط وفتح المحتوى</button></div></div>`;
+  return '';
+};
+revealCardHTMLV43=function(card,opts={}){
+  const open=isOpenRevealCardV43(card),canView=revealCanViewContentV44(card),gate=revealGateEnabledV44(card),secret=revealSecretV43(card),full=revealIsFullV44(card);
+  const status=!open?'مغلقة الآن':full?'محجوبة تلقائياً':canView?'جاهزة للعرض':gate?'بانتظار الشروط':'اضغط للفتح';
+  const preview=canView?(secret||'لا يوجد محتوى بعد.'):'████████████████████████\
+██████████████████';
+  return `<article class="reveal-card-v43 ${open?'is-open':'is-locked'} ${canView?'can-view-v44':''} ${full?'full-v34 is-full-v46':''}" data-reveal-card="${esc(card.id)}">${revealCoverHTMLV43(card)}<div class="reveal-body-v43"><div class="reveal-meta-v43"><span class="reveal-status-v43 ${canView?'open':'locked'}">${status}</span>${revealWinnersBadgeV46(card)}<span class="reveal-date-v43">${esc(revealDateTextV43(revealMsV43(card)))}</span></div><h3 class="reveal-title-v43">${esc(card.title||'بطاقة خاصة')}</h3><p class="reveal-desc-v43">${esc(card.description||card.public_description||'')}</p><div class="reveal-content-preview-v44 ${canView?'ready':'locked'}">${esc(preview)}</div><div class="reveal-actions-v43"><button class="btn small cyan" data-resource="${esc(card.id)}">${canView?'عرض المحتوى':full?'محجوبة':'عرض التفاصيل'}</button></div></div>${revealOverlayHTMLV44(card)}</article>`;
+};
+openResource=async function(id){
+  const r=state.resources.find(x=>x.id===id);if(!r)return;
+  if(isOpenRevealCardV43(r)&&!revealGateEnabledV44(r)&&state.user&&!revealUserIsWinnerV46(r)&&!revealLimitReachedV46(r))await revealClaimOpenCardV46(r);
+  const open=isOpenRevealCardV43(r),canView=revealCanViewContentV44(r),cover=String(r.coverImageUrl||r.cover_image_url||'').trim(),safeCover=revealImageSafeV44(cover),gate=revealGateEnabledV44(r),full=revealIsFullV44(r);
+  $('categoryModalTitle').textContent=`VIP ${r.title||'بطاقة خاصة'}`;
+  const heroIcon=safeCover?`<img src="${esc(safeCover)}" alt="">`:revealIconContentV45(r);
+  let body='';
+  if(!open){body=`<div class="reveal-modal-gate-v44"><div class="reveal-overlay-title-v44">المحتوى محجوب حتى انتهاء العداد</div>${revealBigCountdownHTMLV44(r)}<p>سيظهر خيار الفتح بعد اكتمال المؤقت.</p>${revealWinnersBadgeV46(r)}</div>`;}
+  else if(full){body=`<div class="reveal-modal-gate-v44"><h3>اكتمل عدد أول 3 أعضاء</h3><p>هذه البطاقة أصبحت محجوبة تلقائياً لباقي الأعضاء.</p><span class="reveal-modal-winners-v46">${revealWinnerCountV46(r)} / ${REVEAL_WINNER_LIMIT_V46} أعضاء</span></div>`;}
+  else if(gate&&!canView){body=`<div class="reveal-modal-gate-v44"><h3>اكتمل العداد</h3><p>بقيت خطوة الشروط الخاصة بالبطاقات. أول 3 أعضاء فقط يمكنهم فتح هذه البطاقة.</p><button class="btn primary reveal-gate-button-v44" data-unlock-resource="${esc(r.id)}">تخطي الشروط وفتح المحتوى</button></div><div class="reveal-modal-content-v43 locked">████████████████████████\
+██████████████████</div>`;}
+  else{body=`<div class="reveal-modal-content-v43">${esc(revealSecretV43(r)||'لا يوجد محتوى بعد.')}</div>`;}
+  $('categoryModalBody').innerHTML=`<div class="reveal-modal-v43"><div class="reveal-modal-hero-v43"><div class="reveal-modal-cover-v43">${heroIcon}</div><div><h3>${esc(r.title||'بطاقة خاصة')}</h3><p>${esc(r.description||'')}</p><span class="reveal-status-v43 ${canView?'open':'locked'}">${!open?'سيتم الكشف بعد':full?'محجوبة':canView?'تم فتح البطاقة':'بانتظار الشروط'}</span><div>${revealWinnersBadgeV46(r)}</div></div></div>${body}</div>`;
+  $('categoryModalBody').querySelectorAll('[data-unlock-resource]').forEach(b=>b.onclick=()=>revealUnlockResourceV44(b.dataset.unlockResource));
+  modal('categoryModal');
+  renderResources();
+};
+renderResources=function(){
+  const grid=$('resourcesGrid');if(!grid)return;
+  const cards=state.resources.filter(isActiveRevealCardV43).sort((a,b)=>(Number(a.order||a.createdAt||0)-Number(b.order||b.createdAt||0)));
+  grid.innerHTML=cards.length?cards.map(r=>revealCardHTMLV43(r)).join(''):`<div class="glass empty reveal-empty-v43">لا توجد بطاقات خاصة حالياً. يضيفها المسؤول من لوحة التحكم.</div>`;
+  grid.querySelectorAll('[data-resource]').forEach(b=>b.onclick=()=>openResource(b.dataset.resource));
+  grid.querySelectorAll('[data-unlock-resource]').forEach(b=>b.onclick=()=>revealUnlockResourceV44(b.dataset.unlockResource));
+};
+try{renderResources();}catch{}
+
+
+
+/* V48 — render VIP private cards like the provided screenshot; preserve all gate/countdown/winner behavior */
+function revealStatusTextV48(card, open, canView, full, gate){
+  if(!open)return 'مغلقة الآن';
+  if(full)return 'اكتمل عدد أول 3 أعضاء';
+  if(canView)return 'تم فتح البطاقة';
+  if(gate)return 'بانتظار تخطي الشروط';
+  return 'جاهزة للفتح';
+}
+function revealPanelHTMLV48(card, open, canView, full, gate, secret){
+  if(!open){
+    return `<div class="reveal-panel-v48 is-countdown is-locked"><div><div class="reveal-countdown-title-v48">سيتم الكشف بعد</div>${revealBigCountdownHTMLV44(card)}</div></div>`;
+  }
+  if(full){
+    return `<div class="reveal-panel-v48 is-locked"><div><strong>اكتمل عدد أول 3 أعضاء</strong><div class="reveal-vip-status-v48 full">هذه البطاقة محجوبة تلقائياً لباقي الأعضاء</div></div></div>`;
+  }
+  if(gate&&!canView){
+    return `<div class="reveal-panel-v48 is-locked"><div><strong>اكتمل العداد</strong><div class="reveal-vip-status-v48">يجب تخطي الشروط لرؤية المحتوى</div></div></div>`;
+  }
+  if(canView){
+    return `<div class="reveal-panel-v48 is-preview">${esc(secret||'لا يوجد محتوى بعد.')}</div>`;
+  }
+  return `<div class="reveal-panel-v48 is-locked"><span class="reveal-locked-text-v48">████████████████████</span></div>`;
+}
+revealCoverHTMLV43=function(card){
+  return `<div class="reveal-vip-head-v48"><span class="reveal-vip-badge-v45">VIP</span><span class="reveal-private-chip-v48"><span>بطاقة خاصة</span>${revealIconContentV45(card)}</span></div>`;
+};
+revealCardHTMLV43=function(card,opts={}){
+  const open=isOpenRevealCardV43(card),canView=revealCanViewContentV44(card),gate=revealGateEnabledV44(card),secret=revealSecretV43(card),full=revealIsFullV44(card);
+  const status=revealStatusTextV48(card,open,canView,full,gate);
+  const actionLabel=canView?'عرض المحتوى':full?'محجوبة':(open&&gate&&!canView?'تخطي الشروط':'عرض البطاقة');
+  const actionAttr=(open&&gate&&!canView&&!full)?`data-unlock-resource="${esc(card.id)}"`:`data-resource="${esc(card.id)}"`;
+  const actionClass=(open&&gate&&!canView&&!full)?'btn primary reveal-gate-button-v44':'btn cyan';
+  return `<article class="reveal-card-v43 reveal-vip-card-v48 ${open?'is-open':'is-locked'} ${canView?'can-view-v44':''} ${full?'full-v34 is-full-v46':''}" data-reveal-card="${esc(card.id)}">${revealCoverHTMLV43(card)}<div class="reveal-card-main-v48"><div class="reveal-title-row-v48"><div class="reveal-title-copy-v48"><h3 class="reveal-title-v43">${esc(card.title||'بطاقة خاصة')}</h3><p class="reveal-desc-v43">${esc(card.description||card.public_description||'')}</p></div><div class="reveal-card-icon-v48">${revealIconContentV45(card)}</div></div><div class="reveal-winners-line-v48"><span>الفائزون:</span>${revealWinnersBadgeV46(card)}</div>${revealPanelHTMLV48(card,open,canView,full,gate,secret)}<span class="reveal-vip-status-v48 ${canView?'open':full?'full':''}">${status}</span><div class="reveal-actions-v43"><button class="${actionClass}" ${actionAttr}>${actionLabel}</button></div></div></article>`;
+};
+revealOverlayHTMLV44=function(card){return '';};
+try{renderResources();}catch(e){}
 
 </script>
 
