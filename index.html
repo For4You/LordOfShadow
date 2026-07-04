@@ -28,31 +28,6 @@
   "logo": "./logo.png"
 }
 
-
-/* V55 — show optional VIP password only after the card content is viewable. */
-function vipPasswordValueV55(card={}){
-  const s=state.secrets?.[card.id]||{};
-  return String(s.password||s.accessPassword||card.accessPassword||card.cardPassword||'').trim();
-}
-function vipPasswordHTMLV55(card={}){
-  const p=vipPasswordValueV55(card);
-  return p?`<div class="vip-password-v55"><b>كلمة المرور الخاصة</b><code>${esc(p)}</code></div>`:'';
-}
-const revealPanelBeforeV55=revealPanelHTMLV48;
-revealPanelHTMLV48=function(card,open,canView,full,gate,secret){
-  if(canView)return `<div class="reveal-panel-v48 is-preview">${esc(secret||'لا يوجد محتوى بعد.')}${vipPasswordHTMLV55(card)}</div>`;
-  return revealPanelBeforeV55(card,open,canView,full,gate,secret);
-};
-const openResourceBeforeV55=openResource;
-openResource=async function(id){
-  await openResourceBeforeV55(id);
-  const r=state.resources.find(x=>x.id===id);
-  if(!r||!revealCanViewContentV44(r))return;
-  const content=$('categoryModalBody')?.querySelector('.reveal-modal-content-v43');
-  if(content&&!content.querySelector('.vip-password-v55'))content.insertAdjacentHTML('beforeend',vipPasswordHTMLV55(r));
-};
-try{renderResources();}catch{}
-
 </script>
 <!-- /NexusHub SEO images -->
 
@@ -2128,6 +2103,90 @@ html[data-theme='light'] .reveal-private-chip-v48{color:#0c6075;background:rgba(
 .vip-password-v55 b{display:block;margin-bottom:5px;color:#ffe7a6;font-size:12px}
 .vip-password-v55 code{display:block;direction:ltr;text-align:center;font-family:Tahoma,Arial,sans-serif;font-weight:1000;letter-spacing:.8px;color:#fff;background:rgba(0,0,0,.24);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:8px;white-space:pre-wrap;overflow-wrap:anywhere}
 html[data-theme='light'] .vip-password-v55 code{color:#17203a;background:rgba(255,255,255,.72)}
+
+
+/* V60 — smoother VIP cards, password input gate, and live condition refresh */
+#resourcesGrid.resources{
+  overflow:visible!important;
+  scrollbar-gutter:stable both-edges;
+  contain:layout paint;
+}
+.reveal-card-v43.reveal-vip-card-v48{
+  will-change:auto!important;
+  transform:translateZ(0);
+  backface-visibility:hidden;
+}
+.reveal-card-v43.reveal-vip-card-v48:hover{
+  transform:none!important;
+}
+@media (hover:hover) and (pointer:fine){
+  .reveal-card-v43.reveal-vip-card-v48:hover{transform:translateY(-2px)!important}
+}
+.reveal-panel-v48.is-preview{
+  scrollbar-gutter:stable;
+  overscroll-behavior:contain;
+}
+.vip-password-gate-v60{
+  width:100%;
+  display:grid;
+  gap:9px;
+  text-align:right;
+}
+.vip-password-gate-v60 label{
+  display:block;
+  color:#ffe7a6;
+  font-size:12px;
+  font-weight:1000;
+}
+.vip-pass-row-v60{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:8px;
+  align-items:center;
+}
+.vip-pass-row-v60 input{
+  min-height:42px;
+  direction:ltr;
+  text-align:center;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.vip-pass-row-v60 .btn{
+  min-height:42px!important;
+  white-space:nowrap;
+}
+.vip-pass-note-v60{
+  color:#d9def5;
+  font-size:11px;
+  line-height:1.7;
+}
+.vip-pass-note-v60.error{color:#ffb4bd}
+.vip-pass-note-v60.ok{color:#baffdd}
+.reveal-panel-v48.password-required-v60,
+.reveal-modal-password-v60{
+  border-color:rgba(255,211,109,.30)!important;
+  background:linear-gradient(145deg,rgba(255,211,109,.12),rgba(53,221,255,.055))!important;
+}
+.reveal-modal-password-v60{
+  padding:17px;
+  border:1px solid rgba(255,211,109,.30);
+  border-radius:18px;
+}
+.reveal-locked-preview-v60{
+  margin-top:10px;
+  padding:14px;
+  border:1px dashed rgba(255,255,255,.16);
+  border-radius:15px;
+  background:rgba(0,0,0,.16);
+  color:#cdd2ef;
+  filter:blur(5px);
+  user-select:none;
+  white-space:pre-wrap;
+}
+@media(max-width:560px){
+  .vip-pass-row-v60{grid-template-columns:1fr}
+  .vip-pass-row-v60 .btn{width:100%}
+}
 
 </style>
 </head>
@@ -4756,8 +4815,8 @@ function vipPasswordValueV55(card={}){
   return String(s.password||s.accessPassword||card.accessPassword||card.cardPassword||'').trim();
 }
 function vipPasswordHTMLV55(card={}){
-  const p=vipPasswordValueV55(card);
-  return p?`<div class="vip-password-v55"><b>كلمة المرور الخاصة</b><code>${esc(p)}</code></div>`:'';
+  /* V60 disables exposed VIP password output; users enter the password through a protected input gate. */
+  return '';
 }
 const revealPanelBeforeV55=revealPanelHTMLV48;
 revealPanelHTMLV48=function(card,open,canView,full,gate,secret){
@@ -4773,6 +4832,201 @@ openResource=async function(id){
   if(content&&!content.querySelector('.vip-password-v55'))content.insertAdjacentHTML('beforeend',vipPasswordHTMLV55(r));
 };
 try{renderResources();}catch{}
+
+
+
+/* V60 — final VIP fixes: no exposed password, instant condition refresh, smoother card updates. */
+(function(){
+  if(window.__nexusVipFixV60)return;
+  window.__nexusVipFixV60=true;
+
+  function vipCardByIdV60(id){return state.resources.find(x=>x.id===id)||null;}
+  function vipPasswordValueV60(card={}){
+    const secret=state.secrets?.[card.id]||{};
+    return String(secret.password||secret.accessPassword||card.accessPassword||card.cardPassword||'').trim();
+  }
+  function vipPasswordKeyV60(id){return 'nexus-vip-password-ok-v60-'+(state.user?.uid||'guest')+'-'+id;}
+  function vipPasswordPassedV60(id){
+    try{return sessionStorage.getItem(vipPasswordKeyV60(id))==='1';}catch{return false;}
+  }
+  function vipMarkPasswordPassedV60(id){
+    try{sessionStorage.setItem(vipPasswordKeyV60(id),'1');}catch{}
+  }
+  function vipNeedsPasswordV60(card={}){return !!vipPasswordValueV60(card)&&!vipPasswordPassedV60(card.id);}
+  function vipFinalCanViewV60(card={}){return !!(revealCanViewContentV44(card)&&!vipNeedsPasswordV60(card));}
+  function vipLockedPreviewV60(){return '████████████████████████\n██████████████████';}
+  function vipPasswordGateHTMLV60(card={},compact=false){
+    const id=esc(card.id||'');
+    return `<form class="vip-password-gate-v60 ${compact?'compact':''}" data-vip-pass-form-v60="${id}"><label for="vipPassInputV60-${id}">الرقم السري</label><div class="vip-pass-row-v60"><input id="vipPassInputV60-${id}" type="password" inputmode="text" autocomplete="off" maxlength="120" placeholder="اكتب الرقم السري هنا" data-vip-pass-input-v60="${id}"><button type="submit" class="btn green small">فتح المحتوى</button></div><div class="vip-pass-note-v60" data-vip-pass-msg-v60="${id}">تم تحقيق الشروط. أدخل الرقم السري لإظهار المحتوى.</div></form>`;
+  }
+  function vipContentPanelHTMLV60(secret){
+    return `<div class="reveal-panel-v48 is-preview">${esc(secret||'لا يوجد محتوى بعد.')}</div>`;
+  }
+  function vipPasswordPanelHTMLV60(card){
+    return `<div class="reveal-panel-v48 is-preview password-required-v60">${vipPasswordGateHTMLV60(card,true)}</div>`;
+  }
+  function bindVipPasswordFormsV60(root=document){
+    root.querySelectorAll('[data-vip-pass-form-v60]').forEach(form=>{
+      if(form.dataset.boundV60==='1')return;
+      form.dataset.boundV60='1';
+      form.addEventListener('submit',e=>{
+        e.preventDefault();
+        const id=form.dataset.vipPassFormV60||'';
+        const card=vipCardByIdV60(id);
+        const input=form.querySelector('[data-vip-pass-input-v60]');
+        const msg=form.querySelector('[data-vip-pass-msg-v60]');
+        const expected=vipPasswordValueV60(card||{});
+        const typed=String(input?.value||'').trim();
+        if(!card||!expected){return;}
+        if(typed!==expected){
+          if(msg){msg.textContent='الرقم السري غير صحيح. حاول مرة أخرى.';msg.classList.add('error');msg.classList.remove('ok');}
+          input?.focus();
+          toast('الرقم السري غير صحيح.','error');
+          return;
+        }
+        vipMarkPasswordPassedV60(id);
+        if(msg){msg.textContent='تم قبول الرقم السري. سيتم إظهار المحتوى الآن.';msg.classList.remove('error');msg.classList.add('ok');}
+        toast('تم فتح المحتوى.','success');
+        refreshVipViewsV60(id,true);
+      });
+    });
+  }
+  window.bindVipPasswordFormsV60=bindVipPasswordFormsV60;
+
+  function markLocalWinnerV60(id){
+    if(!id||!state.user)return;
+    state.resourceWinnersV34=state.resourceWinnersV34||{};
+    state.resourceWinnersV34[id]=state.resourceWinnersV34[id]||{};
+    if(!state.resourceWinnersV34[id][state.user.uid]){
+      state.resourceWinnersV34[id][state.user.uid]={uid:state.user.uid,displayName:state.profile?.displayName||state.user.displayName||'عضو',claimedAt:now()};
+    }
+  }
+  const claimResourceWinnerBeforeV60=typeof claimResourceWinnerV34==='function'?claimResourceWinnerV34:null;
+  if(claimResourceWinnerBeforeV60){
+    claimResourceWinnerV34=async function(rid){
+      markLocalWinnerV60(rid);
+      return claimResourceWinnerBeforeV60(rid);
+    };
+  }
+
+  function refreshVipViewsV60(cardId='',openModal=false){
+    try{renderResources();}catch{}
+    const id=cardId||window.__activeRevealModalIdV49||state.pendingUnlockResourceV34||'';
+    if(id&&($('categoryModal')?.classList.contains('show')||openModal)){
+      try{openResource(id);}catch{}
+    }
+    try{updateRevealCountdownsV49();}catch{}
+  }
+  window.refreshVipViewsV60=refreshVipViewsV60;
+
+  const markVipSocialVisitedBeforeV60=typeof markVipSocialVisitedV51==='function'?markVipSocialVisitedV51:null;
+  if(markVipSocialVisitedBeforeV60){
+    markVipSocialVisitedV51=function(key){
+      markVipSocialVisitedBeforeV60(key);
+      refreshVipViewsV60(state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'',false);
+    };
+  }
+
+  maybeCompleteVipUnlockV51=async function(cardId=''){
+    const target=cardId||state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'';
+    if(target)state.pendingUnlockResourceV34=target;
+    if(!(vipSocialVisitedV51('facebook')&&vipSocialVisitedV51('telegram'))||!state.user)return;
+    if(window.__vipCompletingUnlockV60)return;
+    window.__vipCompletingUnlockV60=true;
+    try{
+      state.visits={facebook:true,telegram:true};
+      state.unlock={...(state.unlock||{}),facebookVisitedAt:state.unlock?.facebookVisitedAt||now(),telegramVisitedAt:state.unlock?.telegramVisitedAt||now(),unlockedAt:state.unlock?.unlockedAt||now()};
+      if(target){
+        const card=vipCardByIdV60(target);
+        if(card&&isOpenRevealCardV43(card)&&!revealLimitReachedV46(card)&&!revealUserIsWinnerV46(card))markLocalWinnerV60(target);
+      }
+      await completeUnlock();
+      if(target){
+        const card=vipCardByIdV60(target);
+        if(card&&isOpenRevealCardV43(card)&&!revealLimitReachedV46(card)&&!revealUserIsWinnerV46(card)&&typeof revealClaimOpenCardV46==='function')await revealClaimOpenCardV46(card);
+        markLocalWinnerV60(target);
+      }
+      modal('unlockModal',false);
+      toast('تم تحقيق الشروط.','success');
+      refreshVipViewsV60(target,true);
+    }catch(e){toast(readError(e),'error');}
+    finally{setTimeout(()=>{window.__vipCompletingUnlockV60=false;},500);}
+  };
+
+  const detectSocialReturnBeforeV60=typeof detectSocialReturn==='function'?detectSocialReturn:null;
+  detectSocialReturn=function(){
+    if(detectSocialReturnBeforeV60)detectSocialReturnBeforeV60();
+    const id=state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'';
+    if(vipSocialVisitedV51('facebook')&&vipSocialVisitedV51('telegram'))maybeCompleteVipUnlockV51(id);
+    else refreshVipViewsV60(id,false);
+  };
+
+  revealPanelHTMLV48=function(card,open,canView,full,gate,secret){
+    if(!open)return `<div class="reveal-panel-v48 is-countdown is-locked"><div><div class="reveal-countdown-title-v48">سيتم الكشف بعد</div>${revealBigCountdownHTMLV44(card)}</div></div>`;
+    if(full)return `<div class="reveal-panel-v48 is-locked"><div><strong>اكتمل عدد أول 3 أعضاء</strong><div class="reveal-vip-status-v48 full">هذه البطاقة محجوبة تلقائياً لباقي الأعضاء</div></div></div>`;
+    if(gate&&!canView)return `<div class="reveal-panel-v48 is-locked reveal-panel-conditions-v51">${vipConditionsHTMLV51(card.id,true)}</div>`;
+    if(canView&&vipNeedsPasswordV60(card))return vipPasswordPanelHTMLV60(card);
+    if(canView)return vipContentPanelHTMLV60(secret);
+    return `<div class="reveal-panel-v48 is-locked"><span class="reveal-locked-text-v48">████████████████████</span></div>`;
+  };
+
+  revealCardHTMLV43=function(card,opts={}){
+    const open=isOpenRevealCardV43(card),baseCanView=revealCanViewContentV44(card),canView=vipFinalCanViewV60(card),needsPass=baseCanView&&vipNeedsPasswordV60(card),gate=revealGateEnabledV44(card),secret=revealSecretV43(card),full=revealIsFullV44(card);
+    const status=!open?'مغلقة الآن':full?'محجوبة تلقائياً':needsPass?'أدخل الرقم السري':canView?'جاهزة للعرض':gate?'بانتظار الشروط':'اضغط للفتح';
+    const actionLabel=canView?'عرض المحتوى':needsPass?'إدخال الرقم السري':full?'محجوبة':(open&&gate&&!baseCanView?'إظهار الشروط':'عرض البطاقة');
+    const actionAttr=(open&&gate&&!baseCanView&&!full)?`data-unlock-resource="${esc(card.id)}"`:`data-resource="${esc(card.id)}"`;
+    const actionClass=(open&&gate&&!baseCanView&&!full)?'btn primary reveal-gate-button-v44':'btn cyan';
+    return `<article id="vip-card-${esc(card.id)}" class="reveal-card-v43 reveal-vip-card-v48 ${open?'is-open':'is-locked'} ${canView?'can-view-v44':''} ${needsPass?'needs-password-v60':''} ${full?'full-v34 is-full-v46':''}" data-reveal-card="${esc(card.id)}" data-reveal-at-v49="${String(revealMsV43(card))}">${revealCoverHTMLV43(card)}<div class="reveal-card-main-v48"><div class="reveal-title-row-v48"><div class="reveal-title-copy-v48"><h3 class="reveal-title-v43">${esc(card.title||'بطاقة خاصة')}</h3><p class="reveal-desc-v43">${esc(card.description||card.public_description||'')}</p></div><div class="reveal-card-icon-v48">${revealIconContentV45(card)}</div></div><div class="reveal-winners-line-v48"><span>الفائزون:</span>${revealWinnersBadgeV46(card)}</div>${revealPanelHTMLV48(card,open,baseCanView,full,gate,secret)}<span class="reveal-vip-status-v48 ${canView?'open':full?'full':''}">${status}</span><div class="reveal-actions-v43"><button class="${actionClass}" ${actionAttr}>${actionLabel}</button></div></div></article>`;
+  };
+
+  openResource=async function(id){
+    const r=vipCardByIdV60(id);if(!r)return;
+    window.__activeRevealModalIdV49=id;
+    if(isOpenRevealCardV43(r)&&!revealGateEnabledV44(r)&&state.user&&!revealUserIsWinnerV46(r)&&!revealLimitReachedV46(r))await revealClaimOpenCardV46(r);
+    const open=isOpenRevealCardV43(r),baseCanView=revealCanViewContentV44(r),canView=vipFinalCanViewV60(r),needsPass=baseCanView&&vipNeedsPasswordV60(r),cover=String(r.coverImageUrl||r.cover_image_url||'').trim(),safeCover=revealImageSafeV44(cover),gate=revealGateEnabledV44(r),full=revealIsFullV44(r);
+    $('categoryModalTitle').textContent=`VIP ${r.title||'بطاقة خاصة'}`;
+    const heroIcon=safeCover?`<img src="${esc(safeCover)}" alt="">`:revealIconContentV45(r);
+    let body='';
+    if(!open)body=`<div class="reveal-modal-gate-v44"><div class="reveal-overlay-title-v44">المحتوى محجوب حتى انتهاء العداد</div>${revealBigCountdownHTMLV44(r)}<p>سيظهر خيار الشروط بعد اكتمال المؤقت.</p>${revealWinnersBadgeV46(r)}</div>`;
+    else if(full)body=`<div class="reveal-modal-gate-v44"><h3>اكتمل عدد أول 3 أعضاء</h3><p>هذه البطاقة أصبحت محجوبة تلقائياً لباقي الأعضاء.</p><span class="reveal-modal-winners-v46">${revealWinnerCountV46(r)} / ${REVEAL_WINNER_LIMIT_V46} أعضاء</span></div>`;
+    else if(gate&&!baseCanView)body=`<div class="reveal-modal-gate-v44"><h3>اكتمل العداد</h3><p>افتح رابط Facebook وTelegram. عند تحقق الشرطين ستتحدث هذه النافذة مباشرة.</p>${vipConditionsHTMLV51(r.id,false)}</div><div class="reveal-modal-content-v43 locked">${vipLockedPreviewV60()}</div>`;
+    else if(needsPass)body=`<div class="reveal-modal-password-v60">${vipPasswordGateHTMLV60(r,false)}</div><div class="reveal-locked-preview-v60">${vipLockedPreviewV60()}</div>`;
+    else body=`<div class="reveal-modal-content-v43">${esc(revealSecretV43(r)||'لا يوجد محتوى بعد.')}</div>`;
+    $('categoryModalBody').innerHTML=`<div class="reveal-modal-v43"><div class="reveal-modal-hero-v43"><div class="reveal-modal-cover-v43">${heroIcon}</div><div><h3>${esc(r.title||'بطاقة خاصة')}</h3><p>${esc(r.description||'')}</p><span class="reveal-status-v43 ${canView?'open':'locked'}">${!open?'سيتم الكشف بعد':full?'محجوبة':needsPass?'أدخل الرقم السري':canView?'تم فتح البطاقة':'بانتظار الشروط'}</span><div>${revealWinnersBadgeV46(r)}</div></div></div>${body}</div>`;
+    $('categoryModalBody').querySelectorAll('[data-unlock-resource]').forEach(b=>b.onclick=()=>revealUnlockResourceV44(b.dataset.unlockResource));
+    bindVipSocialButtonsV51($('categoryModalBody'));
+    bindVipPasswordFormsV60($('categoryModalBody'));
+    modal('categoryModal');
+  };
+
+  renderResources=function(){
+    const grid=$('resourcesGrid');if(!grid)return;
+    const prevScroll=grid.scrollLeft,prevTop=grid.scrollTop,activeId=window.__activeRevealModalIdV49||'';
+    const cards=state.resources.filter(isActiveRevealCardV43).sort((a,b)=>(Number(a.order||a.createdAt||0)-Number(b.order||b.createdAt||0)));
+    grid.innerHTML=cards.length?cards.map(r=>revealCardHTMLV43(r)).join(''):`<div class="glass empty reveal-empty-v43">لا توجد بطاقات خاصة حالياً. يضيفها المسؤول من لوحة التحكم.</div>`;
+    grid.querySelectorAll('[data-resource]').forEach(b=>b.onclick=()=>openResource(b.dataset.resource));
+    grid.querySelectorAll('[data-unlock-resource]').forEach(b=>b.onclick=()=>revealUnlockResourceV44(b.dataset.unlockResource));
+    bindVipSocialButtonsV51(grid);
+    bindVipPasswordFormsV60(grid);
+    if(prevScroll||prevTop){grid.scrollLeft=prevScroll;grid.scrollTop=prevTop;}
+    if(activeId){const el=document.getElementById('vip-card-'+activeId);if(el)el.classList.add('target-comment-v50');}
+  };
+
+  const revealUnlockResourceBeforeV60=revealUnlockResourceV44;
+  revealUnlockResourceV44=async function(id){
+    state.pendingUnlockResourceV34=id||state.pendingUnlockResourceV34||'';
+    await revealUnlockResourceBeforeV60(id);
+    refreshVipViewsV60(id,false);
+  };
+
+  const updateRevealCountdownsBeforeV60=typeof updateRevealCountdownsV49==='function'?updateRevealCountdownsV49:null;
+  updateRevealCountdownsV49=function(){
+    if(updateRevealCountdownsBeforeV60)updateRevealCountdownsBeforeV60();
+    bindVipPasswordFormsV60(document);
+  };
+
+  try{renderResources();updateRevealCountdownsV49();}catch{}
+})();
 
 </script>
 
