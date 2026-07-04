@@ -28,6 +28,84 @@
   "logo": "./logo.png"
 }
 
+
+/* V50 — golden VIP notifications and comment-reaction click targeting */
+const COMMENT_REACTION_LABELS_V50={like:'أعجبني',angry:'أغضبني',love:'أحببته',laugh:'أضحكني',wow:'أدهشني',support:'دعم'};
+const COMMENT_REACTION_ICONS_V50={like:'👍',angry:'😡',love:'❤️',laugh:'😂',wow:'😮',support:'🔥'};
+function commentReactionLabelV50(type){return COMMENT_REACTION_LABELS_V50[type]||'تفاعل';}
+function commentReactionIconV50(type){return COMMENT_REACTION_ICONS_V50[type]||'✨';}
+commentHTMLV42=function(pid,c){
+ const mine=myCommentReactionV42(pid,c.id);
+ const reactionList=[['like','👍','أعجبني'],['angry','😡','أغضبني'],['love','❤️','أحببته'],['laugh','😂','أضحكني'],['wow','😮','أدهشني'],['support','🔥','دعم']];
+ const buttons=reactionList.map(([type,icon,label])=>`<button type="button" title="${esc(label)}" aria-label="${esc(label)}" class="${mine===type?'active':''}" data-comment-react-v42="${esc(pid)}|${esc(c.id)}|${type}">${icon}</button>`).join('');
+ return `<article id="comment-${esc(pid)}-${esc(c.id)}" data-comment-id="${esc(c.id)}" class="comment comment-v42"><div><b>${authorHTML(c)}</b><span class="date" style="display:inline;margin-inline-start:6px">${ago(c.createdAt)}</span></div>${c.replyTo?`<div class="comment-reply-banner-v42">↩ ${esc(c.replyTo.authorName||'عضو')}: ${esc(c.replyTo.text||'')}</div>`:''}<p dir="auto">${esc(c.text)}</p><div class="comment-actions-v42"><button type="button" data-comment-reply-v42="${esc(c.id)}">↩ رد</button>${buttons}<span class="topic-indicator-v17">${commentReactionCountV42(pid,c.id)} تفاعل</span></div></article>`;
+};
+commentsListHTMLV42=function(pid,comments){return comments.length?comments.map(c=>commentHTMLV42(pid,c)).join(''):`<p style="color:var(--muted)">${t('no_comments')}</p>`;};
+reactCommentV42=async function(pid,cid,type='like'){
+ if(requiresLogin(()=>reactCommentV42(pid,cid,type)))return;
+ const existing=myCommentReactionV42(pid,cid),path=`commentReactions/${pid}/${cid}/${state.user.uid}`;
+ try{
+  if(existing===type){await remove(dbref(path));return;}
+  await set(dbref(path),{type,createdAt:now()});
+  const c=(state.comments[pid]||{})[cid],post=state.posts.find(p=>p.id===pid),label=commentReactionLabelV50(type),icon=commentReactionIconV50(type),actor=clean(state.profile?.displayName||state.user.displayName||'عضو');
+  if(c?.authorUid)await notifyUserV42(c.authorUid,{id:`comment_reaction_${pid}_${cid}_${state.user.uid}`,type:'comment_reaction',postId:pid,commentId:cid,reactionType:type,reactionLabel:label,title:`${icon} رد فعل ${label} على تعليقك`,message:`${actor} وضع رد فعل "${label}" على تعليقك في: ${String(post?.title||'موضوع').slice(0,100)}`,expiresAt:now()+5*3600000});
+ }catch(e){toast(readError(e),'error');}
+};
+function focusCommentV50(postId,commentId,tryNo=0){
+ if(!commentId)return;
+ const items=[...document.querySelectorAll('[data-comment-id]')];
+ const el=items.find(x=>x.dataset.commentId===commentId)||document.getElementById(`comment-${postId}-${commentId}`);
+ if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('target-comment-v50');setTimeout(()=>el.classList.remove('target-comment-v50'),3600);return;}
+ if(tryNo<12)setTimeout(()=>focusCommentV50(postId,commentId,tryNo+1),180);
+}
+async function openPostCommentNotificationV50(postId,commentId){
+ modal('notificationModal',false);
+ await openPost(postId,{skipHash:true});
+ setTimeout(()=>focusCommentV50(postId,commentId),280);
+ try{history.replaceState(null,'',`#comment-${encodeURIComponent(postId)}-${encodeURIComponent(commentId||'')}`);}catch{}
+}
+function openVIPCardNotificationV50(resourceId){
+ modal('notificationModal',false);
+ try{renderResources();}catch{}
+ setTimeout(()=>{
+  const card=[...document.querySelectorAll('[data-reveal-card]')].find(x=>x.dataset.revealCard===resourceId);
+  if(card){card.scrollIntoView({behavior:'smooth',block:'center'});card.classList.add('target-comment-v50');setTimeout(()=>card.classList.remove('target-comment-v50'),2600);}
+  if(resourceId)openResource(resourceId);
+ },120);
+}
+function notificationTextV50(n){return esc(n.message||n.text||'');}
+function notificationTitleV50(n){
+ if(n.type==='vip_card')return `<span class="vip-note-badge-v50">VIP</span><span>${esc(n.title||'بطاقة VIP خاصة جديدة')}</span>`;
+ if(n.type==='comment_reaction')return `${esc(n.title||('رد فعل '+(n.reactionLabel||'')))}`;
+ if(n.type==='new_post')return esc(t('new_post_notification'));
+ return esc(n.title||t('notification'));
+}
+function notificationItemV50(n){
+ const time=`${ago(n.createdAt)}`;
+ if(n.type==='vip_card'||n.resourceId||n.cardId){const rid=n.resourceId||n.cardId;return `<button class="latest-item notification-vip-v50" data-note-resource-v50="${esc(rid)}"><strong>${notificationTitleV50(n)}</strong><span>${notificationTextV50(n)} · ${time}</span></button>`;}
+ if(n.type==='comment_reaction'&&n.postId){return `<button class="latest-item note-comment-reaction-v50" data-note-comment-post-v50="${esc(n.postId)}" data-note-comment-id-v50="${esc(n.commentId||'')}"><strong>${notificationTitleV50(n)}</strong><span>${notificationTextV50(n)} · ${time}</span></button>`;}
+ if(n.postId){const title=n.type==='new_post'?t('new_post_notification'):(n.title||t('notification'));const msg=n.type==='new_post'?t('new_post_message',{author:n.authorName||n.fromName||'',title:n.postTitle||n.topicTitle||n.message?.split(': ').slice(-1)[0]||''}):(n.message||n.text||'');return `<button class="latest-item" data-note-post="${esc(n.postId)}"><strong>${esc(title)}</strong><span>${esc(msg)} · ${time}</span></button>`;}
+ return `<div class="comment"><b>${esc(n.title||t('notification'))}</b><p>${notificationTextV50(n)} <span class="date">${time}</span></p></div>`;
+}
+openNotifications=function(){
+ if(!state.user){modal('authModal');toast(t('login_notifications'),'error');return;}
+ if(typeof cleanupOwnNotificationsV27==='function')cleanupOwnNotificationsV27();
+ const items=state.notifications;
+ $('notificationModal').innerHTML=`<div class="modal-box" style="width:min(600px,100%)"><div class="modal-head"><h2>🔔 ${t('notifications')}</h2><button class="close" data-note-close>×</button></div><div class="modal-body">${items.length?items.map(notificationItemV50).join(''):`<div class="empty">${t('notification_empty')}</div>`}</div></div>`;
+ const box=$('notificationModal');
+ const close=box.querySelector('[data-note-close]');if(close)close.onclick=()=>modal('notificationModal',false);
+ box.querySelectorAll('[data-note-resource-v50]').forEach(b=>b.onclick=()=>openVIPCardNotificationV50(b.dataset.noteResourceV50));
+ box.querySelectorAll('[data-note-comment-post-v50]').forEach(b=>b.onclick=()=>openPostCommentNotificationV50(b.dataset.noteCommentPostV50,b.dataset.noteCommentIdV50));
+ box.querySelectorAll('[data-note-post]').forEach(b=>b.onclick=()=>{modal('notificationModal',false);openPost(b.dataset.notePost);});
+ box.onclick=e=>{if(e.target===box)modal('notificationModal',false);};
+ modal('notificationModal');
+ const updates={};items.filter(n=>!n.read).forEach(n=>updates[`notifications/${state.user.uid}/${n.id}/read`]=true);
+ if(Object.keys(updates).length)update(ref(db),updates).catch(()=>{});
+};
+try{if($('notificationBtn'))$('notificationBtn').onclick=openNotifications;}catch{}
+try{if(state.activePost&&$('postModal')?.classList.contains('show'))renderPostModal();}catch{}
+
+
 </script>
 <!-- /NexusHub SEO images -->
 
@@ -2051,6 +2129,42 @@ html[data-theme='light'] .reveal-private-chip-v48{color:#0c6075;background:rgba(
   .reveal-vip-card-v48 .reveal-title-v43{font-size:20px!important}
   .reveal-panel-v48.is-countdown{min-height:98px}.reveal-vip-card-v48 .reveal-big-unit-v44 strong{font-size:16px!important}.reveal-vip-card-v48 .reveal-big-unit-v44 small{font-size:7px!important}
 }
+
+
+
+/* V49 — live countdown, social unlock conditions and smaller mobile VIP cards */
+.reveal-countdown-title-v49{display:flex;align-items:center;justify-content:center;gap:8px;color:#edfaff;font-weight:1000;font-size:13px;margin-bottom:8px}
+.reveal-tick-dot-v49{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 6px rgba(98,243,191,.08),0 0 18px var(--mint);animation:pulse 1s ease-in-out infinite}
+.reveal-vip-card-v48 .reveal-big-unit-v44 strong{transition:transform .18s ease,opacity .18s ease}.reveal-vip-card-v48 .reveal-big-unit-v44.tick-v49 strong{transform:translateY(-2px) scale(1.04);opacity:.86}
+.unlock-social-note-v49{margin-top:9px;padding:10px 11px;border:1px solid rgba(53,221,255,.20);border-radius:13px;background:rgba(53,221,255,.07);color:#dff8ff;font-size:12px;line-height:1.75;text-align:right}
+.unlock .symbol{display:none!important}.unlock h3{font-size:19px}.unlock p{line-height:1.75}.steps .step b{font-size:13px}.steps .step small{line-height:1.5}
+@media(max-width:560px){
+  #resourcesGrid.resources{gap:9px!important}
+  .reveal-card-v43.reveal-vip-card-v48{width:min(100%,360px);margin-inline:auto;min-height:252px!important;border-radius:20px!important;padding:11px!important}
+  .reveal-vip-head-v48{min-height:26px;margin-bottom:9px}.reveal-vip-card-v48 .reveal-vip-badge-v45{height:25px!important;min-width:47px!important;font-size:12px!important;padding:0 10px!important}.reveal-private-chip-v48{min-height:25px;padding:3px 7px;font-size:10px}.reveal-private-chip-v48 .reveal-ring-icon-v45{width:19px!important;height:19px!important;min-width:19px!important}
+  .reveal-title-row-v48{margin-bottom:5px}.reveal-card-icon-v48{width:31px;height:31px;border-radius:10px}.reveal-vip-card-v48 .reveal-title-v43{font-size:18px!important;line-height:1.15!important;margin-bottom:4px!important}.reveal-vip-card-v48 .reveal-desc-v43{font-size:11.5px!important;line-height:1.35!important;-webkit-line-clamp:1!important}
+  .reveal-winners-line-v48{font-size:10.5px;margin:0 0 8px}.reveal-winners-line-v48 .reveal-winner-count-v46{font-size:10.5px!important;min-height:20px!important;padding:3px 7px!important}
+  .reveal-panel-v48{min-height:44px;border-radius:13px;padding:7px 8px}.reveal-panel-v48.is-countdown{min-height:82px;padding:7px}.reveal-countdown-title-v48,.reveal-countdown-title-v49{font-size:10.5px;margin-bottom:5px}
+  .reveal-vip-card-v48 .reveal-big-countdown-v44{gap:4px!important}.reveal-vip-card-v48 .reveal-big-unit-v44{border-radius:9px!important;padding:5px 1px!important}.reveal-vip-card-v48 .reveal-big-unit-v44 strong{font-size:14px!important}.reveal-vip-card-v48 .reveal-big-unit-v44 small{font-size:6.6px!important;margin-top:3px!important}
+  .reveal-vip-status-v48{font-size:9px;padding:4px 7px;margin-top:6px}.reveal-vip-card-v48 .reveal-actions-v43{padding-top:9px!important}.reveal-vip-card-v48 .reveal-actions-v43 .btn{min-height:38px!important;padding:0 12px!important;font-size:12.5px!important;border-radius:11px!important}
+}
+@media(max-width:380px){.reveal-card-v43.reveal-vip-card-v48{min-height:240px!important;padding:10px!important}.reveal-vip-card-v48 .reveal-title-v43{font-size:17px!important}.reveal-panel-v48.is-countdown{min-height:78px}.reveal-vip-card-v48 .reveal-big-unit-v44 strong{font-size:13px!important}}
+
+
+
+/* V50 — VIP card notifications + comment reaction deep focus */
+.notification-vip-v50{
+  position:relative!important;overflow:hidden!important;border:1px solid rgba(255,220,122,.58)!important;border-radius:18px!important;
+  background:linear-gradient(135deg,rgba(255,211,109,.22),rgba(255,255,255,.055) 42%,rgba(255,111,180,.08))!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.28),0 0 0 1px rgba(255,235,162,.12),0 0 28px rgba(255,211,109,.18)!important;
+}
+.notification-vip-v50:before{content:"";position:absolute;inset:-60% -35%;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.30),transparent 65%);transform:translateX(70%);animation:vipNotifyShineV50 2.8s ease-in-out infinite;pointer-events:none}
+.notification-vip-v50 strong{display:flex!important;align-items:center;gap:8px;color:#fff4bc!important;font-size:15px!important}
+.notification-vip-v50 span{color:#ffe9a7!important}.vip-note-badge-v50{display:inline-grid;place-items:center;min-width:42px;height:25px;padding:0 10px;border-radius:999px;background:linear-gradient(135deg,#ffd36d,#ff74aa);color:#130b22!important;font-size:12px;font-weight:1000;box-shadow:0 8px 20px rgba(255,211,109,.25)}
+.note-comment-reaction-v50{border-inline-start:3px solid rgba(53,221,255,.72)!important}.comment-v42.target-comment-v50,.comment.target-comment-v50{border-color:rgba(255,211,109,.75)!important;background:linear-gradient(135deg,rgba(255,211,109,.16),rgba(53,221,255,.07))!important;box-shadow:0 0 0 3px rgba(255,211,109,.10),0 16px 36px rgba(0,0,0,.25)!important;animation:commentFocusPulseV50 1.25s ease-in-out 2}.comment-actions-v42 button[data-comment-react-v42$="|angry"].active{border-color:rgba(255,113,128,.65)!important;background:rgba(255,113,128,.16)!important}
+@keyframes vipNotifyShineV50{0%,42%{transform:translateX(80%)}70%,100%{transform:translateX(-80%)}}
+@keyframes commentFocusPulseV50{50%{filter:brightness(1.18);transform:translateY(-2px)}}
+@media(max-width:620px){.notification-vip-v50{border-radius:15px!important}.vip-note-badge-v50{min-width:36px;height:22px;font-size:11px}.notification-vip-v50 strong{font-size:13px!important}.note-comment-reaction-v50{font-size:12px!important}}
 
 </style>
 </head>
@@ -4419,6 +4533,96 @@ revealCardHTMLV43=function(card,opts={}){
 };
 revealOverlayHTMLV44=function(card){return '';};
 try{renderResources();}catch(e){}
+
+
+
+/* V49 — live countdown every second + Facebook/Telegram footer unlock conditions */
+function revealPartsFromMsV49(ms){const diff=Math.max(0,Number(ms||0)-Date.now());const total=Math.floor(diff/1000);return{diff,days:Math.floor(total/86400),hours:Math.floor((total%86400)/3600),minutes:Math.floor((total%3600)/60),seconds:total%60};}
+function revealPadV49(v){return String(Math.max(0,Number(v)||0)).padStart(2,'0');}
+function socialVisitedStorageV49(k){return sessionStorage.getItem('nexus-social-visited-'+k)==='1'||sessionStorage.getItem('nexus-pending-social-done-'+k)==='1';}
+function markSocialVisitedV49(k){
+  if(!k)return;
+  state.visits=state.visits||{};state.visits[k]=true;
+  sessionStorage.setItem('nexus-social-visited-'+k,'1');
+  if($('unlockModal')?.classList.contains('show')){try{renderUnlock();}catch{}}
+}
+function footerSocialClickV49(k,url){
+  if(!/^https?:\/\//i.test(String(url||''))){toast('لم يحدد المسؤول رابطاً صحيحاً بعد.','error');return;}
+  sessionStorage.setItem('nexus-pending-social',k);
+  window.open(url,'_blank','noopener');
+}
+openUnlock=function(){
+  if(requiresLogin(openUnlock))return;
+  state.visits={
+    facebook:!!state.unlock.facebookVisitedAt||socialVisitedStorageV49('facebook'),
+    telegram:!!state.unlock.telegramVisitedAt||socialVisitedStorageV49('telegram')
+  };
+  renderUnlock();
+  modal('unlockModal');
+};
+renderUnlock=function(){
+  const settings=state.settings||{};
+  const steps=[{key:'facebook',name:'متابعة صفحة Facebook',label:'افتح صفحة Facebook وتابعها',url:settings.facebookUrl},{key:'telegram',name:'متابعة قناة Telegram',label:'افتح قناة Telegram وتابعها',url:settings.telegramUrl}];
+  $('unlockSteps').innerHTML=steps.map((s,i)=>`<div class="step ${state.visits?.[s.key]?'done':''}"><span class="number">${state.visits?.[s.key]?'✓':i+1}</span><span style="flex:1"><b>${esc(s.name)}</b><small style="display:block;color:var(--muted);margin-top:3px">${state.visits?.[s.key]?'تم تسجيل فتح الرابط.':esc(s.label+' ثم ارجع إلى هذا التبويب.')}</small></span><button class="btn small ${state.visits?.[s.key]?'':'cyan'}" data-visit="${s.key}">${state.visits?.[s.key]?'تم':'فتح'}</button></div>`).join('')+`<div class="unlock-social-note-v49">شروط فتح البطاقة: افتح رابط Facebook وTelegram الموجودين في أسفل الموقع أو من هذه النافذة، ثم ارجع واضغط فتح البطاقات. المتابعة نفسها تتم داخل المنصة.</div>`;
+  document.querySelectorAll('[data-visit]').forEach(b=>b.onclick=()=>{const k=b.dataset.visit,u=k==='facebook'?settings.facebookUrl:settings.telegramUrl;footerSocialClickV49(k,u);});
+  if($('completeUnlockBtn'))$('completeUnlockBtn').disabled=!(state.visits?.facebook&&state.visits?.telegram);
+};
+detectSocialReturn=function(){const k=sessionStorage.getItem('nexus-pending-social');if(k){markSocialVisitedV49(k);sessionStorage.removeItem('nexus-pending-social');toast('تم تسجيل فتح الرابط. أكمل الخطوة الأخرى.','success');}};
+window.addEventListener('focus',()=>setTimeout(()=>{try{detectSocialReturn();}catch{}},120));
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)try{detectSocialReturn();}catch{}});
+try{
+  const fb=$('facebookFooter'),tg=$('telegramFooter');
+  if(fb)fb.onclick=e=>{e.preventDefault();footerSocialClickV49('facebook',state.settings.facebookUrl);};
+  if(tg)tg.onclick=e=>{e.preventDefault();footerSocialClickV49('telegram',state.settings.telegramUrl);};
+}catch{}
+const completeUnlockBeforeV49=completeUnlock;
+completeUnlock=async function(){
+  const target=state.pendingUnlockResourceV34||'';
+  if(!(state.visits?.facebook&&state.visits?.telegram)||!state.user)return;
+  await completeUnlockBeforeV49();
+  if(target){
+    setTimeout(async()=>{
+      const card=state.resources.find(x=>x.id===target);
+      if(card&&isOpenRevealCardV43(card)&&!revealLimitReachedV46(card)&&!revealUserIsWinnerV46(card)&&typeof revealClaimOpenCardV46==='function')await revealClaimOpenCardV46(card);
+      renderResources();
+      if(card)setTimeout(()=>openResource(target),150);
+    },250);
+  }
+};
+revealBigCountdownHTMLV44=function(card){
+  const ms=revealMsV43(card),p=revealPartsFromMsV49(ms),windowMs=1000*60*60*48,progress=Math.max(0,Math.min(100,100-(p.diff/windowMs)*100));
+  return `<div class="reveal-ring-v44" style="--progress:${progress}%"><span>${typeof revealIconContentV45==='function'?revealIconContentV45(card):'VIP'}</span></div><div class="reveal-countdown-title-v49"><span class="reveal-tick-dot-v49"></span><span>سيتم الكشف بعد</span></div><div class="reveal-big-countdown-v44" data-reveal-countdown-v49="${esc(card.id||'')}" data-reveal-at-v49="${String(ms)}"><span class="reveal-big-unit-v44"><strong data-reveal-part-v49="days">${revealPadV49(p.days)}</strong><small>أيام</small></span><span class="reveal-big-unit-v44"><strong data-reveal-part-v49="hours">${revealPadV49(p.hours)}</strong><small>ساعات</small></span><span class="reveal-big-unit-v44"><strong data-reveal-part-v49="minutes">${revealPadV49(p.minutes)}</strong><small>دقائق</small></span><span class="reveal-big-unit-v44"><strong data-reveal-part-v49="seconds">${revealPadV49(p.seconds)}</strong><small>ثواني</small></span></div>`;
+};
+revealPanelHTMLV48=function(card, open, canView, full, gate, secret){
+  if(!open)return `<div class="reveal-panel-v48 is-countdown is-locked"><div>${revealBigCountdownHTMLV44(card)}</div></div>`;
+  if(full)return `<div class="reveal-panel-v48 is-locked"><div><strong>اكتمل عدد أول 3 أعضاء</strong><div class="reveal-vip-status-v48 full">هذه البطاقة محجوبة تلقائياً لباقي الأعضاء</div></div></div>`;
+  if(gate&&!canView)return `<div class="reveal-panel-v48 is-locked"><div><strong>اكتمل العداد</strong><div class="reveal-vip-status-v48">افتح Facebook وTelegram من أسفل الموقع ثم اضغط تخطي الشروط</div></div></div>`;
+  if(canView)return `<div class="reveal-panel-v48 is-preview">${esc(secret||'لا يوجد محتوى بعد.')}</div>`;
+  return `<div class="reveal-panel-v48 is-locked"><span class="reveal-locked-text-v48">████████████████████</span></div>`;
+};
+const revealCardHTMLBeforeV49=revealCardHTMLV43;
+revealCardHTMLV43=function(card,opts={}){
+  const html=revealCardHTMLBeforeV49(card,opts);
+  return html.replace('<article class="reveal-card-v43 reveal-vip-card-v48','<article data-reveal-at-v49="'+String(revealMsV43(card))+'" class="reveal-card-v43 reveal-vip-card-v48');
+};
+const openResourceBeforeV49=openResource;
+openResource=function(id){window.__activeRevealModalIdV49=id;openResourceBeforeV49(id);};
+function updateRevealCountdownsV49(){
+  let needsRender=false;
+  document.querySelectorAll('[data-reveal-countdown-v49]').forEach(box=>{
+    const ms=Number(box.dataset.revealAtV49||0);const p=revealPartsFromMsV49(ms);
+    const map={days:p.days,hours:p.hours,minutes:p.minutes,seconds:p.seconds};
+    Object.entries(map).forEach(([k,v])=>{const el=box.querySelector(`[data-reveal-part-v49="${k}"]`);const val=revealPadV49(v);if(el&&el.textContent!==val){el.textContent=val;el.closest('.reveal-big-unit-v44')?.classList.add('tick-v49');setTimeout(()=>el.closest('.reveal-big-unit-v44')?.classList.remove('tick-v49'),180);}});
+    if(p.diff<=0)needsRender=true;
+  });
+  if(needsRender){
+    renderResources();
+    const id=window.__activeRevealModalIdV49;if(id&&$('categoryModal')?.classList.contains('show'))setTimeout(()=>openResource(id),30);
+  }
+}
+clearInterval(window.__revealCardsTimerV43);clearInterval(window.__revealCardsTimerV49);
+window.__revealCardsTimerV49=setInterval(()=>{try{updateRevealCountdownsV49();}catch(e){}},1000);
+try{renderResources();updateRevealCountdownsV49();}catch{}
 
 </script>
 
