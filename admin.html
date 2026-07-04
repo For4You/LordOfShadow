@@ -1493,7 +1493,7 @@ function ensureResourcePasswordFieldV55(){
   if(!secretField)return;
   const box=document.createElement('div');
   box.className='field resource-password-field-v55';
-  box.innerHTML='<label>كلمة المرور الظاهرة للمستخدم (اختياري)</label><input id="resourcePasswordV55" maxlength="120" autocomplete="off" placeholder="مثال: VIP-2026"><span class="icon-help-v29">تظهر فقط بعد انتهاء العداد وتحقيق الشروط وفتح المحتوى. اتركها فارغة إذا لا تريد كلمة مرور.</span>';
+  box.innerHTML='<label>الرقم السري المطلوب من العضو (اختياري)</label><input id="resourcePasswordV55" type="password" maxlength="120" autocomplete="new-password" placeholder="اكتب الرقم السري هنا"><span class="icon-help-v29">لن يظهر الرقم السري مكشوفاً داخل index؛ سيظهر للعضو حقل لإدخاله بعد انتهاء العداد وتحقيق الشروط.</span>';
   secretField.insertAdjacentElement('afterend',box);
 }
 function resourcePasswordV55(){return String($('resourcePasswordV55')?.value||'').trim().slice(0,120);}
