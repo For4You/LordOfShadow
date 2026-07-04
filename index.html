@@ -2221,6 +2221,31 @@ html[data-theme='light'] .vip-password-v55 code{color:#17203a;background:rgba(25
   .vip-pass-row-v60 .btn,.vip-pass-row-v61 .btn{width:100%}
 }
 
+
+
+/* V62 — mobile VIP stability: no heavy re-render while typing, smooth one-time countdown swap. */
+.reveal-card-v43.v62-countdown-done .reveal-panel-v48.is-countdown,
+.reveal-modal-v43.v62-countdown-done .reveal-big-countdown-v44,
+.reveal-modal-v43.v62-countdown-done .reveal-ring-v44,
+.reveal-modal-v43.v62-countdown-done .reveal-countdown-title-v49{
+  opacity:0;
+  transform:translateY(-8px) scale(.985);
+  transition:opacity .55s ease,transform .55s ease;
+}
+.vip-conditions-v62{animation:vipV62In .28s ease both}
+.vip-condition-v51.v62-opening{pointer-events:none;filter:brightness(1.18);transform:translateY(-1px)}
+.vip-loading-v62{padding:14px;border:1px solid rgba(53,221,255,.18);border-radius:16px;background:rgba(53,221,255,.07);color:#dff8ff;line-height:1.8;text-align:center}
+.vip-password-gate-v62 input{direction:ltr;text-align:center;font-size:16px;touch-action:manipulation}
+.vip-password-gate-v62 .vip-pass-row-v60{align-items:stretch}
+.vip-password-gate-v62 button{white-space:nowrap}
+.vip-pass-note-v60.ok{color:#a8ffd8}.vip-pass-note-v60.error{color:#ffb7c8}
+.reveal-panel-v48.password-required-v62{overflow:visible}
+@keyframes vipV62In{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:700px){
+  .vip-password-gate-v62 .vip-pass-row-v60{display:grid;grid-template-columns:1fr;gap:8px}
+  .vip-password-gate-v62 input,.vip-password-gate-v62 button{width:100%;min-height:42px}
+}
+
 </style>
 </head>
 <body>
@@ -5409,6 +5434,339 @@ try{renderResources();}catch{}
   const notificationBtnV61=$('notificationBtn');
   try{const fb=$('facebookFooter'),tg=$('telegramFooter');if(fb)fb.onclick=e=>{e.preventDefault();openVipSocialV51(FACEBOOK_KEY,state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'');};if(tg)tg.onclick=e=>{e.preventDefault();openVipSocialV51(TELEGRAM_KEY,state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'');};if(notificationBtnV61)notificationBtnV61.onclick=openNotifications;}catch{}
   if(vipLocalUnlockedV61())ensureVipSecretsV61(true);
+  try{renderResources();updateRevealCountdownsV49();}catch{}
+})();
+
+
+
+/* V62 — final mobile VIP fix: every opening attempt requires Telegram + Facebook, then password/content without page refresh. */
+(function(){
+  if(window.__nexusVipFixV62)return;
+  window.__nexusVipFixV62=true;
+
+  const FB='facebook', TG='telegram';
+  const attemptMap=Object.create(null);
+  let secretsUnsubV62=null;
+  let refreshTimerV62=null;
+
+  function uidV62(){return state.user?.uid||'guest';}
+  function tsV62(){return typeof now==='function'?now():Date.now();}
+  function cardV62(id){return state.resources.find(x=>String(x.id)===String(id))||null;}
+  function secretV62(cardOrId){const id=typeof cardOrId==='object'?cardOrId?.id:cardOrId;return state.secrets?.[id]||{};}
+  function passValueV62(card={}){const s=secretV62(card);return String(s.password||s.accessPassword||card.accessPassword||card.cardPassword||'').trim();}
+  function hasPasswordV62(card={}){return !!(card.hasPassword||card.passwordRequired||passValueV62(card));}
+  function contentValueV62(card={}){const s=secretV62(card);return String(s.content||card.revealContent||card.reveal_content||'').trim();}
+  function isTypingVipV62(){const a=document.activeElement;return !!(a&&a.closest&&a.closest('.vip-password-gate-v62,.vip-password-gate-v61,.vip-password-gate-v60'));}
+  function modalOpenV62(){return !!$('categoryModal')?.classList.contains('show');}
+  function attemptKeyV62(id){return uidV62()+':'+String(id||'');}
+  function getAttemptV62(id){
+    const key=attemptKeyV62(id);
+    if(!attemptMap[key])attemptMap[key]={facebook:false,telegram:false,done:false,pass:false,startedAt:tsV62()};
+    return attemptMap[key];
+  }
+  function resetAttemptV62(id){
+    if(!id)return;
+    attemptMap[attemptKeyV62(id)]={facebook:false,telegram:false,done:false,pass:false,startedAt:tsV62()};
+  }
+  function bothDoneV62(id){const a=getAttemptV62(id);return !!(a.facebook&&a.telegram);}
+  function attemptDoneV62(id){return !!getAttemptV62(id).done;}
+  function passwordPassedV62(id){return !!getAttemptV62(id).pass;}
+  function markSocialV62(key,id){
+    const target=id||state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'';
+    if(target)state.pendingUnlockResourceV34=target;
+    const a=getAttemptV62(target);
+    if(key===FB)a.facebook=true;
+    if(key===TG)a.telegram=true;
+    state.visits={facebook:a.facebook,telegram:a.telegram};
+    try{sessionStorage.setItem('nexus-v62-pending-card',target);sessionStorage.setItem('nexus-v62-pending-social',key);}catch{}
+    return target;
+  }
+  function socialUrlV62(key){
+    const fallback=key===TG?'https://t.me/Netflixs02':'https://www.facebook.com/WebStores0/';
+    const fromSettings=key===TG?state.settings?.telegramUrl:state.settings?.facebookUrl;
+    return /^https?:\/\//i.test(String(fromSettings||''))?String(fromSettings):fallback;
+  }
+  function socialNameV62(key){return key===TG?'Telegram':'Facebook';}
+  function userCanTryV62(){return !!(state.user&&(!moderationActive || !moderationActive())&&(typeof canReadCommunityV27!=='function'||canReadCommunityV27()));}
+
+  function userIsWinnerV62(cardOrId){
+    const id=typeof cardOrId==='object'?cardOrId?.id:cardOrId;
+    return !!(state.user&&(state.resourceWinnersV34?.[id]?.[state.user.uid]||state.resourceWinnersV46?.[id]?.[state.user.uid]));
+  }
+  function markWinnerLocalV62(id){
+    if(!id||!state.user)return;
+    state.resourceWinnersV34=state.resourceWinnersV34||{};
+    state.resourceWinnersV34[id]=state.resourceWinnersV34[id]||{};
+    state.resourceWinnersV34[id][state.user.uid]=state.resourceWinnersV34[id][state.user.uid]||{uid:state.user.uid,displayName:state.profile?.displayName||state.user.displayName||'عضو',claimedAt:tsV62(),local:true};
+  }
+  async function claimWinnerV62(id){
+    const card=cardV62(id);if(!card||!state.user)return;
+    markWinnerLocalV62(id);
+    try{if(typeof revealClaimOpenCardV46==='function')await revealClaimOpenCardV46(card);}catch{}
+  }
+
+  function ensureSecretsV62(force=false){
+    if(!state.user)return;
+    if(secretsUnsubV62&&!force)return;
+    if(secretsUnsubV62&&force){try{secretsUnsubV62();}catch{} secretsUnsubV62=null;}
+    try{
+      secretsUnsubV62=onValue(dbref('resourceSecrets'),s=>{
+        state.secrets=s.val()||{};
+        if(!isTypingVipV62())scheduleRefreshV62(window.__activeRevealModalIdV49||state.pendingUnlockResourceV34||'',modalOpenV62());
+      },()=>{});
+    }catch{}
+    try{get(dbref('resourceSecrets')).then(s=>{if(s&&s.exists()){state.secrets=s.val()||{};if(!isTypingVipV62())scheduleRefreshV62(window.__activeRevealModalIdV49||state.pendingUnlockResourceV34||'',modalOpenV62());}}).catch(()=>{});}catch{}
+  }
+  async function persistUnlockForRulesV62(id){
+    if(!state.user)return;
+    const payload={facebookVisitedAt:tsV62(),telegramVisitedAt:tsV62(),unlockedAt:tsV62(),lastAttemptAt:tsV62()};
+    state.unlock={...(state.unlock||{}),...payload};
+    try{await set(dbref(`unlocks/${state.user.uid}/community`),payload);}catch{}
+    await claimWinnerV62(id);
+  }
+
+  function lockedPreviewV62(){return '████████████████████████\n██████████████████';}
+  function loadingHTMLV62(text='جاري تحميل محتوى البطاقة...'){
+    return `<div class="vip-loading-v62">${esc(text)}</div>`;
+  }
+  function passwordGateHTMLV62(card={},compact=false){
+    const id=esc(card.id||'');
+    const disabled=hasPasswordV62(card)&&!passValueV62(card)?' disabled':'';
+    const note=disabled?'جاري تجهيز بيانات الرقم السري، انتظر لحظة ثم حاول.':'تم تحقيق الشروط. أدخل الرقم السري لإظهار المحتوى.';
+    return `<form class="vip-password-gate-v60 vip-password-gate-v62 ${compact?'compact':''}" data-vip-pass-form-v62="${id}"><label for="vipPassInputV62-${id}">الرقم السري</label><div class="vip-pass-row-v60 vip-pass-row-v62"><input id="vipPassInputV62-${id}" type="password" inputmode="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="120" placeholder="اكتب الرقم السري هنا" data-vip-pass-input-v62="${id}"${disabled}><button type="submit" class="btn green small"${disabled}>فتح المحتوى</button></div><div class="vip-pass-note-v60" data-vip-pass-msg-v62="${id}">${note}</div></form>`;
+  }
+  function conditionsHTMLV62(cardId='',compact=false){
+    const a=getAttemptV62(cardId),done=!!(a.facebook&&a.telegram);
+    return `<div class="vip-conditions-v51 vip-conditions-v62 ${compact?'compact':''} ${done?'v61-done':''}"><div class="vip-conditions-title-v51">شروط فتح هذه البطاقة</div><div class="vip-conditions-grid-v51"><button type="button" class="vip-condition-v51 ${a.telegram?'done':''}" data-vip-social-v51="telegram" data-vip-card-v51="${esc(cardId)}"><b>${a.telegram?'✓':'1'}</b><span>Telegram</span><small>${a.telegram?'تم تسجيل الشرط':'اضغط للفتح'}</small></button><button type="button" class="vip-condition-v51 ${a.facebook?'done':''}" data-vip-social-v51="facebook" data-vip-card-v51="${esc(cardId)}"><b>${a.facebook?'✓':'2'}</b><span>Facebook</span><small>${a.facebook?'تم تسجيل الشرط':'اضغط للفتح'}</small></button></div>${done?`<button type="button" class="btn green vip-complete-v51" data-vip-complete-v51="${esc(cardId)}">إظهار المحتوى الآن</button>`:`<div class="vip-conditions-note-v51">يجب فتح الرابطين في كل محاولة فتح. يتم تحديث هذه البطاقة فقط بدون تحديث الموقع كله.</div>`}</div>`;
+  }
+  function canViewV62(card={}){
+    if(!isOpenRevealCardV43(card))return false;
+    if(revealIsFullV44(card))return false;
+    if(!userCanTryV62())return false;
+    if(revealGateEnabledV44(card))return attemptDoneV62(card.id)&&userIsWinnerV62(card);
+    return true;
+  }
+  function finalViewV62(card={}){return canViewV62(card)&&!(hasPasswordV62(card)&&!passwordPassedV62(card.id));}
+  function contentPanelV62(card={},modal=false){
+    const content=contentValueV62(card);
+    if(!content){ensureSecretsV62(false);return loadingHTMLV62('تم فتح البطاقة، جاري تحميل المحتوى...');}
+    return `<div class="${modal?'reveal-modal-content-v43':'reveal-panel-v48 is-preview'}">${esc(content)}</div>`;
+  }
+  function panelV62(card,open,baseCanView,full,gate,secret){
+    if(!open)return `<div class="reveal-panel-v48 is-countdown is-locked"><div><div class="reveal-countdown-title-v48">سيتم الكشف بعد</div>${revealBigCountdownHTMLV44(card)}</div></div>`;
+    if(full)return `<div class="reveal-panel-v48 is-locked"><div><strong>اكتمل عدد أول 3 أعضاء</strong><div class="reveal-vip-status-v48 full">هذه البطاقة محجوبة تلقائياً لباقي الأعضاء</div></div></div>`;
+    if(!userCanTryV62())return `<div class="reveal-panel-v48 is-locked"><div><strong>🔒 سجّل الدخول</strong><div class="reveal-vip-status-v48">سجّل الدخول لفتح البطاقة.</div></div></div>`;
+    if(gate&&!attemptDoneV62(card.id))return `<div class="reveal-panel-v48 is-locked reveal-panel-conditions-v51">${conditionsHTMLV62(card.id,true)}</div>`;
+    if(canViewV62(card)&&hasPasswordV62(card)&&!passwordPassedV62(card.id))return `<div class="reveal-panel-v48 is-preview password-required-v62">${passwordGateHTMLV62(card,true)}</div>`;
+    if(canViewV62(card))return `<div class="reveal-panel-v48 is-preview">${esc(contentValueV62(card)||'جاري تحميل المحتوى...')}</div>`;
+    return `<div class="reveal-panel-v48 is-locked"><span class="reveal-locked-text-v48">████████████████████</span></div>`;
+  }
+
+  const oldRevealIsFullV62=typeof revealIsFullV44==='function'?revealIsFullV44:null;
+  revealIsFullV44=function(card={}){
+    if(!isOpenRevealCardV43(card))return false;
+    if(userIsWinnerV62(card))return false;
+    return !!(typeof revealLimitReachedV46==='function'&&revealLimitReachedV46(card)&&!isStaff());
+  };
+  if(typeof revealUserIsWinnerV46==='function'){
+    revealUserIsWinnerV46=function(cardOrId){return userIsWinnerV62(cardOrId);};
+  }
+  revealCanViewContentV44=function(card={}){return canViewV62(card);};
+  revealPanelHTMLV48=function(card,open,canView,full,gate,secret){return panelV62(card,open,canView,full,gate,secret);};
+  vipConditionsHTMLV51=function(cardId='',compact=false){return conditionsHTMLV62(cardId,compact);};
+  vipSocialVisitedV51=function(key){const id=state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'';return !!getAttemptV62(id)[key];};
+  markVipSocialVisitedV51=function(key){markSocialV62(key,state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'');};
+
+  async function completeAttemptV62(cardId=''){
+    const id=cardId||state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'';
+    if(!id||!state.user)return;
+    if(!bothDoneV62(id)){toast('افتح Telegram وFacebook أولاً.','error');return;}
+    if(window.__v62Completing)return;
+    window.__v62Completing=true;
+    try{
+      const a=getAttemptV62(id);a.done=true;
+      markWinnerLocalV62(id);
+      ensureSecretsV62(true);
+      await persistUnlockForRulesV62(id);
+      modal('unlockModal',false);
+      const card=cardV62(id);
+      toast(hasPasswordV62(card||{})?'تم تحقيق الشروط. أدخل الرقم السري.':'تم تحقيق الشروط. سيتم إظهار المحتوى.','success');
+      scheduleRefreshV62(id,true,40);
+      setTimeout(()=>ensureSecretsV62(false),300);
+    }finally{setTimeout(()=>{window.__v62Completing=false;},350);}
+  }
+  maybeCompleteVipUnlockV51=completeAttemptV62;
+
+  openVipSocialV51=function(key,cardId=''){
+    const id=cardId||state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'';
+    if(!id){toast('افتح البطاقة أولاً.','error');return;}
+    markSocialV62(key,id);
+    scheduleRefreshV62(id,modalOpenV62(),40);
+    const url=socialUrlV62(key);
+    try{window.open(url,'_blank','noopener,noreferrer');}catch{}
+    toast(`تم تسجيل فتح ${socialNameV62(key)}.`, 'success');
+    setTimeout(()=>{if(bothDoneV62(id))completeAttemptV62(id);},160);
+  };
+  footerSocialClickV49=function(key,url){openVipSocialV51(key,state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'');};
+  detectSocialReturn=function(){
+    let id=state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'';
+    try{id=id||sessionStorage.getItem('nexus-v62-pending-card')||'';}catch{}
+    if(id&&bothDoneV62(id))completeAttemptV62(id);
+    else if(id)scheduleRefreshV62(id,modalOpenV62(),60);
+  };
+
+  function bindSocialV62(root=document){
+    root.querySelectorAll('[data-vip-social-v51]').forEach(b=>{
+      if(b.dataset.boundV62==='1')return;b.dataset.boundV62='1';
+      b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();b.classList.add('v62-opening');setTimeout(()=>b.classList.remove('v62-opening'),450);openVipSocialV51(b.dataset.vipSocialV51,b.dataset.vipCardV51||'');},{passive:false});
+    });
+    root.querySelectorAll('[data-vip-complete-v51]').forEach(b=>{
+      if(b.dataset.boundCompleteV62==='1')return;b.dataset.boundCompleteV62='1';
+      b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();completeAttemptV62(b.dataset.vipCompleteV51||'');},{passive:false});
+    });
+  }
+  bindVipSocialButtonsV51=function(root=document){bindSocialV62(root);};
+
+  function bindPasswordV62(root=document){
+    root.querySelectorAll('[data-vip-pass-form-v62]').forEach(form=>{
+      if(form.dataset.boundV62==='1')return;form.dataset.boundV62='1';
+      form.addEventListener('submit',e=>{
+        e.preventDefault();e.stopPropagation();
+        const id=form.dataset.vipPassFormV62||'';
+        const card=cardV62(id);
+        const input=form.querySelector('[data-vip-pass-input-v62]');
+        const msg=form.querySelector('[data-vip-pass-msg-v62]');
+        const expected=passValueV62(card||{});
+        const typed=String(input?.value||'').trim();
+        if(!card)return;
+        if(hasPasswordV62(card)&&!expected){
+          ensureSecretsV62(true);
+          if(msg){msg.textContent='جاري تحميل بيانات الرقم السري، حاول بعد لحظة.';msg.classList.add('error');msg.classList.remove('ok');}
+          return;
+        }
+        if(typed!==expected){
+          if(msg){msg.textContent='الرقم السري غير صحيح. حاول مرة أخرى.';msg.classList.add('error');msg.classList.remove('ok');}
+          input?.focus();toast('الرقم السري غير صحيح.','error');return;
+        }
+        getAttemptV62(id).pass=true;
+        if(msg){msg.textContent='تم قبول الرقم السري. يتم إظهار المحتوى الآن.';msg.classList.remove('error');msg.classList.add('ok');}
+        input?.blur();toast('تم فتح المحتوى.','success');
+        window.__v62AllowPasswordRefresh=true;
+        scheduleRefreshV62(id,true,30);
+        setTimeout(()=>{window.__v62AllowPasswordRefresh=false;},700);
+      },{passive:false});
+    });
+  }
+  window.bindVipPasswordFormsV61=bindPasswordV62;
+  window.bindVipPasswordFormsV60=bindPasswordV62;
+
+  revealCardHTMLV43=function(card,opts={}){
+    const open=isOpenRevealCardV43(card),gate=revealGateEnabledV44(card),full=revealIsFullV44(card),baseCan=canViewV62(card),finalCan=finalViewV62(card),needsPass=baseCan&&hasPasswordV62(card)&&!passwordPassedV62(card.id),secret=contentValueV62(card);
+    const status=!open?'مغلقة الآن':full?'محجوبة تلقائياً':!userCanTryV62()?'سجّل الدخول':(gate&&!attemptDoneV62(card.id))?'بانتظار الشروط':needsPass?'أدخل الرقم السري':finalCan?'تم فتح البطاقة':'جاهزة للفتح';
+    const actionLabel=!open?'عرض البطاقة':full?'محجوبة':(gate&&!attemptDoneV62(card.id))?'إظهار الشروط':needsPass?'إدخال الرقم السري':'عرض المحتوى';
+    const actionAttr=`data-resource="${esc(card.id)}"`;
+    const cls=`reveal-card-v43 reveal-vip-card-v48 ${open?'is-open':'is-locked'} ${finalCan?'can-view-v44':''} ${needsPass?'needs-password-v60':''} ${full?'full-v34 is-full-v46':''}`;
+    return `<article id="vip-card-${esc(card.id)}" class="${cls}" data-reveal-card="${esc(card.id)}" data-reveal-at-v49="${String(revealMsV43(card))}">${revealCoverHTMLV43(card)}<div class="reveal-card-main-v48"><div class="reveal-title-row-v48"><div class="reveal-title-copy-v48"><h3 class="reveal-title-v43">${esc(card.title||'بطاقة خاصة')}</h3><p class="reveal-desc-v43">${esc(card.description||card.public_description||'')}</p></div><div class="reveal-card-icon-v48">${revealIconContentV45(card)}</div></div><div class="reveal-winners-line-v48"><span>الفائزون:</span>${revealWinnersBadgeV46(card)}</div>${panelV62(card,open,baseCan,full,gate,secret)}<span class="reveal-vip-status-v48 ${finalCan?'open':full?'full':''}">${status}</span><div class="reveal-actions-v43"><button class="btn cyan" ${actionAttr}>${actionLabel}</button></div></div></article>`;
+  };
+
+  openResource=async function(id,opts={}){
+    const r=cardV62(id);if(!r)return;
+    const wasOpen=modalOpenV62();
+    const open=isOpenRevealCardV43(r),gate=revealGateEnabledV44(r);
+    if(open&&gate&&!wasOpen&&!opts.keepAttempt)resetAttemptV62(id);
+    window.__activeRevealModalIdV49=id;
+    state.pendingUnlockResourceV34=id;
+    if(isTypingVipV62()&&!window.__v62AllowPasswordRefresh)return;
+    const full=revealIsFullV44(r),baseCan=canViewV62(r),finalCan=finalViewV62(r),needsPass=baseCan&&hasPasswordV62(r)&&!passwordPassedV62(r.id);
+    if(open&&gate&&attemptDoneV62(id))ensureSecretsV62(false);
+    const cover=String(r.coverImageUrl||r.cover_image_url||'').trim(),safeCover=revealImageSafeV44(cover);
+    $('categoryModalTitle').textContent=`VIP ${r.title||'بطاقة خاصة'}`;
+    const heroIcon=safeCover?`<img src="${esc(safeCover)}" alt="">`:revealIconContentV45(r);
+    let body='';
+    if(!open)body=`<div class="reveal-modal-gate-v44"><div class="reveal-overlay-title-v44">المحتوى محجوب حتى انتهاء العداد</div>${revealBigCountdownHTMLV44(r)}<p>عند اكتمال العداد سيختفي تدريجياً ثم تظهر الشروط أو المحتوى.</p>${revealWinnersBadgeV46(r)}</div>`;
+    else if(full)body=`<div class="reveal-modal-gate-v44"><h3>اكتمل عدد أول 3 أعضاء</h3><p>هذه البطاقة أصبحت محجوبة تلقائياً لباقي الأعضاء.</p><span class="reveal-modal-winners-v46">${revealWinnerCountV46(r)} / ${(typeof REVEAL_WINNER_LIMIT_V46==='number'?REVEAL_WINNER_LIMIT_V46:3)} أعضاء</span></div>`;
+    else if(!userCanTryV62())body=`<div class="reveal-modal-gate-v44"><h3>سجّل الدخول أولاً</h3><p>يجب تسجيل الدخول قبل فتح هذه البطاقة.</p><button class="btn primary" type="button" data-guest-login>تسجيل الدخول</button></div><div class="reveal-modal-content-v43 locked">${lockedPreviewV62()}</div>`;
+    else if(gate&&!attemptDoneV62(id))body=`<div class="reveal-modal-gate-v44"><h3>اكتمل العداد</h3><p>افتح Telegram وFacebook في كل محاولة فتح. ستتحدث هذه النافذة فقط بدون تحديث الموقع كله.</p>${conditionsHTMLV62(id,false)}</div><div class="reveal-modal-content-v43 locked">${lockedPreviewV62()}</div>`;
+    else if(needsPass)body=`<div class="reveal-modal-password-v60">${passwordGateHTMLV62(r,false)}</div><div class="reveal-locked-preview-v60">${lockedPreviewV62()}</div>`;
+    else body=contentPanelV62(r,true);
+    const statusText=!open?'سيتم الكشف بعد':full?'محجوبة':!userCanTryV62()?'سجّل الدخول':(gate&&!attemptDoneV62(id))?'بانتظار الشروط':needsPass?'أدخل الرقم السري':finalCan?'تم فتح البطاقة':'جاهزة';
+    $('categoryModalBody').innerHTML=`<div class="reveal-modal-v43"><div class="reveal-modal-hero-v43"><div class="reveal-modal-cover-v43">${heroIcon}</div><div><h3>${esc(r.title||'بطاقة خاصة')}</h3><p>${esc(r.description||'')}</p><span class="reveal-status-v43 ${finalCan?'open':'locked'}">${statusText}</span><div>${revealWinnersBadgeV46(r)}</div></div></div>${body}</div>`;
+    const loginBtn=$('categoryModalBody').querySelector('[data-guest-login]');if(loginBtn)loginBtn.onclick=()=>promptAccessV27();
+    bindSocialV62($('categoryModalBody'));
+    bindPasswordV62($('categoryModalBody'));
+    modal('categoryModal');
+  };
+
+  renderResources=function(){
+    const grid=$('resourcesGrid');if(!grid||isTypingVipV62())return;
+    const prevScroll=grid.scrollLeft,prevTop=grid.scrollTop,activeId=window.__activeRevealModalIdV49||'';
+    const cards=state.resources.filter(isActiveRevealCardV43).sort((a,b)=>(Number(a.order||a.createdAt||0)-Number(b.order||b.createdAt||0)));
+    grid.innerHTML=cards.length?cards.map(r=>revealCardHTMLV43(r)).join(''):`<div class="glass empty reveal-empty-v43">لا توجد بطاقات خاصة حالياً. يضيفها المسؤول من لوحة التحكم.</div>`;
+    grid.querySelectorAll('[data-resource]').forEach(b=>b.onclick=()=>openResource(b.dataset.resource));
+    bindSocialV62(grid);bindPasswordV62(grid);
+    if(prevScroll||prevTop){grid.scrollLeft=prevScroll;grid.scrollTop=prevTop;}
+    if(activeId){const el=document.getElementById('vip-card-'+activeId);if(el)el.classList.add('target-comment-v50');}
+  };
+
+  function scheduleRefreshV62(cardId='',openModal=false,delay=90){
+    clearTimeout(refreshTimerV62);
+    refreshTimerV62=setTimeout(()=>{
+      if(isTypingVipV62()&&!window.__v62AllowPasswordRefresh){bindPasswordV62(document);return;}
+      try{renderResources();}catch{}
+      const id=cardId||window.__activeRevealModalIdV49||state.pendingUnlockResourceV34||'';
+      if(id&&(openModal||modalOpenV62()))try{openResource(id,{keepAttempt:true});}catch{}
+    },delay);
+  }
+  window.refreshVipViewsV61=function(cardId='',openModal=false){scheduleRefreshV62(cardId,openModal);};
+  window.refreshVipViewsV60=window.refreshVipViewsV61;
+
+  updateRevealCountdownsV49=function(){
+    let needsSwap=false;
+    document.querySelectorAll('[data-reveal-countdown-v49]').forEach(box=>{
+      const ms=Number(box.dataset.revealAtV49||0);
+      const p=typeof revealPartsFromMsV49==='function'?revealPartsFromMsV49(ms):remainingRevealPartsV43({revealAt:ms});
+      const map={days:p.days,hours:p.hours,minutes:p.minutes,seconds:p.seconds};
+      Object.entries(map).forEach(([k,v])=>{
+        const el=box.querySelector(`[data-reveal-part-v49="${k}"]`);
+        const val=typeof revealPadV49==='function'?revealPadV49(v):revealPadV43(v);
+        if(el&&el.textContent!==val){el.textContent=val;const unit=el.closest('.reveal-big-unit-v44');unit?.classList.add('tick-v49');setTimeout(()=>unit?.classList.remove('tick-v49'),180);}
+      });
+      if(p.diff<=0&&box.dataset.v62Swapped!=='1'){
+        box.dataset.v62Swapped='1';needsSwap=true;
+        box.closest('[data-reveal-card]')?.classList.add('v62-countdown-done');
+        box.closest('.reveal-modal-v43')?.classList.add('v62-countdown-done');
+      }
+    });
+    if(needsSwap&&!isTypingVipV62())scheduleRefreshV62(window.__activeRevealModalIdV49||'',modalOpenV62(),620);
+  };
+  try{clearInterval(window.__revealCardsTimerV43);clearInterval(window.__revealCardsTimerV49);clearInterval(window.__revealCardsTimerV62);}catch{}
+  window.__revealCardsTimerV62=setInterval(()=>{try{updateRevealCountdownsV49();}catch{}},1000);
+
+  openUnlock=function(){
+    if(requiresLogin(openUnlock))return;
+    const id=state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'';
+    state.visits={facebook:getAttemptV62(id).facebook,telegram:getAttemptV62(id).telegram};
+    renderUnlock();modal('unlockModal');
+  };
+  renderUnlock=function(){
+    const id=state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'';
+    $('unlockSteps').innerHTML=conditionsHTMLV62(id,false);
+    bindSocialV62($('unlockSteps'));
+    if($('completeUnlockBtn')){$('completeUnlockBtn').disabled=!bothDoneV62(id);$('completeUnlockBtn').onclick=()=>completeAttemptV62(id);}
+  };
+
+  document.addEventListener('click',e=>{
+    const social=e.target.closest?.('[data-vip-social-v51]');
+    if(social){e.preventDefault();e.stopPropagation();openVipSocialV51(social.dataset.vipSocialV51,social.dataset.vipCardV51||'');return;}
+    const complete=e.target.closest?.('[data-vip-complete-v51]');
+    if(complete){e.preventDefault();e.stopPropagation();completeAttemptV62(complete.dataset.vipCompleteV51||'');return;}
+    const close=e.target.closest?.('[data-close="categoryModal"]');
+    if(close){const id=window.__activeRevealModalIdV49||'';setTimeout(()=>{if(id){resetAttemptV62(id);scheduleRefreshV62('',false,50);}},0);}
+  },true);
+  window.addEventListener('pageshow',()=>setTimeout(()=>{try{detectSocialReturn();}catch{}},120));
+  window.addEventListener('focus',()=>setTimeout(()=>{try{detectSocialReturn();}catch{}},120));
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(()=>{try{detectSocialReturn();}catch{}},120);});
+
   try{renderResources();updateRevealCountdownsV49();}catch{}
 })();
 
