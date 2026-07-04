@@ -507,6 +507,132 @@ html[data-theme='light'] .resource-admin-winners-v46.full{background:rgba(207,64
 @media(max-width:760px){.duration-grid-v49{grid-template-columns:1fr 1fr}.duration-grid-v49 .field:first-child{grid-column:1/-1}}
 @media(max-width:420px){.duration-grid-v49{grid-template-columns:1fr}}
 
+
+
+/* V52 — Admin redesign polish: compact cards, profile-style members, and three-dot action menus. Behavior preserved. */
+:root{--admin-v52-card:linear-gradient(145deg,rgba(28,34,78,.74),rgba(8,12,33,.78));--admin-v52-card-hover:linear-gradient(145deg,rgba(34,41,94,.86),rgba(10,15,40,.86));--admin-v52-glow:0 18px 42px rgba(0,0,0,.22),0 0 0 1px rgba(53,221,255,.06)}
+#adminView{position:relative;isolation:isolate}#adminView::before{content:"";position:fixed;inset:77px 0 auto 0;height:170px;z-index:-1;background:radial-gradient(circle at 50% 0,rgba(53,221,255,.13),transparent 44rem);pointer-events:none}.top{box-shadow:0 18px 45px rgba(0,0,0,.24);background:linear-gradient(180deg,rgba(7,10,28,.88),rgba(7,10,28,.64))!important;border-bottom-color:rgba(255,255,255,.15)!important}.shell{margin-top:18px!important}.staff-mode{border-radius:18px!important;background:linear-gradient(135deg,rgba(53,221,255,.12),rgba(155,108,255,.08))!important}
+.dash{grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:10px!important}.metric{min-height:94px!important;padding:14px!important;position:relative;overflow:hidden}.metric::after{content:"";position:absolute;inset:auto -22px -30px auto;width:92px;height:92px;border-radius:50%;background:rgba(53,221,255,.10);filter:blur(2px)}.metric span{font-weight:900;letter-spacing:-.1px}.metric b{font-size:26px!important}
+.admin-nav-v32{top:86px!important;border-radius:20px!important;padding:8px!important;gap:7px!important;background:linear-gradient(145deg,rgba(14,18,48,.86),rgba(8,12,32,.76))!important;box-shadow:0 15px 38px rgba(0,0,0,.18)}.admin-nav-v32 a{border-radius:14px!important;padding:9px 10px!important;background:rgba(255,255,255,.055)!important}.admin-nav-v32 a:hover{transform:translateY(-2px);box-shadow:0 12px 25px rgba(0,0,0,.18)}
+.layout{grid-template-columns:repeat(12,minmax(0,1fr))!important;gap:12px!important;align-items:start}.layout>.card{grid-column:span 6}.layout>.card.full{grid-column:1/-1}.card{border-radius:22px!important}.head{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:13px 16px!important;font-size:16px!important;background:linear-gradient(90deg,rgba(255,255,255,.055),transparent);border-bottom-color:rgba(255,255,255,.10)!important}.head::after{content:"";width:38px;height:3px;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));box-shadow:0 0 18px rgba(53,221,255,.28)}.body{padding:13px!important}.notice{border-radius:15px!important;padding:10px 12px!important;font-size:12px!important}.grid2{gap:9px!important}.field{margin-bottom:9px!important}.field label{font-size:12px!important}.field input,.field textarea,.field select{min-height:39px;padding:9px 10px!important;border-radius:12px!important}textarea{min-height:92px!important}.btn{min-height:36px;padding:8px 11px!important;border-radius:11px!important}.btn.small{min-height:30px;padding:6px 8px!important;font-size:10.5px!important}
+.scroll{max-height:420px}.item{position:relative;margin-bottom:8px!important;padding:12px 52px 12px 12px!important;border-radius:16px!important;background:var(--admin-v52-card)!important;border:1px solid rgba(255,255,255,.11)!important;box-shadow:0 10px 24px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.045);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease}.item:hover{transform:translateY(-2px);background:var(--admin-v52-card-hover)!important;border-color:rgba(53,221,255,.24)!important;box-shadow:var(--admin-v52-glow)}.item h3{margin:0 0 5px!important;font-size:14px!important;line-height:1.35}.item p{font-size:12px!important;line-height:1.55!important;color:#c7cbe4!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.meta{font-size:10.5px!important;line-height:1.55!important;color:#9fa4c4!important;margin-top:6px!important}
+#categoriesList,#postsList,#commentsList,#chatList,#reportsList{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:9px;max-height:520px}#categoriesList .item,#postsList .item,#commentsList .item,#chatList .item,#reportsList .item{margin-bottom:0!important;min-height:118px}
+#usersList{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:10px;max-height:620px;padding:2px}.admin-user-card-v52{display:grid!important;grid-template-columns:48px minmax(0,1fr);align-items:start;gap:10px;min-height:145px;padding:12px 52px 12px 12px!important;overflow:visible!important}.admin-user-avatar-v52{width:48px;height:48px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(145deg,#6e5af2,#b867ef);background-size:cover;background-position:center;color:#fff;font-weight:1000;box-shadow:0 12px 27px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.20);position:relative}.admin-user-avatar-v52.online::after{content:"";position:absolute;left:-2px;bottom:-2px;width:11px;height:11px;border-radius:50%;background:var(--mint);border:2px solid #111735;box-shadow:0 0 12px rgba(98,243,191,.7)}.admin-user-card-v52 h3,.admin-user-card-v52 p,.admin-user-card-v52 .meta{grid-column:2}.admin-user-card-v52 h3{font-size:14px!important;padding-inline-end:4px}.admin-user-card-v52 p{min-height:38px}.admin-user-card-v52 .meta{word-break:break-word}.admin-user-role-v52{display:inline-flex;align-items:center;gap:4px;margin-inline-start:5px;padding:2px 7px;border-radius:999px;background:rgba(255,211,109,.11);border:1px solid rgba(255,211,109,.22);color:#ffe5a3;font-size:9px;font-weight:1000}
+.admin-actions-shell-v52{position:absolute;top:10px;inset-inline-end:10px;z-index:9}.admin-menu-toggle-v52{width:34px;height:34px;min-height:34px!important;border:1px solid rgba(255,255,255,.14);border-radius:13px;background:rgba(255,255,255,.075);color:#fff;font-size:18px;font-weight:1000;display:grid;place-items:center;padding:0!important;box-shadow:0 10px 23px rgba(0,0,0,.18)}.admin-menu-toggle-v52:hover{background:rgba(53,221,255,.14);border-color:rgba(53,221,255,.34);transform:translateY(-2px)}.admin-actions-menu-v52{display:none!important;position:absolute;top:39px;inset-inline-end:0;min-width:220px;max-width:min(320px,calc(100vw - 26px));padding:9px;border:1px solid rgba(255,255,255,.15);border-radius:16px;background:linear-gradient(145deg,rgba(18,23,56,.98),rgba(7,10,27,.98));box-shadow:0 22px 55px rgba(0,0,0,.42);backdrop-filter:blur(16px);z-index:30}.admin-actions-shell-v52.open .admin-actions-menu-v52{display:grid!important;gap:7px}.admin-actions-menu-v52 .row,.admin-actions-menu-v52 .member-actions{display:grid!important;grid-template-columns:1fr;gap:7px;margin:0!important}.admin-actions-menu-v52 .btn,.admin-actions-menu-v52 select{width:100%;min-width:0;text-align:center}.admin-actions-menu-v52 select{min-height:36px;padding:8px!important}.admin-actions-menu-v52::before{content:"إجراءات";display:block;margin:0 2px 3px;color:#aeb6d8;font-size:10px;font-weight:900;letter-spacing:.3px}.resource-admin-actions-v43.admin-actions-menu-v52{min-width:190px}.resource-admin-v43{position:relative;padding-inline-end:52px!important}.resource-admin-v43 .admin-actions-shell-v52{top:12px;inset-inline-end:12px}.resource-admin-actions-v43{justify-content:flex-start!important}
+.timed-cards-list-v43{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px!important;max-height:580px}.resource-admin-v43{grid-template-columns:62px minmax(0,1fr)!important;gap:11px!important;border-radius:18px!important;min-height:126px;padding:12px 52px 12px 12px!important}.resource-admin-cover-v43{width:62px!important;height:62px!important;border-radius:18px!important}.resource-admin-title-v43 strong{font-size:14px!important}.resource-admin-main-v43 p{font-size:11.5px!important;line-height:1.55!important}.resource-admin-meta-v43{font-size:10px!important}.resource-admin-note-v46{font-size:10.5px!important;line-height:1.55!important;padding:8px!important;border-radius:12px!important}.status-badge-v43,.resource-admin-winners-v46{font-size:9px!important;padding:3px 7px!important}
+html[data-theme="light"] .item,html[data-theme="light"] .admin-actions-menu-v52{background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(240,245,255,.96))!important;color:var(--text)!important}html[data-theme="light"] .admin-menu-toggle-v52{color:var(--text);background:rgba(255,255,255,.88)}html[data-theme="light"] .item p{color:#4b5874!important}html[data-theme="light"] .admin-user-avatar-v52.online::after{border-color:#fff}html[dir="ltr"] .item{padding:12px 12px 12px 52px!important}
+@media(max-width:1120px){.dash{grid-template-columns:repeat(4,minmax(0,1fr))!important}.layout>.card{grid-column:1/-1}}
+@media(max-width:760px){.shell{width:min(100% - 14px,1260px)!important}.dash{grid-template-columns:repeat(2,minmax(0,1fr))!important}.metric{min-height:78px!important}.metric b{font-size:21px!important}.admin-nav-v32{top:0!important;position:relative!important;overflow:auto;flex-wrap:nowrap!important}.admin-nav-v32 a{flex:0 0 auto;white-space:nowrap}.layout{gap:10px!important}.head{padding:11px 12px!important;font-size:14px!important}.body{padding:10px!important}#categoriesList,#postsList,#commentsList,#chatList,#reportsList,#usersList,.timed-cards-list-v43{grid-template-columns:1fr!important;gap:8px!important;max-height:none}.item{padding:10px 48px 10px 10px!important;border-radius:15px!important}.admin-user-card-v52{grid-template-columns:42px minmax(0,1fr);min-height:128px;padding:10px 48px 10px 10px!important}.admin-user-avatar-v52{width:42px;height:42px;border-radius:14px;font-size:13px}.admin-menu-toggle-v52{width:32px;height:32px;min-height:32px!important;border-radius:11px}.admin-actions-menu-v52{min-width:205px}.resource-admin-v43{grid-template-columns:52px minmax(0,1fr)!important;min-height:112px!important;padding:10px 48px 10px 10px!important}.resource-admin-cover-v43{width:52px!important;height:52px!important;border-radius:15px!important}.resource-admin-title-v43{gap:5px!important}.timed-card-form-v43 .grid2,.duration-grid-v49{grid-template-columns:1fr!important}textarea{min-height:84px!important}}
+@media(max-width:430px){.top .brand{max-width:50vw!important}.admin-actions-menu-v52{position:fixed;top:auto!important;left:10px!important;right:10px!important;bottom:12px!important;max-width:none;min-width:0;border-radius:18px}.admin-actions-shell-v52.open::before{content:"";position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:25}.admin-actions-shell-v52.open .admin-actions-menu-v52{z-index:35}.admin-user-card-v52 h3{font-size:12.5px!important}.item p{font-size:11px!important}.meta{font-size:9.5px!important}}
+
+
+
+/* V55 — safe admin fixes: fixed action menus, compact publish/VIP forms, optional VIP password. */
+#postForm,#resourceForm{max-width:100%;}
+#postForm .grid2,#resourceForm .grid2{gap:8px!important}
+#postForm .field,#resourceForm .field{margin-bottom:7px!important}
+#postForm textarea#postBody{min-height:82px!important}
+#resourceForm textarea#resourceDescription{min-height:64px!important}
+#resourceForm textarea#resourceSecret{min-height:86px!important}
+#resourceForm .duration-box-v49{padding:10px!important;margin:0 0 8px!important;border-radius:14px!important}
+#resourceForm .duration-head-v49{margin-bottom:7px!important}
+#resourceForm .duration-grid-v49{gap:7px!important}
+#resourceIconPickerV44{max-height:104px!important}
+.resource-password-field-v55{border:1px solid rgba(255,211,109,.18);border-radius:14px;padding:10px;background:linear-gradient(135deg,rgba(255,211,109,.07),rgba(53,221,255,.045));}
+.resource-password-field-v55 input{font-weight:900;letter-spacing:.4px}
+.post-editing-note-v55{margin:0 0 8px;padding:9px 11px;border:1px solid rgba(53,221,255,.23);border-radius:13px;background:rgba(53,221,255,.075);color:#dff8ff;font-size:12px;line-height:1.6}
+.admin-polished-v52 .item,.admin-polished-v52 .resource-admin-v43,.admin-polished-v52 .admin-user-card-v52{overflow:visible!important}
+.admin-actions-menu-v52.admin-menu-fixed-v55{position:fixed!important;top:var(--admin-menu-top-v55,80px)!important;left:var(--admin-menu-left-v55,16px)!important;right:auto!important;bottom:auto!important;max-height:min(430px,calc(100dvh - 24px))!important;overflow:auto!important;z-index:9999!important;transform:none!important;overscroll-behavior:contain}
+.admin-actions-shell-v52.open .admin-menu-toggle-v52{background:rgba(255,211,109,.18)!important;border-color:rgba(255,211,109,.44)!important;color:#fff8db!important}
+.admin-menu-safe-layer-v55{position:relative;z-index:9998!important}
+@media(max-width:760px){#postForm textarea#postBody{min-height:72px!important}#resourceForm textarea#resourceSecret{min-height:74px!important}.resource-password-field-v55{padding:8px}.admin-actions-menu-v52.admin-menu-fixed-v55{max-height:min(360px,calc(100dvh - 18px))!important}}
+
+
+
+/* V56 — precise fix for three-dot menus only: move dots to a safe top corner and render options in a body-level floating panel to avoid clipping behind cards. */
+.admin-polished-v52 .item,
+.admin-polished-v52 .admin-user-card-v52,
+.admin-polished-v52 .resource-admin-v43{
+  overflow:visible!important;
+}
+.admin-polished-v52 .item,
+.admin-polished-v52 .resource-admin-v43{
+  padding:12px 12px 12px 54px!important;
+}
+.admin-polished-v52 .admin-user-card-v52{
+  padding:12px 12px 12px 54px!important;
+}
+.admin-actions-shell-v52{
+  position:absolute!important;
+  top:12px!important;
+  left:12px!important;
+  right:auto!important;
+  bottom:auto!important;
+  z-index:80!important;
+}
+.admin-menu-toggle-v52{
+  position:relative!important;
+  z-index:2!important;
+}
+.admin-actions-shell-v52.open > .admin-actions-menu-v52{
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+.admin-menu-portal-v56{
+  position:fixed!important;
+  display:none!important;
+  min-width:220px!important;
+  max-width:min(330px,calc(100vw - 20px))!important;
+  max-height:min(430px,calc(100dvh - 22px))!important;
+  overflow:auto!important;
+  padding:10px!important;
+  border:1px solid rgba(255,255,255,.18)!important;
+  border-radius:18px!important;
+  background:linear-gradient(145deg,rgba(20,24,62,.98),rgba(7,10,28,.98))!important;
+  box-shadow:0 26px 70px rgba(0,0,0,.52),0 0 0 1px rgba(53,221,255,.08)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(1.25)!important;
+  backdrop-filter:blur(18px) saturate(1.25)!important;
+  z-index:2147483000!important;
+  overscroll-behavior:contain!important;
+}
+.admin-menu-portal-v56.show{display:grid!important;gap:8px!important}
+.admin-menu-portal-v56::before{
+  content:"إجراءات";
+  display:block;
+  margin:0 2px 2px;
+  color:#ffe6a1;
+  font-size:11px;
+  font-weight:1000;
+}
+.admin-menu-portal-v56 .row,
+.admin-menu-portal-v56 .member-actions{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:8px!important;
+  margin:0!important;
+}
+.admin-menu-portal-v56 .btn,
+.admin-menu-portal-v56 select{
+  width:100%!important;
+  min-width:0!important;
+  min-height:38px!important;
+  text-align:center!important;
+}
+.admin-menu-portal-v56 select{padding:8px 10px!important}
+body.admin-menu-v56-open .admin-menu-toggle-v52{transition:none!important}
+html[data-theme="light"] .admin-menu-portal-v56{
+  background:linear-gradient(145deg,rgba(255,255,255,.99),rgba(239,245,255,.98))!important;
+  color:var(--text)!important;
+  box-shadow:0 24px 60px rgba(40,62,112,.28)!important;
+}
+@media(max-width:760px){
+  .admin-polished-v52 .item,
+  .admin-polished-v52 .resource-admin-v43,
+  .admin-polished-v52 .admin-user-card-v52{padding:10px 10px 10px 50px!important}
+  .admin-actions-shell-v52{top:10px!important;left:10px!important}
+  .admin-menu-portal-v56{min-width:205px!important;max-width:calc(100vw - 18px)!important;max-height:min(360px,calc(100dvh - 18px))!important;border-radius:16px!important}
+}
+
 </style>
 </head>
 <body>
@@ -1290,6 +1416,348 @@ scheduledToggleResourceV43=async function(id){
 };
 try{if($('resourceForm'))$('resourceForm').onsubmit=addResource;}catch{}
 
+
+
+/* V52 — Admin UX cleanup: three-dot action menus and profile-style member cards. */
+function adminAvatarTextV52(name='عضو'){
+  const clean=String(name||'عضو').replace(/[^\p{L}\p{N}\s]/gu,'').trim();
+  const parts=clean.split(/\s+/).filter(Boolean);
+  return (parts.slice(0,2).map(x=>x[0]).join('')||'ع').toUpperCase();
+}
+function adminProfileImageV52(profile={}){
+  return String(profile.profileAvatarUrl||profile.avatarUrl||profile.avatar_url||profile.photoURL||profile.photo||profile.imageUrl||'').trim();
+}
+function enhanceAdminActionMenuV52(actions){
+  if(!actions||actions.classList.contains('admin-actions-menu-v52'))return;
+  if(actions.closest('.admin-actions-menu-v52'))return;
+  const parent=actions.parentElement;if(!parent)return;
+  const shell=document.createElement('div');
+  shell.className='admin-actions-shell-v52';
+  const btn=document.createElement('button');
+  btn.type='button';btn.className='admin-menu-toggle-v52';btn.setAttribute('aria-label','إجراءات');btn.textContent='⋯';
+  parent.insertBefore(shell,actions);
+  shell.appendChild(btn);
+  shell.appendChild(actions);
+  actions.classList.add('admin-actions-menu-v52');
+  btn.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();document.querySelectorAll('.admin-actions-shell-v52.open').forEach(x=>{if(x!==shell)x.classList.remove('open')});shell.classList.toggle('open');});
+  actions.addEventListener('click',ev=>ev.stopPropagation());
+}
+function enhanceAdminUsersV52(){
+  const list=$('usersList');if(!list)return;
+  list.querySelectorAll(':scope > .item').forEach(card=>{
+    if(card.classList.contains('admin-user-card-v52'))return;
+    const uid=card.querySelector('[data-role-select]')?.dataset.roleSelect||card.querySelector('[data-user]')?.dataset.user||card.querySelector('[data-delete-account]')?.dataset.deleteAccount||'';
+    if(!uid)return;
+    const profile=state.profiles?.[uid]||{};
+    const name=profile.displayName||card.querySelector('h3')?.textContent?.replace(/LORD|ADMIN|MOD|👑|👤/g,'').trim()||'عضو';
+    const avatar=document.createElement('div');
+    avatar.className='admin-user-avatar-v52'+(state.presence?.[uid]?' online':'');
+    const img=adminProfileImageV52(profile);
+    if(img)avatar.style.backgroundImage=`url("${img.replace(/"/g,'%22')}")`;
+    avatar.textContent=img?'':adminAvatarTextV52(name);
+    card.classList.add('admin-user-card-v52');
+    card.dataset.adminUserV52=uid;
+    card.insertBefore(avatar,card.firstChild);
+    const role=roleOf(uid);
+    const h=card.querySelector('h3');
+    if(h&&!h.querySelector('.admin-user-role-v52')){
+      h.innerHTML=h.innerHTML.replace(/👤\s*|👑\s*/g,'');
+      const badge=document.createElement('span');
+      badge.className='admin-user-role-v52';
+      badge.textContent=role==='admin'?'ADMIN':role==='moderator'?'MOD':'عضو';
+      h.appendChild(badge);
+    }
+  });
+}
+function enhanceAdminV52(){
+  try{
+    document.body.classList.add('admin-polished-v52');
+    document.querySelectorAll('.item > .member-actions,.resource-admin-v43 > .resource-admin-actions-v43').forEach(enhanceAdminActionMenuV52);
+    enhanceAdminUsersV52();
+  }catch(e){console.warn('V52 admin polish skipped',e);}
+}
+const renderBeforeAdminPolishV52=render;
+render=function(){renderBeforeAdminPolishV52();setTimeout(enhanceAdminV52,0);};
+const renderScheduledBeforeAdminPolishV52=renderScheduledResourcesAdminV43;
+renderScheduledResourcesAdminV43=function(){renderScheduledBeforeAdminPolishV52();setTimeout(enhanceAdminV52,0);};
+document.addEventListener('click',e=>{if(!e.target.closest('.admin-actions-shell-v52'))document.querySelectorAll('.admin-actions-shell-v52.open').forEach(x=>x.classList.remove('open'));});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.admin-actions-shell-v52.open').forEach(x=>x.classList.remove('open'));});
+try{setTimeout(enhanceAdminV52,300);}catch{}
+
+
+
+/* V55 — safe fixes requested after stable V54/V52. No base behavior removed. */
+function ensureResourcePasswordFieldV55(){
+  const form=$('resourceForm');if(!form||$('resourcePasswordV55'))return;
+  const secretField=$('resourceSecret')?.closest('.field');
+  if(!secretField)return;
+  const box=document.createElement('div');
+  box.className='field resource-password-field-v55';
+  box.innerHTML='<label>كلمة المرور الظاهرة للمستخدم (اختياري)</label><input id="resourcePasswordV55" maxlength="120" autocomplete="off" placeholder="مثال: VIP-2026"><span class="icon-help-v29">تظهر فقط بعد انتهاء العداد وتحقيق الشروط وفتح المحتوى. اتركها فارغة إذا لا تريد كلمة مرور.</span>';
+  secretField.insertAdjacentElement('afterend',box);
+}
+function resourcePasswordV55(){return String($('resourcePasswordV55')?.value||'').trim().slice(0,120);}
+function postEditIdInputV55(){
+  const form=$('postForm');if(!form)return null;
+  let input=$('postEditIdV55');
+  if(!input){input=document.createElement('input');input.type='hidden';input.id='postEditIdV55';form.prepend(input);}
+  return input;
+}
+function ensurePostEditControlsV55(){
+  const form=$('postForm');if(!form)return;postEditIdInputV55();
+  const row=form.querySelector('.row');if(row&&!$('postCancelEditV55')){
+    const btn=document.createElement('button');btn.type='button';btn.id='postCancelEditV55';btn.className='btn small hide';btn.textContent='إلغاء التعديل';
+    btn.onclick=resetPostEditV55;row.appendChild(btn);
+  }
+}
+function setPostSubmitLabelV55(editing=false){const b=$('postForm')?.querySelector('button.btn.primary');if(b)b.textContent=editing?'حفظ تعديل الموضوع':'نشر في الموقع';const c=$('postCancelEditV55');if(c)c.classList.toggle('hide',!editing);}
+function resetPostEditV55(){const form=$('postForm');if(!form)return;form.reset();const input=postEditIdInputV55();if(input)input.value='';setPostSubmitLabelV55(false);document.querySelector('.post-editing-note-v55')?.remove();}
+function startEditPostV55(id){
+  if(!state.isAdmin)return;
+  const p=state.posts.find(x=>x.id===id);if(!p){toast('لم يتم العثور على الموضوع.','error');return;}
+  ensurePostEditControlsV55();
+  postEditIdInputV55().value=id;
+  $('postTitle').value=p.title||'';$('postBody').value=p.body||'';$('postCategory').value=p.categoryId||$('postCategory').value;
+  if($('postDocumentUrl'))$('postDocumentUrl').value=p.documentUrl||'';
+  if($('postDocumentName'))$('postDocumentName').value=p.documentName||'';
+  if($('postPinned'))$('postPinned').checked=!!p.pinned;
+  setPostSubmitLabelV55(true);
+  const form=$('postForm');
+  if(form&&!document.querySelector('.post-editing-note-v55'))form.insertAdjacentHTML('afterbegin','<div class="post-editing-note-v55">أنت تعدّل موضوعاً منشوراً حالياً. اضغط حفظ تعديل الموضوع عند الانتهاء.</div>');
+  form?.scrollIntoView({behavior:'smooth',block:'center'});
+}
+const addPostBeforeV55=addPost;
+addPost=async function(e){
+  e.preventDefault();if(!state.isAdmin)return;
+  const editId=$('postEditIdV55')?.value?.trim()||'';
+  if(!editId)return addPostBeforeV55(e);
+  try{
+    const current=state.posts.find(p=>p.id===editId);if(!current)throw new Error('الموضوع غير موجود.');
+    const title=$('postTitle').value.trim(),body=$('postBody').value.trim();if(!title||!body)throw new Error('يرجى تعبئة العنوان والمحتوى.');
+    const documentUrl=String($('postDocumentUrl')?.value||'').trim();
+    const documentName=String($('postDocumentName')?.value||'').trim()||documentUrl.split('?')[0].split('/').pop()||'';
+    const documentExtension=documentName.includes('.')?documentName.split('.').pop().toLowerCase():'';
+    await update(R(`posts/${editId}`),{
+      title:title.slice(0,180),body:body.slice(0,50000),categoryId:$('postCategory').value,
+      documentUrl,documentName,documentType:current.documentType||'',documentSize:Number(current.documentSize||0),documentExtension,
+      pinned:!!$('postPinned').checked,updatedAt:now(),updatedBy:state.user.uid
+    });
+    resetPostEditV55();toast('تم تعديل الموضوع بنجاح.','success');
+  }catch(err){toast(errorText(err),'error');}
+};
+try{if($('postForm'))$('postForm').onsubmit=addPost;}catch{}
+function enhancePostActionsV55(){
+  const list=$('postsList');if(!list)return;
+  list.querySelectorAll('[data-del-post]').forEach(del=>{
+    const id=del.dataset.delPost;if(!id)return;
+    const actions=del.closest('.member-actions')||del.closest('.admin-actions-menu-v52')||del.parentElement;if(!actions)return;
+    if(!Array.from(actions.querySelectorAll('[data-edit-post-v55]')).some(x=>x.dataset.editPostV55===id)){
+      const edit=document.createElement('button');edit.type='button';edit.className='btn cyan small';edit.dataset.editPostV55=id;edit.textContent='تعديل';
+      actions.insertBefore(edit,del);
+    }
+  });
+  list.querySelectorAll('[data-edit-post-v55]').forEach(b=>{b.onclick=e=>{e.preventDefault();e.stopPropagation();document.querySelectorAll('.admin-actions-shell-v52.open').forEach(x=>x.classList.remove('open'));startEditPostV55(b.dataset.editPostV55);};});
+}
+function fillResourcePasswordForEditV55(id){
+  ensureResourcePasswordFieldV55();
+  const r=state.resources.find(x=>x.id===id)||{};
+  const secret=state.secrets?.[id]||{};
+  const input=$('resourcePasswordV55');if(input)input.value=secret.password||secret.accessPassword||r.accessPassword||r.cardPassword||'';
+}
+const resetResourceBeforeV55=scheduledResetResourceFormV43;
+scheduledResetResourceFormV43=function(){resetResourceBeforeV55();ensureResourcePasswordFieldV55();const input=$('resourcePasswordV55');if(input)input.value='';};
+const editResourceBeforeV55=scheduledEditResourceV43;
+scheduledEditResourceV43=function(id){editResourceBeforeV55(id);fillResourcePasswordForEditV55(id);};
+async function addResourceV55(e){
+  e.preventDefault();if(!state.isAdmin)return;
+  try{
+    ensureResourcePasswordFieldV55();
+    const editId=$('resourceEditId').value.trim();
+    const payload=scheduledResourcePayloadV43(editId);
+    const password=resourcePasswordV55();
+    payload.hasPassword=!!password;payload.passwordUpdatedAt=password?Date.now():null;
+    const secretRecord={content:$('resourceSecret').value.trim().slice(0,6000),password:password||null,authorUid:state.user.uid,updatedAt:Date.now(),createdAt:Number((editId&&state.secrets?.[editId]?.createdAt)||Date.now())};
+    if(editId){
+      const current=state.resources.find(x=>x.id===editId)||{};
+      if(current.vipNotificationSentAt)payload.vipNotificationSentAt=current.vipNotificationSentAt;
+      await update(ref(db),{[`resources/${editId}`]:payload,[`resourceSecrets/${editId}`]:secretRecord});
+      toast('تم تعديل البطاقة وجدولة الكشف.','success');
+    }else{
+      const x=push(R('resources'));const shouldNotify=payload.isActive!==false;
+      if(shouldNotify)payload.vipNotificationSentAt=Date.now();
+      await set(x,payload);await set(R(`resourceSecrets/${x.key}`),secretRecord);
+      if(shouldNotify&&typeof notifyMembersOfVIPCardV50==='function')await notifyMembersOfVIPCardV50(x.key,payload);
+      toast(shouldNotify?'تمت إضافة بطاقة VIP وإشعار الأعضاء.':'تمت إضافة البطاقة كمسودة معطلة.','success');
+    }
+    scheduledResetResourceFormV43();
+  }catch(err){toast(errorText(err),'error');}
+}
+addResource=addResourceV55;try{if($('resourceForm'))$('resourceForm').onsubmit=addResource;}catch{}
+function positionAdminMenuV55(shell){
+  if(!shell||!shell.classList.contains('open'))return;
+  const btn=shell.querySelector('.admin-menu-toggle-v52'),menu=shell.querySelector('.admin-actions-menu-v52');if(!btn||!menu)return;
+  menu.classList.add('admin-menu-fixed-v55');
+  shell.classList.add('admin-menu-safe-layer-v55');
+  const r=btn.getBoundingClientRect();
+  const width=Math.min(menu.offsetWidth||220,window.innerWidth-20);
+  let left=Math.max(10,Math.min(window.innerWidth-width-10,r.right-width));
+  let top=r.bottom+8;
+  const h=Math.min(menu.offsetHeight||260,430);
+  if(top+h>window.innerHeight-10)top=Math.max(10,r.top-h-8);
+  menu.style.setProperty('--admin-menu-left-v55',left+'px');
+  menu.style.setProperty('--admin-menu-top-v55',top+'px');
+}
+function closeAdminMenusV55(){document.querySelectorAll('.admin-actions-shell-v52.open').forEach(x=>x.classList.remove('open'));}
+document.addEventListener('click',e=>{
+  const toggle=e.target.closest('.admin-menu-toggle-v52');
+  if(toggle){setTimeout(()=>positionAdminMenuV55(toggle.closest('.admin-actions-shell-v52')),0);return;}
+  const menu=e.target.closest('.admin-actions-menu-v52');if(menu)setTimeout(()=>positionAdminMenuV55(menu.closest('.admin-actions-shell-v52')),0);
+},true);
+window.addEventListener('resize',()=>document.querySelectorAll('.admin-actions-shell-v52.open').forEach(positionAdminMenuV55));
+window.addEventListener('scroll',()=>document.querySelectorAll('.admin-actions-shell-v52.open').forEach(positionAdminMenuV55),true);
+function enhanceAdminV55(){try{ensurePostEditControlsV55();ensureResourcePasswordFieldV55();enhancePostActionsV55();document.querySelectorAll('.admin-actions-shell-v52.open').forEach(positionAdminMenuV55);}catch(e){console.warn('V55 safe admin fix skipped',e);}}
+const renderBeforeV55=render;render=function(){renderBeforeV55();setTimeout(enhanceAdminV55,40);};
+const renderScheduledBeforeV55=renderScheduledResourcesAdminV43;renderScheduledResourcesAdminV43=function(){renderScheduledBeforeV55();setTimeout(enhanceAdminV55,40);};
+try{setTimeout(enhanceAdminV55,500);}catch{}
+
+
+/* V56 — robust three-dot action menu fix. Keeps original buttons/datasets intact and calls the same existing functions. */
+(function(){
+  const V56={shell:null,btn:null,menu:null,portal:null,originalControls:[]};
+  function qs(sel,root=document){return root.querySelector(sel);}
+  function qsa(sel,root=document){return Array.from(root.querySelectorAll(sel));}
+  function ensurePortal(){
+    if(V56.portal&&document.body.contains(V56.portal))return V56.portal;
+    const p=document.createElement('div');
+    p.id='adminMenuPortalV56';
+    p.className='admin-menu-portal-v56';
+    p.setAttribute('role','menu');
+    p.addEventListener('click',onPortalClick,true);
+    p.addEventListener('change',onPortalChange,true);
+    document.body.appendChild(p);
+    V56.portal=p;
+    return p;
+  }
+  function originalMenu(shell){return shell?.querySelector(':scope > .admin-actions-menu-v52')||shell?.querySelector('.admin-actions-menu-v52');}
+  function copyMenu(menu){
+    const portal=ensurePortal();
+    portal.innerHTML='';
+    V56.originalControls=qsa('button,select,input,textarea,a',menu);
+    Array.from(menu.children).forEach(ch=>portal.appendChild(ch.cloneNode(true)));
+    const clones=qsa('button,select,input,textarea,a',portal);
+    clones.forEach((clone,i)=>{
+      clone.dataset.v56ControlIndex=String(i);
+      const orig=V56.originalControls[i];
+      if(orig&&('value' in clone))clone.value=orig.value;
+      if(orig&&orig.tagName==='SELECT')clone.value=orig.value;
+    });
+  }
+  function place(){
+    const portal=ensurePortal();
+    const btn=V56.btn;
+    if(!btn||!portal.classList.contains('show'))return;
+    portal.style.visibility='hidden';
+    portal.style.left='10px';
+    portal.style.top='10px';
+    const rect=btn.getBoundingClientRect();
+    const width=Math.min(Math.max(portal.offsetWidth||220,220),window.innerWidth-18);
+    const height=Math.min(portal.offsetHeight||260,window.innerHeight-18);
+    let left=Math.max(9,Math.min(window.innerWidth-width-9,rect.left));
+    let top=rect.bottom+8;
+    if(top+height>window.innerHeight-9)top=Math.max(9,rect.top-height-8);
+    // On very small screens keep it safely inside the viewport, not underneath cards.
+    if(window.innerWidth<=430){
+      left=9;
+      top=Math.max(9,Math.min(window.innerHeight-height-9,rect.bottom+8));
+      portal.style.width='calc(100vw - 18px)';
+    }else{
+      portal.style.width='';
+    }
+    portal.style.left=left+'px';
+    portal.style.top=top+'px';
+    portal.style.visibility='visible';
+  }
+  function open(shell){
+    if(!shell)return;
+    const menu=originalMenu(shell);
+    const btn=shell.querySelector('.admin-menu-toggle-v52');
+    if(!menu||!btn)return;
+    qsa('.admin-actions-shell-v52.open').forEach(x=>{if(x!==shell)x.classList.remove('open')});
+    V56.shell=shell;V56.menu=menu;V56.btn=btn;
+    shell.classList.add('open');
+    copyMenu(menu);
+    ensurePortal().classList.add('show');
+    document.body.classList.add('admin-menu-v56-open');
+    place();
+  }
+  function close(){
+    qsa('.admin-actions-shell-v52.open').forEach(x=>x.classList.remove('open'));
+    ensurePortal().classList.remove('show');
+    document.body.classList.remove('admin-menu-v56-open');
+    V56.shell=null;V56.menu=null;V56.btn=null;V56.originalControls=[];
+  }
+  function isOpen(){return !!(V56.portal&&V56.portal.classList.contains('show'));}
+  function fallbackAction(el){
+    const d=el?.dataset||{};
+    if(d.editResV43)return scheduledEditResourceV43(d.editResV43);
+    if(d.toggleResV43)return scheduledToggleResourceV43(d.toggleResV43);
+    if(d.delRes)return deleteResource(d.delRes);
+    if(d.pinPost)return togglePostPin(d.pinPost);
+    if(d.delPost)return deletePost(d.delPost);
+    if(d.editPostV55)return startEditPostV55(d.editPostV55);
+    if(d.delComment){const parts=String(d.delComment).split('|');return deleteComment(parts[0],parts[1]);}
+    if(d.delChat)return deleteChat(d.delChat);
+    if(d.delReport)return remove(R(`reports/${d.delReport}`));
+    if(d.saveRole)return saveRole(d.saveRole);
+    if(d.action&&d.user)return moderate(d.user,d.action);
+    if(d.deleteAccount)return deleteAccountFromSite(d.deleteAccount);
+  }
+  function onPortalClick(e){
+    const control=e.target.closest('[data-v56-control-index]');
+    if(!control)return;
+    if(control.tagName==='SELECT'||control.tagName==='INPUT'||control.tagName==='TEXTAREA')return;
+    e.preventDefault();e.stopPropagation();
+    const idx=Number(control.dataset.v56ControlIndex);
+    const orig=V56.originalControls[idx];
+    try{
+      if(orig&&document.contains(orig))orig.click();
+      else fallbackAction(control);
+    }finally{
+      setTimeout(close,80);
+    }
+  }
+  function onPortalChange(e){
+    const control=e.target.closest('[data-v56-control-index]');
+    if(!control)return;
+    const idx=Number(control.dataset.v56ControlIndex);
+    const orig=V56.originalControls[idx];
+    if(orig&&document.contains(orig)&&('value' in orig)){
+      orig.value=control.value;
+      orig.dispatchEvent(new Event('change',{bubbles:true}));
+    }
+  }
+  document.addEventListener('click',function(e){
+    const toggle=e.target.closest('.admin-menu-toggle-v52');
+    if(toggle){
+      e.preventDefault();e.stopImmediatePropagation();
+      const shell=toggle.closest('.admin-actions-shell-v52');
+      if(isOpen()&&V56.shell===shell)close();else open(shell);
+      return;
+    }
+    if(e.target.closest('#adminMenuPortalV56'))return;
+    if(!e.target.closest('.admin-actions-shell-v52'))close();
+  },true);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+  window.addEventListener('resize',()=>{if(isOpen())place();});
+  window.addEventListener('scroll',()=>{if(isOpen())place();},true);
+  // Keep VIP resource cards from re-rendering every second while their options menu is open.
+  const previousRenderScheduledV56=renderScheduledResourcesAdminV43;
+  renderScheduledResourcesAdminV43=function(){
+    if(isOpen()&&V56.shell&&V56.shell.closest('#resourcesList'))return;
+    return previousRenderScheduledV56();
+  };
+  window.__adminActionMenuV56={open,close,isOpen,place};
+})();
 
 </script>
 </body></html>
