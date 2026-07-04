@@ -2188,6 +2188,39 @@ html[data-theme='light'] .vip-password-v55 code{color:#17203a;background:rgba(25
   .vip-pass-row-v60 .btn{width:100%}
 }
 
+
+/* V61 — mobile-safe VIP unlock + smooth countdown finish */
+.reveal-panel-v48.is-countdown,
+.reveal-modal-gate-v44 .reveal-big-countdown-v44,
+.reveal-modal-gate-v44 .reveal-ring-v44,
+.reveal-countdown-title-v49{
+  transition:opacity .65s ease, transform .65s ease, max-height .65s ease;
+}
+.reveal-card-v43.v61-countdown-done .reveal-panel-v48.is-countdown,
+.reveal-modal-v43.v61-countdown-done .reveal-big-countdown-v44,
+.reveal-modal-v43.v61-countdown-done .reveal-ring-v44,
+.reveal-modal-v43.v61-countdown-done .reveal-countdown-title-v49{
+  opacity:0;
+  transform:translateY(-8px) scale(.985);
+  pointer-events:none;
+}
+.vip-conditions-v51.v61-done{
+  border:1px solid rgba(98,243,191,.28);
+  border-radius:16px;
+  padding:10px;
+  background:linear-gradient(145deg,rgba(98,243,191,.11),rgba(53,221,255,.055));
+}
+.vip-condition-v51{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.vip-condition-v51.v61-opening{filter:brightness(1.16);transform:translateY(-1px)}
+.vip-pass-row-v60 input,.vip-pass-row-v61 input{font-size:16px}
+.reveal-modal-content-v43.locked,.reveal-locked-preview-v60{overflow:hidden}
+@media(max-width:620px){
+  .vip-conditions-v51{max-width:100%}
+  .vip-condition-v51{cursor:pointer}
+  .vip-pass-row-v60,.vip-pass-row-v61{grid-template-columns:1fr;gap:7px}
+  .vip-pass-row-v60 .btn,.vip-pass-row-v61 .btn{width:100%}
+}
+
 </style>
 </head>
 <body>
@@ -5025,6 +5058,357 @@ try{renderResources();}catch{}
     bindVipPasswordFormsV60(document);
   };
 
+  try{renderResources();updateRevealCountdownsV49();}catch{}
+})();
+
+
+/* V61 — robust VIP opening on mobile: local condition state, retry secret loading, smooth countdown swap. */
+(function(){
+  if(window.__nexusVipFixV61)return;
+  window.__nexusVipFixV61=true;
+
+  const FACEBOOK_KEY='facebook', TELEGRAM_KEY='telegram';
+  function vipUidV61(){return state.user?.uid||'guest';}
+  function lsGetV61(k){try{return localStorage.getItem(k);}catch{return null;}}
+  function lsSetV61(k,v){try{localStorage.setItem(k,v);}catch{}}
+  function ssGetV61(k){try{return sessionStorage.getItem(k);}catch{return null;}}
+  function ssSetV61(k,v){try{sessionStorage.setItem(k,v);}catch{}}
+  function ssDelV61(k){try{sessionStorage.removeItem(k);}catch{}}
+  function vipSocialStoreKeyV61(key){return 'nexus-vip-social-v61-'+vipUidV61()+'-'+key;}
+  function vipUnlockStoreKeyV61(){return 'nexus-vip-unlocked-v61-'+vipUidV61();}
+  function vipWinnerStoreKeyV61(cardId){return 'nexus-vip-winner-v61-'+vipUidV61()+'-'+cardId;}
+  function vipPasswordStoreKeyV61(cardId){return 'nexus-vip-password-ok-v61-'+vipUidV61()+'-'+cardId;}
+  function vipCardV61(id){return state.resources.find(x=>String(x.id)===String(id))||null;}
+  function vipTsV61(){return typeof now==='function'?now():Date.now();}
+
+  function vipPasswordValueV61(card={}){
+    const secret=state.secrets?.[card.id]||{};
+    return String(secret.password||secret.accessPassword||card.accessPassword||card.cardPassword||'').trim();
+  }
+  function vipPasswordPassedV61(cardId){return ssGetV61(vipPasswordStoreKeyV61(cardId))==='1';}
+  function vipMarkPasswordPassedV61(cardId){ssSetV61(vipPasswordStoreKeyV61(cardId),'1');}
+  function vipNeedsPasswordV61(card={}){return !!(vipPasswordValueV61(card)&&!vipPasswordPassedV61(card.id));}
+  function vipLockedPreviewV61(){return '████████████████████████\n██████████████████';}
+  function vipPasswordGateHTMLV61(card={},compact=false){
+    const id=esc(card.id||'');
+    return `<form class="vip-password-gate-v60 vip-password-gate-v61 ${compact?'compact':''}" data-vip-pass-form-v61="${id}"><label for="vipPassInputV61-${id}">الرقم السري</label><div class="vip-pass-row-v60 vip-pass-row-v61"><input id="vipPassInputV61-${id}" type="password" inputmode="text" autocomplete="off" maxlength="120" placeholder="اكتب الرقم السري هنا" data-vip-pass-input-v61="${id}"><button type="submit" class="btn green small">فتح المحتوى</button></div><div class="vip-pass-note-v60" data-vip-pass-msg-v61="${id}">تم تحقيق الشروط. أدخل الرقم السري لإظهار المحتوى.</div></form>`;
+  }
+  function bindVipPasswordFormsV61(root=document){
+    root.querySelectorAll('[data-vip-pass-form-v61]').forEach(form=>{
+      if(form.dataset.boundV61==='1')return;
+      form.dataset.boundV61='1';
+      form.addEventListener('submit',e=>{
+        e.preventDefault();
+        const id=form.dataset.vipPassFormV61||'';
+        const card=vipCardV61(id);
+        const input=form.querySelector('[data-vip-pass-input-v61]');
+        const msg=form.querySelector('[data-vip-pass-msg-v61]');
+        const expected=vipPasswordValueV61(card||{});
+        const typed=String(input?.value||'').trim();
+        if(!card||!expected)return;
+        if(typed!==expected){
+          if(msg){msg.textContent='الرقم السري غير صحيح. حاول مرة أخرى.';msg.classList.add('error');msg.classList.remove('ok');}
+          input?.focus();
+          toast('الرقم السري غير صحيح.','error');
+          return;
+        }
+        vipMarkPasswordPassedV61(id);
+        if(msg){msg.textContent='تم قبول الرقم السري. سيتم إظهار المحتوى الآن.';msg.classList.remove('error');msg.classList.add('ok');}
+        toast('تم فتح المحتوى.','success');
+        refreshVipViewsV61(id,true);
+      });
+    });
+    if(typeof bindVipPasswordFormsV60==='function')try{bindVipPasswordFormsV60(root);}catch{}
+  }
+  window.bindVipPasswordFormsV61=bindVipPasswordFormsV61;
+
+  function vipSocialVisitedLocalV61(key){
+    return !!(state.visits?.[key]||state.unlock?.[key+'VisitedAt']||ssGetV61('nexus-social-visited-'+key)==='1'||ssGetV61('nexus-v51-social-'+key)==='1'||lsGetV61(vipSocialStoreKeyV61(key))==='1');
+  }
+  function vipBothSocialDoneV61(){return vipSocialVisitedLocalV61(FACEBOOK_KEY)&&vipSocialVisitedLocalV61(TELEGRAM_KEY);}
+  function vipMarkSocialVisitedLocalV61(key,cardId=''){
+    if(!key)return;
+    const ts=vipTsV61();
+    state.visits=state.visits||{};
+    state.unlock=state.unlock||{};
+    state.visits[key]=true;
+    state.unlock[key+'VisitedAt']=state.unlock[key+'VisitedAt']||ts;
+    ssSetV61('nexus-social-visited-'+key,'1');
+    ssSetV61('nexus-v51-social-'+key,'1');
+    lsSetV61(vipSocialStoreKeyV61(key),'1');
+    if(cardId)state.pendingUnlockResourceV34=cardId;
+  }
+  function vipLocalUnlockedV61(){return !!(state.unlock?.unlockedAt||lsGetV61(vipUnlockStoreKeyV61())==='1');}
+  function vipMarkLocalUnlockedV61(){
+    const ts=vipTsV61();
+    state.unlock={...(state.unlock||{}),facebookVisitedAt:state.unlock?.facebookVisitedAt||ts,telegramVisitedAt:state.unlock?.telegramVisitedAt||ts,unlockedAt:state.unlock?.unlockedAt||ts};
+    state.visits={...(state.visits||{}),facebook:true,telegram:true};
+    lsSetV61(vipUnlockStoreKeyV61(),'1');
+  }
+  function vipMarkLocalWinnerV61(cardId){
+    if(!cardId||!state.user)return;
+    state.resourceWinnersV34=state.resourceWinnersV34||{};
+    state.resourceWinnersV34[cardId]=state.resourceWinnersV34[cardId]||{};
+    state.resourceWinnersV34[cardId][state.user.uid]=state.resourceWinnersV34[cardId][state.user.uid]||{uid:state.user.uid,displayName:state.profile?.displayName||state.user.displayName||'عضو',claimedAt:vipTsV61(),local:true};
+    lsSetV61(vipWinnerStoreKeyV61(cardId),'1');
+  }
+  const revealUserIsWinnerBeforeV61=typeof revealUserIsWinnerV46==='function'?revealUserIsWinnerV46:null;
+  function vipUserIsWinnerV61(cardOrId){
+    const id=typeof cardOrId==='object'?cardOrId.id:cardOrId;
+    return !!((revealUserIsWinnerBeforeV61&&revealUserIsWinnerBeforeV61(cardOrId))||lsGetV61(vipWinnerStoreKeyV61(id))==='1'||(state.user&&state.resourceWinnersV34?.[id]?.[state.user.uid]));
+  }
+  if(typeof revealUserIsWinnerV46==='function'){
+    revealUserIsWinnerV46=function(cardOrId){return vipUserIsWinnerV61(cardOrId);};
+  }
+  revealIsFullV44=function(card={}){
+    return !!(isOpenRevealCardV43(card)&&typeof revealLimitReachedV46==='function'&&revealLimitReachedV46(card)&&!vipUserIsWinnerV61(card)&&!isStaff());
+  };
+  revealCanViewContentV44=function(card={}){
+    if(!isOpenRevealCardV43(card))return false;
+    if(revealIsFullV44(card))return false;
+    if(!revealGateEnabledV44(card))return !!(state.user||isStaff());
+    return !!(state.user&&(isStaff()||(canReadCommunityV27()&&vipLocalUnlockedV61()&&vipUserIsWinnerV61(card))));
+  };
+
+  let vipSecretsUnsubV61=null;
+  let vipSecretsRetryTimerV61=null;
+  function ensureVipSecretsV61(force=false){
+    if(!state.user)return;
+    if(vipSecretsUnsubV61&&!force)return;
+    if(vipSecretsUnsubV61&&force){try{vipSecretsUnsubV61();}catch{} vipSecretsUnsubV61=null;}
+    try{
+      vipSecretsUnsubV61=onValue(dbref('resourceSecrets'),s=>{
+        state.secrets=s.val()||{};
+        refreshVipViewsV61('',false);
+      },()=>{
+        try{vipSecretsUnsubV61&&vipSecretsUnsubV61();}catch{}
+        vipSecretsUnsubV61=null;
+        clearTimeout(vipSecretsRetryTimerV61);
+        vipSecretsRetryTimerV61=setTimeout(()=>{if(vipLocalUnlockedV61())ensureVipSecretsV61(true);},900);
+      });
+    }catch{}
+    try{get(dbref('resourceSecrets')).then(s=>{if(s&&s.exists()){state.secrets=s.val()||{};refreshVipViewsV61('',false);}}).catch(()=>{});}catch{}
+  }
+
+  async function persistVipUnlockV61(cardId=''){
+    if(!state.user)return;
+    const ts=vipTsV61();
+    const payload={facebookVisitedAt:state.unlock?.facebookVisitedAt||ts,telegramVisitedAt:state.unlock?.telegramVisitedAt||ts,unlockedAt:state.unlock?.unlockedAt||ts};
+    try{await set(dbref(`unlocks/${state.user.uid}/community`),payload);}catch{}
+    const card=cardId?vipCardV61(cardId):null;
+    if(card&&isOpenRevealCardV43(card)&&!revealIsFullV44(card)){
+      vipMarkLocalWinnerV61(cardId);
+      try{if(typeof revealClaimOpenCardV46==='function')await revealClaimOpenCardV46(card);}catch{}
+    }
+  }
+
+  function refreshVipViewsV61(cardId='',openModal=false){
+    try{renderResources();}catch{}
+    const id=cardId||window.__activeRevealModalIdV49||state.pendingUnlockResourceV34||'';
+    if(id&&($('categoryModal')?.classList.contains('show')||openModal)){
+      try{openResource(id);}catch{}
+    }
+    try{bindVipPasswordFormsV61(document);}catch{}
+  }
+  window.refreshVipViewsV61=refreshVipViewsV61;
+
+  maybeCompleteVipUnlockV51=async function(cardId=''){
+    const target=cardId||state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'';
+    if(target)state.pendingUnlockResourceV34=target;
+    if(!state.user||!vipBothSocialDoneV61())return;
+    if(window.__vipCompletingUnlockV61)return;
+    window.__vipCompletingUnlockV61=true;
+    try{
+      vipMarkLocalUnlockedV61();
+      if(target){
+        const card=vipCardV61(target);
+        if(card&&isOpenRevealCardV43(card)&&!revealIsFullV44(card))vipMarkLocalWinnerV61(target);
+      }
+      ensureVipSecretsV61(true);
+      await persistVipUnlockV61(target);
+      modal('unlockModal',false);
+      toast(vipPasswordValueV61(vipCardV61(target)||{})?'تم تحقيق الشروط. أدخل الرقم السري.':'تم تحقيق الشروط. تم فتح البطاقة.','success');
+      refreshVipViewsV61(target,true);
+    }catch(e){toast(readError(e),'error');}
+    finally{setTimeout(()=>{window.__vipCompletingUnlockV61=false;},450);}
+  };
+
+  vipSocialVisitedV51=function(key){return vipSocialVisitedLocalV61(key);};
+  markVipSocialVisitedV51=function(key){
+    vipMarkSocialVisitedLocalV61(key,state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'');
+    refreshVipViewsV61('',false);
+  };
+  openVipSocialV51=function(key,cardId=''){
+    const target=cardId||state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'';
+    if(target)state.pendingUnlockResourceV34=target;
+    vipMarkSocialVisitedLocalV61(key,target);
+    refreshVipViewsV61(target,false);
+    const url=typeof vipSocialUrlV51==='function'?vipSocialUrlV51(key):(key===TELEGRAM_KEY?'https://t.me/Netflixs02':'https://www.facebook.com/WebStores0/');
+    let opened=null;
+    try{opened=window.open(url,'_blank','noopener,noreferrer');}catch{}
+    setTimeout(()=>maybeCompleteVipUnlockV51(target),80);
+    if(!opened){setTimeout(()=>{try{window.location.href=url;}catch{}},180);}
+  };
+  footerSocialClickV49=function(key,url){openVipSocialV51(key,state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'');};
+  detectSocialReturn=function(){
+    const pending=ssGetV61('nexus-pending-social');
+    if(pending){vipMarkSocialVisitedLocalV61(pending,state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'');ssDelV61('nexus-pending-social');}
+    const id=state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'';
+    if(vipBothSocialDoneV61())maybeCompleteVipUnlockV51(id);
+    else refreshVipViewsV61(id,false);
+  };
+
+  vipConditionsHTMLV51=function(cardId='',compact=false){
+    const fb=vipSocialVisitedLocalV61(FACEBOOK_KEY),tg=vipSocialVisitedLocalV61(TELEGRAM_KEY),done=fb&&tg;
+    return `<div class="vip-conditions-v51 ${compact?'compact':''} ${done?'v61-done':''}"><div class="vip-conditions-title-v51">شروط الانضمام لفتح المحتوى</div><div class="vip-conditions-grid-v51"><button type="button" class="vip-condition-v51 ${tg?'done':''}" data-vip-social-v51="telegram" data-vip-card-v51="${esc(cardId)}"><b>${tg?'✓':'1'}</b><span>Telegram</span><small>${tg?'تم تسجيل الشرط':'اضغط للفتح'}</small></button><button type="button" class="vip-condition-v51 ${fb?'done':''}" data-vip-social-v51="facebook" data-vip-card-v51="${esc(cardId)}"><b>${fb?'✓':'2'}</b><span>Facebook</span><small>${fb?'تم تسجيل الشرط':'اضغط للفتح'}</small></button></div>${done?`<button type="button" class="btn green vip-complete-v51" data-vip-complete-v51="${esc(cardId)}">إظهار المحتوى الآن</button>`:`<div class="vip-conditions-note-v51">افتح الرابطين. يتم تسجيل الشرط مباشرة على الجوال، وعند العودة ستتحدث البطاقة تلقائياً.</div>`}</div>`;
+  };
+  bindVipSocialButtonsV51=function(root=document){
+    root.querySelectorAll('[data-vip-social-v51]').forEach(b=>{
+      b.onclick=e=>{e.preventDefault();b.classList.add('v61-opening');setTimeout(()=>b.classList.remove('v61-opening'),500);openVipSocialV51(b.dataset.vipSocialV51,b.dataset.vipCardV51||'');};
+    });
+    root.querySelectorAll('[data-vip-complete-v51]').forEach(b=>{
+      b.onclick=e=>{e.preventDefault();maybeCompleteVipUnlockV51(b.dataset.vipCompleteV51||'');};
+    });
+  };
+  document.addEventListener('click',e=>{
+    const social=e.target.closest?.('[data-vip-social-v51]');
+    if(social){e.preventDefault();e.stopPropagation();social.classList.add('v61-opening');setTimeout(()=>social.classList.remove('v61-opening'),500);openVipSocialV51(social.dataset.vipSocialV51,social.dataset.vipCardV51||'');return;}
+    const complete=e.target.closest?.('[data-vip-complete-v51]');
+    if(complete){e.preventDefault();e.stopPropagation();maybeCompleteVipUnlockV51(complete.dataset.vipCompleteV51||'');}
+  },true);
+  window.addEventListener('pageshow',()=>setTimeout(()=>{try{detectSocialReturn();}catch{}},120));
+  window.addEventListener('focus',()=>setTimeout(()=>{try{detectSocialReturn();}catch{}},120));
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(()=>{try{detectSocialReturn();}catch{}},120);});
+
+  openUnlock=function(){
+    if(requiresLogin(openUnlock))return;
+    state.visits={facebook:vipSocialVisitedLocalV61(FACEBOOK_KEY),telegram:vipSocialVisitedLocalV61(TELEGRAM_KEY)};
+    renderUnlock();modal('unlockModal');
+  };
+  renderUnlock=function(){
+    const cardId=state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'';
+    $('unlockSteps').innerHTML=vipConditionsHTMLV51(cardId,false);
+    bindVipSocialButtonsV51($('unlockSteps'));
+    if($('completeUnlockBtn')){
+      $('completeUnlockBtn').disabled=!vipBothSocialDoneV61();
+      $('completeUnlockBtn').onclick=()=>maybeCompleteVipUnlockV51(cardId);
+    }
+  };
+
+  function revealPanelV61(card,open,baseCanView,full,gate,secret){
+    if(!open)return `<div class="reveal-panel-v48 is-countdown is-locked"><div><div class="reveal-countdown-title-v48">سيتم الكشف بعد</div>${revealBigCountdownHTMLV44(card)}</div></div>`;
+    if(full)return `<div class="reveal-panel-v48 is-locked"><div><strong>اكتمل عدد أول 3 أعضاء</strong><div class="reveal-vip-status-v48 full">هذه البطاقة محجوبة تلقائياً لباقي الأعضاء</div></div></div>`;
+    if(gate&&!baseCanView)return `<div class="reveal-panel-v48 is-locked reveal-panel-conditions-v51">${vipConditionsHTMLV51(card.id,true)}</div>`;
+    if(baseCanView&&vipNeedsPasswordV61(card))return `<div class="reveal-panel-v48 is-preview password-required-v60">${vipPasswordGateHTMLV61(card,true)}</div>`;
+    if(baseCanView)return `<div class="reveal-panel-v48 is-preview">${esc(secret||'لا يوجد محتوى بعد.')}</div>`;
+    return `<div class="reveal-panel-v48 is-locked"><span class="reveal-locked-text-v48">████████████████████</span></div>`;
+  }
+  revealPanelHTMLV48=function(card,open,canView,full,gate,secret){return revealPanelV61(card,open,canView,full,gate,secret);};
+
+  revealCardHTMLV43=function(card,opts={}){
+    const open=isOpenRevealCardV43(card),baseCanView=revealCanViewContentV44(card),finalCanView=baseCanView&&!vipNeedsPasswordV61(card),needsPass=baseCanView&&vipNeedsPasswordV61(card),gate=revealGateEnabledV44(card),secret=revealSecretV43(card),full=revealIsFullV44(card);
+    const status=!open?'مغلقة الآن':full?'محجوبة تلقائياً':needsPass?'أدخل الرقم السري':finalCanView?'تم فتح البطاقة':gate?'بانتظار الشروط':'جاهزة للفتح';
+    const actionLabel=finalCanView?'عرض المحتوى':needsPass?'إدخال الرقم السري':full?'محجوبة':(open&&gate&&!baseCanView?'إظهار الشروط':'عرض البطاقة');
+    const actionAttr=(open&&gate&&!baseCanView&&!full)?`data-unlock-resource="${esc(card.id)}"`:`data-resource="${esc(card.id)}"`;
+    const actionClass=(open&&gate&&!baseCanView&&!full)?'btn primary reveal-gate-button-v44':'btn cyan';
+    return `<article id="vip-card-${esc(card.id)}" class="reveal-card-v43 reveal-vip-card-v48 ${open?'is-open':'is-locked'} ${finalCanView?'can-view-v44':''} ${needsPass?'needs-password-v60':''} ${full?'full-v34 is-full-v46':''}" data-reveal-card="${esc(card.id)}" data-reveal-at-v49="${String(revealMsV43(card))}">${revealCoverHTMLV43(card)}<div class="reveal-card-main-v48"><div class="reveal-title-row-v48"><div class="reveal-title-copy-v48"><h3 class="reveal-title-v43">${esc(card.title||'بطاقة خاصة')}</h3><p class="reveal-desc-v43">${esc(card.description||card.public_description||'')}</p></div><div class="reveal-card-icon-v48">${revealIconContentV45(card)}</div></div><div class="reveal-winners-line-v48"><span>الفائزون:</span>${revealWinnersBadgeV46(card)}</div>${revealPanelV61(card,open,baseCanView,full,gate,secret)}<span class="reveal-vip-status-v48 ${finalCanView?'open':full?'full':''}">${status}</span><div class="reveal-actions-v43"><button class="${actionClass}" ${actionAttr}>${actionLabel}</button></div></div></article>`;
+  };
+
+  revealUnlockResourceV44=async function(id){
+    const card=vipCardV61(id);if(!card)return;
+    state.pendingUnlockResourceV34=id;
+    if(!canReadCommunityV27()){promptAccessV27();return;}
+    if(!isOpenRevealCardV43(card)){openResource(id);return;}
+    if(revealIsFullV44(card)){toast('اكتمل عدد أول 3 أعضاء لهذه البطاقة.','error');refreshVipViewsV61(id,false);return;}
+    if(vipBothSocialDoneV61()||vipLocalUnlockedV61()){
+      vipMarkLocalUnlockedV61();
+      vipMarkLocalWinnerV61(id);
+      ensureVipSecretsV61(true);
+      await persistVipUnlockV61(id);
+      refreshVipViewsV61(id,true);
+      return;
+    }
+    openUnlock();
+  };
+
+  openResource=async function(id){
+    const r=vipCardV61(id);if(!r)return;
+    window.__activeRevealModalIdV49=id;
+    const open=isOpenRevealCardV43(r),gate=revealGateEnabledV44(r);
+    if(open&&state.user&&vipLocalUnlockedV61()&&!vipUserIsWinnerV61(r)&&!revealIsFullV44(r)){
+      vipMarkLocalWinnerV61(id);
+      try{if(typeof revealClaimOpenCardV46==='function')await revealClaimOpenCardV46(r);}catch{}
+    }
+    if(open&&vipLocalUnlockedV61())ensureVipSecretsV61(false);
+    const baseCanView=revealCanViewContentV44(r),finalCanView=baseCanView&&!vipNeedsPasswordV61(r),needsPass=baseCanView&&vipNeedsPasswordV61(r),full=revealIsFullV44(r),cover=String(r.coverImageUrl||r.cover_image_url||'').trim(),safeCover=revealImageSafeV44(cover);
+    $('categoryModalTitle').textContent=`VIP ${r.title||'بطاقة خاصة'}`;
+    const heroIcon=safeCover?`<img src="${esc(safeCover)}" alt="">`:revealIconContentV45(r);
+    let body='';
+    if(!open)body=`<div class="reveal-modal-gate-v44"><div class="reveal-overlay-title-v44">المحتوى محجوب حتى انتهاء العداد</div>${revealBigCountdownHTMLV44(r)}<p>بعد اكتمال المؤقت ستظهر الشروط أو المحتوى مباشرة.</p>${revealWinnersBadgeV46(r)}</div>`;
+    else if(full)body=`<div class="reveal-modal-gate-v44"><h3>اكتمل عدد أول 3 أعضاء</h3><p>هذه البطاقة أصبحت محجوبة تلقائياً لباقي الأعضاء.</p><span class="reveal-modal-winners-v46">${revealWinnerCountV46(r)} / ${REVEAL_WINNER_LIMIT_V46} أعضاء</span></div>`;
+    else if(gate&&!baseCanView)body=`<div class="reveal-modal-gate-v44"><h3>اكتمل العداد</h3><p>افتح Facebook وTelegram. عند تحقق الشرطين ستتحدث هذه النافذة مباشرة بدون تحديث الصفحة.</p>${vipConditionsHTMLV51(r.id,false)}</div><div class="reveal-modal-content-v43 locked">${vipLockedPreviewV61()}</div>`;
+    else if(needsPass)body=`<div class="reveal-modal-password-v60">${vipPasswordGateHTMLV61(r,false)}</div><div class="reveal-locked-preview-v60">${vipLockedPreviewV61()}</div>`;
+    else body=`<div class="reveal-modal-content-v43">${esc(revealSecretV43(r)||'لا يوجد محتوى بعد.')}</div>`;
+    $('categoryModalBody').innerHTML=`<div class="reveal-modal-v43"><div class="reveal-modal-hero-v43"><div class="reveal-modal-cover-v43">${heroIcon}</div><div><h3>${esc(r.title||'بطاقة خاصة')}</h3><p>${esc(r.description||'')}</p><span class="reveal-status-v43 ${finalCanView?'open':'locked'}">${!open?'سيتم الكشف بعد':full?'محجوبة':needsPass?'أدخل الرقم السري':finalCanView?'تم فتح البطاقة':'بانتظار الشروط'}</span><div>${revealWinnersBadgeV46(r)}</div></div></div>${body}</div>`;
+    bindVipSocialButtonsV51($('categoryModalBody'));
+    bindVipPasswordFormsV61($('categoryModalBody'));
+    modal('categoryModal');
+  };
+
+  renderResources=function(){
+    const grid=$('resourcesGrid');if(!grid)return;
+    const prevScroll=grid.scrollLeft,prevTop=grid.scrollTop,activeId=window.__activeRevealModalIdV49||'';
+    const cards=state.resources.filter(isActiveRevealCardV43).sort((a,b)=>(Number(a.order||a.createdAt||0)-Number(b.order||b.createdAt||0)));
+    grid.innerHTML=cards.length?cards.map(r=>revealCardHTMLV43(r)).join(''):`<div class="glass empty reveal-empty-v43">لا توجد بطاقات خاصة حالياً. يضيفها المسؤول من لوحة التحكم.</div>`;
+    grid.querySelectorAll('[data-resource]').forEach(b=>b.onclick=()=>openResource(b.dataset.resource));
+    grid.querySelectorAll('[data-unlock-resource]').forEach(b=>b.onclick=()=>revealUnlockResourceV44(b.dataset.unlockResource));
+    bindVipSocialButtonsV51(grid);
+    bindVipPasswordFormsV61(grid);
+    if(prevScroll||prevTop){grid.scrollLeft=prevScroll;grid.scrollTop=prevTop;}
+    if(activeId){const el=document.getElementById('vip-card-'+activeId);if(el)el.classList.add('target-comment-v50');}
+  };
+
+  function updateCountdownBoxV61(box){
+    const ms=Number(box.dataset.revealAtV49||0);
+    const p=typeof revealPartsFromMsV49==='function'?revealPartsFromMsV49(ms):remainingRevealPartsV43({revealAt:ms});
+    const map={days:p.days,hours:p.hours,minutes:p.minutes,seconds:p.seconds};
+    Object.entries(map).forEach(([k,v])=>{
+      const el=box.querySelector(`[data-reveal-part-v49="${k}"]`);
+      const val=(typeof revealPadV49==='function'?revealPadV49(v):revealPadV43(v));
+      if(el&&el.textContent!==val){
+        el.textContent=val;
+        const unit=el.closest('.reveal-big-unit-v44');
+        unit?.classList.add('tick-v49');setTimeout(()=>unit?.classList.remove('tick-v49'),180);
+      }
+    });
+    return p.diff<=0;
+  }
+  updateRevealCountdownsV49=function(){
+    let completed=false;
+    document.querySelectorAll('[data-reveal-countdown-v49]').forEach(box=>{
+      if(updateCountdownBoxV61(box)){
+        completed=true;
+        const card=box.closest('[data-reveal-card]');
+        const modalBox=box.closest('.reveal-modal-v43');
+        if(card&&!card.classList.contains('v61-countdown-done'))card.classList.add('v61-countdown-done');
+        if(modalBox&&!modalBox.classList.contains('v61-countdown-done'))modalBox.classList.add('v61-countdown-done');
+      }
+    });
+    bindVipPasswordFormsV61(document);
+    if(completed&&!window.__v61CountdownSwapPending){
+      window.__v61CountdownSwapPending=true;
+      setTimeout(()=>{
+        window.__v61CountdownSwapPending=false;
+        try{renderResources();}catch{}
+        const id=window.__activeRevealModalIdV49;
+        if(id&&$('categoryModal')?.classList.contains('show'))try{openResource(id);}catch{}
+      },650);
+    }
+  };
+
+  const notificationBtnV61=$('notificationBtn');
+  try{const fb=$('facebookFooter'),tg=$('telegramFooter');if(fb)fb.onclick=e=>{e.preventDefault();openVipSocialV51(FACEBOOK_KEY,state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'');};if(tg)tg.onclick=e=>{e.preventDefault();openVipSocialV51(TELEGRAM_KEY,state.pendingUnlockResourceV34||window.__activeRevealModalIdV49||'');};if(notificationBtnV61)notificationBtnV61.onclick=openNotifications;}catch{}
+  if(vipLocalUnlockedV61())ensureVipSecretsV61(true);
   try{renderResources();updateRevealCountdownsV49();}catch{}
 })();
 
