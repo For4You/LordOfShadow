@@ -4,8 +4,6 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <title>NexusHub V39 — لوحة الإدارة</title>
 <style>
-/* NexusHub V8 Pro - shared styles */
-
 :root{
   --bg:#07091a;--bg2:#10133a;--surface:rgba(19,23,57,.74);--surface-solid:#131735;
   --line:rgba(255,255,255,.10);--text:#f7f8ff;--muted:#acaed0;--purple:#8c5bff;
@@ -40,10 +38,7 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding:32px 0;backgroun
 .modal{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:14px;background:rgba(3,4,15,.76);backdrop-filter:blur(8px)}.modal.show{display:grid}.modal-box{width:min(710px,100%);max-height:90vh;overflow:auto;border:1px solid rgba(255,255,255,.14);border-radius:23px;background:linear-gradient(145deg,#1a1d48,#0c0f27);box-shadow:0 28px 100px rgba(0,0,0,.58);animation:pop .26s ease}.modal-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:17px 19px;border-bottom:1px solid var(--line);background:#171a3d}.modal-head h2{margin:0;font-size:20px}.close{width:34px;height:34px;border:0;border-radius:10px;background:rgba(255,255,255,.08);color:#fff;font-size:21px}.modal-body{padding:19px}.field{margin-bottom:12px}.field label{display:block;color:#d8d8e9;font-size:13px;font-weight:bold;margin-bottom:6px}input,textarea,select{width:100%;color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:rgba(5,7,20,.6);padding:12px;outline:none;transition:.2s}input:focus,textarea:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(44,221,255,.12)}textarea{min-height:130px;resize:vertical}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:11px}.auth-tabs{display:flex;gap:8px;margin-bottom:15px}.auth-tab{flex:1;padding:10px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.04);color:#c1c1d8;font-weight:bold}.auth-tab.active{border-color:transparent;color:#fff;background:linear-gradient(135deg,#6f42dd,#9d5df5)}.divider{display:flex;align-items:center;gap:10px;color:#9291aa;font-size:12px;margin:16px 0}.divider:before,.divider:after{content:"";height:1px;flex:1;background:var(--line)}
 .full-post h1{margin:0 0 9px;font-size:27px}.post-content{margin-top:15px;padding:17px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);line-height:2;color:#e5e5f2;white-space:pre-wrap}.comment{padding:12px 0;border-bottom:1px solid var(--line)}.comment:last-child{border-bottom:0}.comment p{margin:6px 0 0;color:#d9d9e7;font-size:14px;line-height:1.7}.comment-form{display:flex;gap:8px;margin:13px 0}.comment-form input{flex:1}.unlock{text-align:center}.unlock .symbol{font-size:48px}.unlock h3{margin:8px 0}.unlock p{color:var(--muted);line-height:1.8}.steps{display:grid;gap:10px;margin:16px 0;text-align:right}.step{display:flex;align-items:center;gap:10px;padding:13px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.04)}.step .number{display:grid;place-items:center;width:29px;height:29px;border-radius:9px;background:rgba(140,91,255,.24);color:#dfd3ff;font-weight:bold}.step.done{border-color:rgba(84,239,184,.38);background:rgba(84,239,184,.08)}.step.done .number{background:var(--mint);color:#082018}.empty{padding:28px;text-align:center;color:var(--muted)}
 .toast{position:fixed;bottom:20px;left:20px;z-index:200;max-width:360px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:#242754;padding:12px 15px;box-shadow:0 20px 50px rgba(0,0,0,.4);transform:translateY(120px);opacity:0;transition:.28s}.toast.show{opacity:1;transform:none}.toast.error{border-color:#e25867}.toast.success{border-color:#4ed6a9}
-@media(max-width:1080px){.main-layout{grid-template-columns:250px 1fr}.rightbar{display:none}.hero{grid-template-columns:1fr}.hero-visual{display:none}.resources,.trending-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.container{width:min(100% - 20px,1260px)}.nav{height:65px}.nav-link{display:none}.brand strong{font-size:19px}.brand small{display:none}.hero{padding:48px 0 25px}.hero h1{font-size:38px}.main-layout{display:block}.leftbar{display:none}.rightbar{display:grid;margin-top:16px}.resources,.categories,.trending-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.modal-body{padding:15px}.post{padding:14px}.hero-stats{gap:8px}.mini-stat{min-width:105px}} 
-
-
-/* Admin additions */
+@media(max-width:1080px){.main-layout{grid-template-columns:250px 1fr}.rightbar{display:none}.hero{grid-template-columns:1fr}.hero-visual{display:none}.resources,.trending-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.container{width:min(100% - 20px,1260px)}.nav{height:65px}.nav-link{display:none}.brand strong{font-size:19px}.brand small{display:none}.hero{padding:48px 0 25px}.hero h1{font-size:38px}.main-layout{display:block}.leftbar{display:none}.rightbar{display:grid;margin-top:16px}.resources,.categories,.trending-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.modal-body{padding:15px}.post{padding:14px}.hero-stats{gap:8px}.mini-stat{min-width:105px}}
 
 :root{--bg:#080a1a;--surface:#151937;--line:rgba(255,255,255,.11);--text:#f7f8ff;--muted:#adafcd;--purple:#8d5dff;--cyan:#2bddff;--pink:#ff63ad;--green:#52edb5;--danger:#ff6e78}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 10% 6%,rgba(141,93,255,.27),transparent 24rem),radial-gradient(circle at 91% 15%,rgba(43,221,255,.15),transparent 24rem),var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.hide{display:none!important}.wrap{overflow-wrap:anywhere}
@@ -60,13 +55,8 @@ footer{margin-top:40px;border-top:1px solid var(--line);padding:32px 0;backgroun
 .feature-card span{display:block;color:var(--muted);line-height:1.75;font-size:13px}
 @media(max-width:900px){.features-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.features-grid{grid-template-columns:1fr}}
-
-
-/* V11 moderation console */
 .staff-mode{padding:11px 14px;border:1px solid rgba(44,221,255,.28);border-radius:13px;background:rgba(44,221,255,.09);color:#b2f3ff;font-size:13px;line-height:1.75;margin-bottom:16px}
 .member-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.role-select{width:auto;min-width:140px;padding:7px 9px;border-radius:9px}.status-chip{display:inline-flex;align-items:center;gap:5px;margin-top:7px;padding:3px 7px;border-radius:99px;font-size:10px;font-weight:900}.status-chip.active{background:rgba(84,239,184,.12);color:#a6f9d3;border:1px solid rgba(84,239,184,.3)}.status-chip.warning{background:rgba(255,211,109,.12);color:#ffe4a5;border:1px solid rgba(255,211,109,.32)}.status-chip.banned{background:rgba(255,108,120,.14);color:#ffb2ba;border:1px solid rgba(255,108,120,.32)}.admin-only{transition:.2s}.staff-badge{display:inline-block;margin-right:6px;padding:3px 6px;border-radius:99px;background:rgba(44,221,255,.11);color:#9cefff;border:1px solid rgba(44,221,255,.28);font-size:10px}.warning-badge{display:inline-block;margin-right:6px;padding:3px 6px;border-radius:99px;background:rgba(255,211,109,.11);color:#ffe4a5;border:1px solid rgba(255,211,109,.28);font-size:10px}
-
-/* V15 — mobile dashboard layout */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent;scroll-padding-top:80px}
 body{overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom)}
 button,input,textarea,select{touch-action:manipulation}
@@ -105,15 +95,8 @@ button,input,textarea,select{touch-action:manipulation}
 @media (prefers-reduced-motion:reduce){
  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
-
-
-
-/* V17 — local language and light appearance controls */
 .admin-language-v17{height:39px;min-width:92px;border:1px solid rgba(255,255,255,.15);border-radius:10px;background:rgba(255,255,255,.07);color:#fff;padding:0 8px;font:inherit;font-size:12px;font-weight:800}
 html[data-theme="light"]{color-scheme:light;--bg:#edf3ff;--surface:rgba(255,255,255,.88);--surface-solid:#fff;--line:rgba(42,63,112,.15);--text:#16213b;--muted:#58647e;--purple:#7048d8;--pink:#d64c91;--cyan:#0c9fc0;--mint:#15996d;--gold:#a46a08;--danger:#cf4052}html[data-theme="light"] body{background:radial-gradient(circle at 9% 8%,rgba(112,72,216,.13),transparent 26rem),radial-gradient(circle at 92% 6%,rgba(12,159,192,.11),transparent 24rem),var(--bg)}html[data-theme="light"] .top,html[data-theme="light"] .card{background:rgba(255,255,255,.9);box-shadow:0 14px 36px rgba(40,62,112,.10)}html[data-theme="light"] input,html[data-theme="light"] textarea,html[data-theme="light"] select{color:var(--text);background:#fff;border-color:var(--line)}html[data-theme="light"] .btn:not(.primary):not(.cyan):not(.pink):not(.green):not(.danger),html[data-theme="light"] .admin-language-v17{color:var(--text);background:rgba(255,255,255,.85);border-color:var(--line)}html[dir="ltr"] .brand{margin-left:0;margin-right:auto}html[dir="ltr"] body,html[dir="ltr"] .item,html[dir="ltr"] .notice,html[dir="ltr"] .staff-mode{text-align:left}
-
-
-/* V29 — manual uploaded icons in admin category manager */
 .icon-upload-preview-v29{
   width:58px;height:58px;border-radius:18px;display:grid;place-items:center;overflow:hidden;
   border:1px solid rgba(255,255,255,.16);background:linear-gradient(135deg,rgba(140,91,255,.28),rgba(43,221,255,.18));
@@ -123,19 +106,11 @@ html[data-theme="light"]{color-scheme:light;--bg:#edf3ff;--surface:rgba(255,255,
 .admin-category-title-v29{display:flex;align-items:center;gap:9px}
 .admin-category-title-v29 .icon-upload-preview-v29{width:34px;height:34px;border-radius:11px;margin:0;font-size:16px;flex:0 0 auto}
 .icon-help-v29{display:block;margin-top:6px;color:var(--muted);font-size:11px;line-height:1.6}
-
-
-
-/* V32 — clearer admin dashboard navigation and community rules preview */
 .admin-nav-v32{position:sticky;top:82px;z-index:6;display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px;padding:10px;border:1px solid var(--line);border-radius:16px;background:rgba(15,18,48,.86);backdrop-filter:blur(14px)}
 .admin-nav-v32 a{color:var(--text);text-decoration:none;padding:9px 11px;border:1px solid rgba(255,255,255,.10);border-radius:12px;background:rgba(255,255,255,.05);font-size:12px;font-weight:900}.admin-nav-v32 a:hover{background:rgba(43,221,255,.12);border-color:rgba(43,221,255,.35)}
 .admin-rules-v32{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.admin-rule-v32{padding:11px;border:1px solid rgba(255,255,255,.10);border-radius:13px;background:rgba(255,255,255,.045);font-size:12px;line-height:1.7;color:var(--muted)}.admin-rule-v32 b{display:block;color:var(--text);font-size:17px;margin-bottom:5px}
 html[data-theme="light"] .admin-nav-v32{background:rgba(255,255,255,.92)}html[data-theme="light"] .admin-nav-v32 a{background:rgba(255,255,255,.88);color:var(--text);border-color:var(--line)}
 @media(max-width:760px){.admin-nav-v32{top:0;position:relative}.admin-nav-v32 a{flex:1 1 130px;text-align:center}.admin-rules-v32{grid-template-columns:1fr}}
-
-
-
-/* V33 — Admin Mobile Harmony: phone-only compact admin panel, desktop unchanged */
 @media(max-width:820px){
   html{font-size:14px!important}body{overflow-x:hidden!important}
   .top{height:auto!important;min-height:56px!important;padding:8px 10px!important;gap:8px!important;flex-wrap:wrap!important}.brand{font-size:17px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:55vw!important}.top .row{gap:6px!important}.top .btn{min-height:34px!important;padding:7px 9px!important;border-radius:10px!important;font-size:11px!important}
@@ -146,9 +121,6 @@ html[data-theme="light"] .admin-nav-v32{background:rgba(255,255,255,.92)}html[da
   .toast{left:10px!important;right:10px!important;bottom:10px!important;max-width:none!important;font-size:11px!important}
 }
 @media(max-width:430px){.dash{grid-template-columns:repeat(2,minmax(0,1fr))!important}.brand{max-width:48vw!important;font-size:15px!important}.shell{width:min(100% - 10px,1260px)!important}.top{padding-inline:7px!important}.top .btn{padding-inline:7px!important}}
-
-
-/* V41 — comprehensive visual polish only: preserves all existing HTML IDs, classes and JavaScript behavior */
 :root{
   color-scheme:dark;
   --bg:#050713;
@@ -188,7 +160,7 @@ body::before,body::after{opacity:.32;mix-blend-mode:screen}
 ::-webkit-scrollbar-track{background:rgba(255,255,255,.045);border-radius:999px}
 ::-webkit-scrollbar-thumb{border:3px solid transparent;border-radius:999px;background:linear-gradient(180deg,var(--cyan),var(--purple),var(--pink)) border-box;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
 ::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#73ecff,#a986ff,#ff86c2) border-box}
-.scroll,.member-list,.feed-tabs,.post-actions,.post-tags-v10,.hero-actions,#latestList,.chat-log,.modal-box,.side-body,.category-filter-mobile-v39,.dm-messages-v34{
+.scroll,.member-list,.feed-tabs,.post-actions,.hero-actions,#latestList,.chat-log,.modal-box,.side-body{
   scrollbar-width:thin;
   scrollbar-color:rgba(87,218,255,.72) rgba(255,255,255,.04);
 }
@@ -202,32 +174,32 @@ body::before,body::after{opacity:.32;mix-blend-mode:screen}
 .brand-icon,.avatar,.mini-avatar,.trend-number,.document-icon,.lock{
   box-shadow:0 12px 32px rgba(0,0,0,.24),0 0 0 1px rgba(255,255,255,.12) inset;
 }
-.brand strong,.section-head h2,.login h1,.post-title-v12,.full-post h2{
+.brand strong,.section-head h2,.login h1,.full-post h2{
   letter-spacing:-.35px;
 }
-.glass,.card,.post-card-v12,.post-card-v19,.category,.trend,.metric,.item,.modal-box,.float-card,.mini-stat,.profile-stat,.category-topic-card-v32,.document-attachment,.staff-category-tools,.settings-panel-v32,.category-sphere-wrap-v35{
+.glass,.card,.category,.trend,.metric,.item,.modal-box,.float-card,.mini-stat,.profile-stat,.document-attachment,.staff-category-tools{
   border-color:rgba(255,255,255,.14)!important;
   background:linear-gradient(145deg,rgba(28,34,76,.78),rgba(10,14,36,.76))!important;
   box-shadow:var(--shadow-soft),inset 0 1px 0 rgba(255,255,255,.06);
   -webkit-backdrop-filter:blur(18px) saturate(1.25);
   backdrop-filter:blur(18px) saturate(1.25);
 }
-.glass:hover,.card:hover,.post-card-v12:hover,.post-card-v19:hover,.category:hover,.trend:hover,.metric:hover,.item:hover,.category-topic-card-v32:hover,.document-attachment:hover{
+.glass:hover,.card:hover,.category:hover,.trend:hover,.metric:hover,.item:hover,.document-attachment:hover{
   border-color:rgba(99,230,255,.29)!important;
   box-shadow:0 22px 60px rgba(0,0,0,.32),0 0 0 1px rgba(53,221,255,.08),inset 0 1px 0 rgba(255,255,255,.08);
 }
-.btn,.nav-link,.tab,.notification-btn,.category-view-toggle-v35,.sphere-auto-v35,.react,.close,.mobile-menu-toggle,.linkish,.chat-tools-v10 button{
+.btn,.nav-link,.tab,.notification-btn,.react,.close,.mobile-menu-toggle,.linkish{
   position:relative;
   isolation:isolate;
   overflow:hidden;
   transition:transform .22s ease,box-shadow .22s ease,filter .22s ease,border-color .22s ease,background .22s ease,color .22s ease;
 }
-.btn,.notification-btn,.mobile-menu-toggle,.category-view-toggle-v35,.sphere-auto-v35{
+.btn,.notification-btn,.mobile-menu-toggle{
   border-color:rgba(255,255,255,.18)!important;
   background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.055));
   box-shadow:0 10px 26px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.1);
 }
-.btn::before,.nav-link::before,.tab::before,.notification-btn::before,.mobile-menu-toggle::before,.category-view-toggle-v35::before,.sphere-auto-v35::before{
+.btn::before,.nav-link::before,.tab::before,.notification-btn::before,.mobile-menu-toggle::before{
   content:"";
   position:absolute;
   inset:0;
@@ -237,8 +209,8 @@ body::before,body::after{opacity:.32;mix-blend-mode:screen}
   transform:translateX(120%);
   transition:transform .48s ease;
 }
-.btn:hover::before,.nav-link:hover::before,.tab:hover::before,.notification-btn:hover::before,.mobile-menu-toggle:hover::before,.category-view-toggle-v35:hover::before,.sphere-auto-v35:hover::before{transform:translateX(-120%)}
-.btn:hover,.notification-btn:hover,.mobile-menu-toggle:hover,.category-view-toggle-v35:hover,.sphere-auto-v35:hover{
+.btn:hover::before,.nav-link:hover::before,.tab:hover::before,.notification-btn:hover::before,.mobile-menu-toggle:hover::before{transform:translateX(-120%)}
+.btn:hover,.notification-btn:hover,.mobile-menu-toggle:hover{
   transform:translateY(-3px);
   border-color:rgba(94,231,255,.42)!important;
   box-shadow:0 18px 42px rgba(0,0,0,.28),0 0 22px rgba(53,221,255,.12);
@@ -263,20 +235,20 @@ input:focus,textarea:focus,select:focus{
   border-color:rgba(53,221,255,.78)!important;
   box-shadow:0 0 0 4px rgba(53,221,255,.13),0 14px 32px rgba(0,0,0,.16)!important;
 }
-.field label{color:#eef0ff}.notice,.moderation-banner,.free-mode-note,.staff-note-v11,.reply-banner-v10{
+.field label{color:#eef0ff}.notice,.moderation-banner,.free-mode-note{
   box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 12px 32px rgba(0,0,0,.16);
 }
 .hero{position:relative}.hero h1{text-shadow:0 16px 42px rgba(0,0,0,.3)}
 .hero h1 em,.author.gradient{
   background-image:linear-gradient(90deg,var(--cyan),#b999ff,var(--pink),var(--gold));
 }
-.eyebrow,.tag,.topic-row-category-v19,.topic-row-pin-v19,.status-v11,.moderator-badge,.notification-count{
+.eyebrow,.tag,.moderator-badge,.notification-count{
   box-shadow:0 10px 24px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.08);
 }
-.category,.trend,.post,.post-card-v12,.post-card-v19,.topic-row-v19,.category-topic-card-v32,.member,.chat-message,.item,.document-attachment{
+.category,.trend,.post,.member,.chat-message,.item,.document-attachment{
   transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,background .22s ease,filter .22s ease;
 }
-.category::after,.post-card-v12::after,.post-card-v19::after,.card::after,.glass::after{
+.category::after,.card::after,.glass::after{
   content:"";
   position:absolute;
   inset:0;
@@ -285,13 +257,11 @@ input:focus,textarea:focus,select:focus{
   background:radial-gradient(circle at 15% 0%,rgba(255,255,255,.11),transparent 31%);
   opacity:.55;
 }
-.post-card-v12,.post-card-v19,.card,.glass{position:relative;overflow:hidden}
-.post-card-inner-v12,.card>.body,.glass>*{position:relative;z-index:1}
-.post:hover,.member:hover,.chat-message:hover,.item:hover,.topic-row-v19:hover{background:rgba(255,255,255,.055)!important}
-.post-card-v12:hover,.post-card-v19:hover,.topic-row-v19:hover,.category-topic-card-v32:hover{transform:translateY(-3px)}
-.post-card-v12::before{width:5px;background:linear-gradient(180deg,var(--cyan),var(--purple),var(--pink),var(--gold))!important;box-shadow:0 0 20px rgba(53,221,255,.36)}
-.post-actions,.feed-tabs,.hero-actions,.row,.category-hero-actions-v32{gap:9px}
-.tab.active,.tab:hover,.nav-link:hover,.category-view-toggle-v35.active,.sphere-auto-v35.active{
+.card,.glass{position:relative;overflow:hidden}
+.card>.body,.glass>*{position:relative;z-index:1}
+.post:hover,.member:hover,.chat-message:hover,.item:hover{background:rgba(255,255,255,.055)!important}
+.post-actions,.feed-tabs,.hero-actions,.row{gap:9px}
+.tab.active,.tab:hover,.nav-link:hover{
   color:#fff!important;
   background:linear-gradient(135deg,rgba(140,91,255,.24),rgba(53,221,255,.12))!important;
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 10px 24px rgba(0,0,0,.13);
@@ -327,15 +297,10 @@ input:focus,textarea:focus,select:focus{
 }
 .document-attachment{border-style:solid!important}
 .document-open,.linkish{color:#a8f1ff!important;text-shadow:0 0 18px rgba(53,221,255,.28)}
-.scroll-top-v21{
-  background:conic-gradient(from 180deg,var(--cyan),var(--purple),var(--pink),var(--cyan))!important;
-  box-shadow:0 18px 38px rgba(0,0,0,.34),0 0 0 7px rgba(53,221,255,.09),0 0 34px rgba(140,91,255,.28)!important;
-}
-.scroll-top-v21:hover{transform:translateY(-5px) scale(1.03)!important}
-.category-sphere-button-v35,.category-filter-tab-v30,.latest-item,.react{
+.latest-item,.react{
   border-radius:14px!important;
 }
-.category-sphere-button-v35:hover,.category-filter-tab-v30:hover,.latest-item:hover,.react:hover{
+.latest-item:hover,.react:hover{
   filter:brightness(1.13);
   box-shadow:0 12px 28px rgba(0,0,0,.18);
 }
@@ -353,7 +318,7 @@ html[data-theme='light']{
 html[data-theme='light'] body{
   background:radial-gradient(circle at 10% 0%,rgba(118,97,255,.2),transparent 31rem),radial-gradient(circle at 92% 10%,rgba(27,190,222,.16),transparent 26rem),linear-gradient(180deg,#f7f9ff,#edf2ff)!important;
 }
-html[data-theme='light'] .glass,html[data-theme='light'] .card,html[data-theme='light'] .post-card-v12,html[data-theme='light'] .post-card-v19,html[data-theme='light'] .category,html[data-theme='light'] .trend,html[data-theme='light'] .metric,html[data-theme='light'] .item,html[data-theme='light'] .modal-box{
+html[data-theme='light'] .glass,html[data-theme='light'] .card,html[data-theme='light'] .category,html[data-theme='light'] .trend,html[data-theme='light'] .metric,html[data-theme='light'] .item,html[data-theme='light'] .modal-box{
   background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(244,247,255,.78))!important;
   box-shadow:0 18px 42px rgba(57,76,130,.13),inset 0 1px 0 rgba(255,255,255,.9);
 }
@@ -363,27 +328,20 @@ html[data-theme='light'] input,html[data-theme='light'] textarea,html[data-theme
   .nav{row-gap:10px}
   .hero{padding-top:42px}
   .hero-actions .btn,.row .btn{flex:1 1 auto}
-  .glass,.card,.post-card-v12,.post-card-v19,.category,.trend,.metric,.item{box-shadow:0 14px 34px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06)}
+  .glass,.card,.category,.trend,.metric,.item{box-shadow:0 14px 34px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06)}
 }
 @media (max-width:620px){
   :root{--radius-lg:20px}
   .container,.shell{width:min(100% - 20px,1260px)!important}
   .btn{padding-inline:13px}
   .section-head{align-items:flex-start}
-  .category,.post-card-v12,.post-card-v19,.card,.glass{border-radius:18px!important}
-  .scroll-top-v21{width:46px;height:46px;border-radius:15px!important}
+  .category,.card,.glass{border-radius:18px!important}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
-  .btn:hover,.category:hover,.post-card-v12:hover,.post-card-v19:hover,.trend:hover,.item:hover{transform:none!important}
+  .btn:hover,.category:hover,.trend:hover,.item:hover{transform:none!important}
 }
-
-/* V42 admin polish */
 .btn,button{box-shadow:0 10px 24px rgba(44,221,255,.10)}.card,.panel,.item{border-radius:20px!important}.metric{background:linear-gradient(145deg,rgba(255,211,109,.10),rgba(73,231,255,.06))!important}
-
-
-
-/* V43 — scheduled private cards admin upgrade */
 .timed-cards-admin-v43{
   border-color:rgba(255,211,109,.22)!important;
   background:
@@ -465,9 +423,6 @@ html[data-theme='light'] input,html[data-theme='light'] textarea,html[data-theme
 html[data-theme="light"] .timed-cards-admin-v43,html[data-theme="light"] .resource-admin-v43{background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(241,245,255,.82))!important}
 html[data-theme="light"] .timed-toggle-v43{color:var(--text)}
 @media(max-width:760px){.resource-admin-v43{grid-template-columns:58px minmax(0,1fr);align-items:start}.resource-admin-cover-v43{width:58px;height:58px;border-radius:16px;font-size:22px}.resource-admin-actions-v43{grid-column:1/-1;justify-content:stretch}.resource-admin-actions-v43 .btn{flex:1 1 120px}.timed-card-form-footer-v43{align-items:stretch}.timed-card-form-footer-v43>.row{width:100%}.timed-card-form-footer-v43 .btn{flex:1}}
-
-
-/* V44 — timed cards fixes: icon picker + content gate controls */
 .resource-icon-picker-v44{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:7px;margin-top:8px;padding:9px;border:1px solid rgba(255,255,255,.10);border-radius:14px;background:rgba(255,255,255,.035);max-height:154px;overflow:auto}
 .resource-icon-choice-v44{min-height:44px;border:1px solid rgba(255,255,255,.12);border-radius:13px;background:rgba(255,255,255,.055);color:var(--text);display:grid;place-items:center;padding:4px;transition:.18s;box-shadow:none!important}
 .resource-icon-choice-v44:hover,.resource-icon-choice-v44.active{transform:translateY(-2px);border-color:rgba(53,221,255,.46);background:rgba(53,221,255,.12)}
@@ -479,37 +434,21 @@ html[data-theme="light"] .timed-toggle-v43{color:var(--text)}
 .status-badge-v43.public{color:#c9f7ff;background:rgba(53,221,255,.10);border-color:rgba(53,221,255,.24)}
 .resource-admin-cover-v43 img.resource-admin-icon-img-v44{width:64%;height:64%;border-radius:16px;object-fit:cover;box-shadow:0 10px 20px rgba(0,0,0,.22)}
 @media(max-width:760px){.resource-icon-picker-v44{grid-template-columns:repeat(auto-fill,minmax(40px,1fr));max-height:132px}.resource-icon-choice-v44{min-height:39px}.resource-icon-choice-v44 img{width:27px;height:27px}}
-
-
-
-/* V45 — VIP card admin fixes: no emoji fallback, robust edit/delete actions */
 .resource-vip-admin-badge-v45{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:22px;padding:0 9px;border-radius:999px;background:linear-gradient(135deg,#ffd36d,#ff8fc9,#8c5bff);color:#0b0f25;font-size:10px;font-weight:1000;letter-spacing:.8px;box-shadow:0 9px 18px rgba(255,211,109,.16)}
 .resource-admin-cover-v43 .resource-vip-text-v45{font-size:15px;font-weight:1000;letter-spacing:.8px;color:#fff;text-shadow:0 0 18px rgba(53,221,255,.35)}
 .resource-icon-choice-v44 .resource-vip-text-v45{font-size:11px;font-weight:1000;letter-spacing:.6px;color:#fff}
 .resource-admin-actions-v43 .btn{position:relative;z-index:2}
 .timed-card-form-v43 input#resourceIcon::placeholder{color:#cbd0f0}
 html[data-theme="light"] .resource-vip-admin-badge-v45{color:#161b35}
-
-
-
-/* V46 — first 3 members cap indicators for VIP cards */
 .resource-admin-winners-v46{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:4px 8px;border-radius:999px;border:1px solid rgba(255,211,109,.24);background:rgba(255,211,109,.09);color:#ffe5a3;font-size:10px;font-weight:1000;white-space:nowrap}
 .resource-admin-winners-v46.full{border-color:rgba(255,110,120,.26);background:rgba(255,110,120,.11);color:#ffc8ce}
 .resource-admin-note-v46{margin-top:7px;color:var(--muted);font-size:11px;line-height:1.6}
 html[data-theme='light'] .resource-admin-winners-v46{background:rgba(164,106,8,.10);color:#8d5c07;border-color:rgba(164,106,8,.18)}
 html[data-theme='light'] .resource-admin-winners-v46.full{background:rgba(207,64,82,.10);color:#9b2736;border-color:rgba(207,64,82,.18)}
-
-
-
-/* V49 — duration-based VIP card timing controls */
 .duration-box-v49{margin:2px 0 12px;padding:13px;border:1px solid rgba(53,221,255,.20);border-radius:16px;background:linear-gradient(135deg,rgba(53,221,255,.07),rgba(255,211,109,.055));box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
 .duration-head-v49{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;margin-bottom:10px}.duration-head-v49 b{font-size:15px}.duration-head-v49 span,.duration-help-v49{color:var(--muted);font-size:11px;line-height:1.7}.duration-grid-v49{display:grid;grid-template-columns:1.25fr repeat(3,.65fr);gap:10px}.duration-box-v49 .field{margin-bottom:0}.duration-box-v49 input,.duration-box-v49 select{min-height:40px}.duration-help-v49{display:block;margin-top:8px}
 @media(max-width:760px){.duration-grid-v49{grid-template-columns:1fr 1fr}.duration-grid-v49 .field:first-child{grid-column:1/-1}}
 @media(max-width:420px){.duration-grid-v49{grid-template-columns:1fr}}
-
-
-
-/* V52 — Admin redesign polish: compact cards, profile-style members, and three-dot action menus. Behavior preserved. */
 :root{--admin-v52-card:linear-gradient(145deg,rgba(28,34,78,.74),rgba(8,12,33,.78));--admin-v52-card-hover:linear-gradient(145deg,rgba(34,41,94,.86),rgba(10,15,40,.86));--admin-v52-glow:0 18px 42px rgba(0,0,0,.22),0 0 0 1px rgba(53,221,255,.06)}
 #adminView{position:relative;isolation:isolate}#adminView::before{content:"";position:fixed;inset:77px 0 auto 0;height:170px;z-index:-1;background:radial-gradient(circle at 50% 0,rgba(53,221,255,.13),transparent 44rem);pointer-events:none}.top{box-shadow:0 18px 45px rgba(0,0,0,.24);background:linear-gradient(180deg,rgba(7,10,28,.88),rgba(7,10,28,.64))!important;border-bottom-color:rgba(255,255,255,.15)!important}.shell{margin-top:18px!important}.staff-mode{border-radius:18px!important;background:linear-gradient(135deg,rgba(53,221,255,.12),rgba(155,108,255,.08))!important}
 .dash{grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:10px!important}.metric{min-height:94px!important;padding:14px!important;position:relative;overflow:hidden}.metric::after{content:"";position:absolute;inset:auto -22px -30px auto;width:92px;height:92px;border-radius:50%;background:rgba(53,221,255,.10);filter:blur(2px)}.metric span{font-weight:900;letter-spacing:-.1px}.metric b{font-size:26px!important}
@@ -524,10 +463,6 @@ html[data-theme="light"] .item,html[data-theme="light"] .admin-actions-menu-v52{
 @media(max-width:1120px){.dash{grid-template-columns:repeat(4,minmax(0,1fr))!important}.layout>.card{grid-column:1/-1}}
 @media(max-width:760px){.shell{width:min(100% - 14px,1260px)!important}.dash{grid-template-columns:repeat(2,minmax(0,1fr))!important}.metric{min-height:78px!important}.metric b{font-size:21px!important}.admin-nav-v32{top:0!important;position:relative!important;overflow:auto;flex-wrap:nowrap!important}.admin-nav-v32 a{flex:0 0 auto;white-space:nowrap}.layout{gap:10px!important}.head{padding:11px 12px!important;font-size:14px!important}.body{padding:10px!important}#categoriesList,#postsList,#commentsList,#chatList,#reportsList,#usersList,.timed-cards-list-v43{grid-template-columns:1fr!important;gap:8px!important;max-height:none}.item{padding:10px 48px 10px 10px!important;border-radius:15px!important}.admin-user-card-v52{grid-template-columns:42px minmax(0,1fr);min-height:128px;padding:10px 48px 10px 10px!important}.admin-user-avatar-v52{width:42px;height:42px;border-radius:14px;font-size:13px}.admin-menu-toggle-v52{width:32px;height:32px;min-height:32px!important;border-radius:11px}.admin-actions-menu-v52{min-width:205px}.resource-admin-v43{grid-template-columns:52px minmax(0,1fr)!important;min-height:112px!important;padding:10px 48px 10px 10px!important}.resource-admin-cover-v43{width:52px!important;height:52px!important;border-radius:15px!important}.resource-admin-title-v43{gap:5px!important}.timed-card-form-v43 .grid2,.duration-grid-v49{grid-template-columns:1fr!important}textarea{min-height:84px!important}}
 @media(max-width:430px){.top .brand{max-width:50vw!important}.admin-actions-menu-v52{position:fixed;top:auto!important;left:10px!important;right:10px!important;bottom:12px!important;max-width:none;min-width:0;border-radius:18px}.admin-actions-shell-v52.open::before{content:"";position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:25}.admin-actions-shell-v52.open .admin-actions-menu-v52{z-index:35}.admin-user-card-v52 h3{font-size:12.5px!important}.item p{font-size:11px!important}.meta{font-size:9.5px!important}}
-
-
-
-/* V55 — safe admin fixes: fixed action menus, compact publish/VIP forms, optional VIP password. */
 #postForm,#resourceForm{max-width:100%;}
 #postForm .grid2,#resourceForm .grid2{gap:8px!important}
 #postForm .field,#resourceForm .field{margin-bottom:7px!important}
@@ -546,10 +481,6 @@ html[data-theme="light"] .item,html[data-theme="light"] .admin-actions-menu-v52{
 .admin-actions-shell-v52.open .admin-menu-toggle-v52{background:rgba(255,211,109,.18)!important;border-color:rgba(255,211,109,.44)!important;color:#fff8db!important}
 .admin-menu-safe-layer-v55{position:relative;z-index:9998!important}
 @media(max-width:760px){#postForm textarea#postBody{min-height:72px!important}#resourceForm textarea#resourceSecret{min-height:74px!important}.resource-password-field-v55{padding:8px}.admin-actions-menu-v52.admin-menu-fixed-v55{max-height:min(360px,calc(100dvh - 18px))!important}}
-
-
-
-/* V56 — precise fix for three-dot menus only: move dots to a safe top corner and render options in a body-level floating panel to avoid clipping behind cards. */
 .admin-polished-v52 .item,
 .admin-polished-v52 .admin-user-card-v52,
 .admin-polished-v52 .resource-admin-v43{
@@ -633,12 +564,51 @@ html[data-theme="light"] .admin-menu-portal-v56{
   .admin-menu-portal-v56{min-width:205px!important;max-width:calc(100vw - 18px)!important;max-height:min(360px,calc(100dvh - 18px))!important;border-radius:16px!important}
 }
 
+/* ===== NexusHub Admin V64: requested features only ===== */
+.admin-feature-grid-v64{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.admin-feature-grid-v64 .field{margin-bottom:9px}
+.admin-list-v64{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:9px;max-height:520px;overflow:auto;margin-top:13px}
+.admin-question-v64,.admin-hour-link-v64,.admin-report-v64{position:relative;padding:12px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:linear-gradient(145deg,rgba(28,34,78,.72),rgba(8,12,33,.78));overflow:visible}
+.admin-question-v64 h3,.admin-hour-link-v64 h3,.admin-report-v64 h3{margin:0 0 6px;font-size:14px}.admin-question-v64 p,.admin-hour-link-v64 p,.admin-report-v64 p{margin:0;color:var(--muted);font-size:12px;line-height:1.65;white-space:pre-wrap}.admin-question-v64 .meta,.admin-hour-link-v64 .meta,.admin-report-v64 .meta{margin-top:8px}
+.admin-question-actions-v64{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.admin-question-actions-v64 .btn{flex:1 1 95px}
+.admin-icon-picker-v64{display:grid;grid-template-columns:repeat(auto-fill,minmax(43px,1fr));gap:7px;max-height:145px;overflow:auto;padding:8px;border:1px solid rgba(255,255,255,.10);border-radius:13px;background:rgba(255,255,255,.035)}
+.admin-icon-choice-v64{min-height:42px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.05);color:var(--text);display:grid;place-items:center;padding:4px}.admin-icon-choice-v64.active,.admin-icon-choice-v64:hover{border-color:rgba(53,221,255,.45);background:rgba(53,221,255,.12)}.admin-icon-choice-v64 img{width:30px;height:30px;object-fit:cover;border-radius:9px}
+.admin-stickers-v64{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.admin-sticker-v64{padding:3px 7px;border:1px solid rgba(255,211,109,.22);border-radius:999px;background:rgba(255,211,109,.08);color:#ffe7a6;font-size:9.5px;font-weight:900}
+.admin-report-v64{border-color:rgba(255,113,128,.22);background:linear-gradient(145deg,rgba(73,24,51,.55),rgba(18,13,40,.75))}.admin-report-reason-v64{margin-top:8px!important;padding:8px;border-radius:10px;background:rgba(255,113,128,.08);color:#ffc8ce!important}.admin-report-modal-v64 p{white-space:pre-wrap;line-height:1.8}
+.bridge-note-v64{padding:11px;border:1px solid rgba(53,221,255,.20);border-radius:13px;background:rgba(53,221,255,.07);color:#dffaff;font-size:11px;line-height:1.75;overflow-wrap:anywhere}
+.bridge-code-v64{display:block;margin-top:7px;padding:8px;border-radius:10px;background:rgba(0,0,0,.23);direction:ltr;text-align:left;font-family:monospace;color:#baf3ff;white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:760px){.admin-feature-grid-v64{grid-template-columns:1fr}.admin-list-v64{grid-template-columns:1fr;max-height:none}}
+
+/* ===== NexusHub Admin V66: manual one-hour links ===== */
+.admin-hour-plan-v66{display:inline-flex;align-items:center;gap:5px;margin:0 0 8px;padding:5px 9px;border:1px solid rgba(255,211,109,.25);border-radius:999px;background:rgba(255,211,109,.09);color:#ffe8a9;font-size:10px;font-weight:900}
+.admin-hour-url-v66{direction:ltr;text-align:left;overflow-wrap:anywhere;word-break:break-all}
+.admin-hour-progress-v66{height:6px;margin:10px 0 7px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.admin-hour-progress-v66>i{display:block;height:100%;width:var(--hour-progress,100%);border-radius:inherit;background:linear-gradient(90deg,var(--danger),var(--gold),var(--cyan));transition:width 1s linear}
+
+
+
+
+/* ===== NexusHub Admin V65: uploaded profile sticker management ===== */
+.sticker-admin-grid-v65{display:grid;grid-template-columns:minmax(250px,.8fr) minmax(0,1.2fr);gap:14px;align-items:start}
+.sticker-upload-preview-v65{width:82px;height:82px;display:grid;place-items:center;margin:8px 0;border:1px dashed rgba(53,221,255,.35);border-radius:20px;background:rgba(53,221,255,.06);overflow:hidden;color:var(--muted);font-size:11px;text-align:center}
+.sticker-upload-preview-v65 img{width:100%;height:100%;object-fit:cover;display:block}
+.sticker-library-v65{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px}
+.sticker-library-card-v65{display:grid;grid-template-columns:52px minmax(0,1fr);gap:9px;align-items:center;padding:10px;border:1px solid rgba(255,255,255,.11);border-radius:15px;background:rgba(255,255,255,.04)}
+.sticker-library-card-v65 img{width:52px;height:52px;border-radius:15px;object-fit:cover;background:rgba(255,255,255,.07)}
+.sticker-library-card-v65 strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}.sticker-library-card-v65 small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.sticker-library-card-v65 .btn{grid-column:1/-1}
+.sticker-assignment-grid-v65{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:9px;max-height:420px;overflow:auto;padding:2px}
+.sticker-assignment-choice-v65{display:grid;justify-items:center;gap:7px;min-height:115px;padding:10px;border:1px solid rgba(255,255,255,.12);border-radius:15px;background:rgba(255,255,255,.04);color:var(--text);text-align:center}
+.sticker-assignment-choice-v65 img{width:58px;height:58px;border-radius:17px;object-fit:cover}.sticker-assignment-choice-v65 b{font-size:11px;line-height:1.35}.sticker-assignment-choice-v65.active{border-color:rgba(53,221,255,.65);background:linear-gradient(135deg,rgba(53,221,255,.15),rgba(155,108,255,.13));box-shadow:0 0 0 2px rgba(53,221,255,.09)}
+.admin-assigned-stickers-v65{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.admin-assigned-sticker-v65{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border:1px solid rgba(255,211,109,.22);border-radius:999px;background:rgba(255,211,109,.08);font-size:9px}.admin-assigned-sticker-v65 img{width:20px;height:20px;border-radius:7px;object-fit:cover}
+.admin-member-times-v65{display:grid;gap:3px;margin-top:7px;color:var(--muted);font-size:10px;line-height:1.5}.admin-member-times-v65 b{color:var(--text)}
+@media(max-width:760px){.sticker-admin-grid-v65{grid-template-columns:1fr}.sticker-library-v65{grid-template-columns:repeat(2,minmax(0,1fr))}.sticker-assignment-grid-v65{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:430px){.sticker-library-v65,.sticker-assignment-grid-v65{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
 <header class="top"><div class="brand">Nexus<span>Hub</span> <i>Control</i></div><div class="row"><select id="adminLanguageSelect" class="admin-language-v17" title="اللغة" aria-label="اللغة"><option value="ar">العربية</option><option value="en">English</option><option value="fr">Français</option></select><button id="adminThemeToggle" class="btn small" type="button">☀ <span id="adminThemeLabel">الوضع النهاري</span></button><button id="siteBtn" class="btn">عرض الموقع</button><button id="logoutBtn" class="btn danger hide">خروج</button></div></header>
 <main class="shell">
-<section id="loginView" class="login"><div class="card"><div class="body"><div class="lock">🛡️</div><h1>دخول لوحة التحكم</h1><p>يدخل المدير الكامل والمشرف المحدود بحساب Firebase نفسه. المدير وحده يغيّر الإعدادات والصلاحيات.</p><form id="adminLoginForm"><div class="field"><label>البريد الإلكتروني</label><input id="email" type="email" required></div><div class="field"><label>كلمة المرور</label><input id="password" type="password" minlength="6" required></div><button class="btn primary full">دخول</button></form><!-- Google sign-in removed: email/password authentication only. --><div id="denied" class="notice hide" style="margin-top:14px"></div></div></div></section>
+<section id="loginView" class="login"><div class="card"><div class="body"><div class="lock">🛡️</div><h1>دخول لوحة التحكم</h1><p>يدخل المدير الكامل والمشرف المحدود بحساب Firebase نفسه. المدير وحده يغيّر الإعدادات والصلاحيات.</p><form id="adminLoginForm"><div class="field"><label>البريد الإلكتروني</label><input id="email" type="email" required></div><div class="field"><label>كلمة المرور</label><input id="password" type="password" minlength="6" required></div><button class="btn primary full">دخول</button></form><div id="denied" class="notice hide" style="margin-top:14px"></div></div></div></section>
 
 <section id="adminView" class="hide">
  <div id="staffModeNote" class="staff-mode"></div>
@@ -692,25 +662,15 @@ const state={user:null,isAdmin:false,isModerator:false,isStaff:false,profile:nul
 const esc=v=>String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 const clean=v=>String(v??"").replace(/[<>]/g,"").trim().slice(0,30)||"LordOfShadow";
 const now=()=>Date.now();
-const ago=t=>{const d=Date.now()-(t||Date.now());if(d<60000)return"الآن";if(d<3600000)return`منذ ${Math.max(1,Math.floor(d/60000))} د`;if(d<86400000)return`منذ ${Math.floor(d/3600000)} س`;return new Date(t).toLocaleDateString("ar-DZ");};
+const ago=t=>{const d=Date.now()-(t||Date.now()),lang=typeof adminLanguageV17==="undefined"?"ar":adminLanguageV17,locale=lang==="en"?"en-US":lang==="fr"?"fr-FR":"ar-DZ";if(d<60000)return lang==="en"?"Now":lang==="fr"?"À l’instant":"الآن";if(d<3600000){const n=Math.max(1,Math.floor(d/60000));return lang==="en"?`${n} min ago`:lang==="fr"?`il y a ${n} min`:`منذ ${n} د`;}if(d<86400000){const n=Math.floor(d/3600000);return lang==="en"?`${n} h ago`:lang==="fr"?`il y a ${n} h`:`منذ ${n} س`;}return new Intl.DateTimeFormat(locale,{dateStyle:"medium"}).format(new Date(t));};
 const ADMIN_DOCUMENT_MIME={
  pdf:"application/pdf",txt:"text/plain",doc:"application/msword",
  docx:"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
  xls:"application/vnd.ms-excel",xlsx:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
  ppt:"application/vnd.ms-powerpoint",pptx:"application/vnd.openxmlformats-officedocument.presentationml.presentation"
 };
-function adminDocumentExtension(name=""){return String(name).split(".").pop().toLowerCase();}
-async function uploadAdminDocument(file){
- if(!file)return null;
- const ext=adminDocumentExtension(file.name);
- if(!ADMIN_DOCUMENT_MIME[ext])throw new Error("صيغة المستند غير مدعومة.");
- if(file.size>15*1024*1024)throw new Error("حجم المستند أكبر من 15MB.");
- const safe=file.name.replace(/[^\w.\-\u0600-\u06ff]/g,"_");
- const target=storageRef(storage,`uploads/${state.user.uid}/admin-documents/${Date.now()}_${safe}`);
- const mime=ADMIN_DOCUMENT_MIME[ext];
- await uploadBytes(target,file,{contentType:mime});
- return {url:await getDownloadURL(target),name:file.name,type:mime,size:file.size,extension:ext};
-}
+
+
 const cats=()=>state.categories.length?state.categories:DEFAULT_CATEGORIES;
 
 const CATEGORY_ICON_MAX_V29=120*1024;
@@ -859,7 +819,7 @@ async function addPost(e){
   e.target.reset();toast("تم النشر وإشعار الأعضاء.","success");
  }catch(e){toast(errorText(e),"error")}
 }
-async function addResource(e){e.preventDefault();if(!state.isAdmin)return;try{const title=$("resourceTitle").value.trim(),desc=$("resourceDescription").value.trim(),secret=$("resourceSecret").value.trim();if(!title||!desc||!secret)return;const x=push(R("resources"));await set(x,{title:title.slice(0,70),icon:$("resourceIcon").value.trim().slice(0,8)||"🔐",description:desc.slice(0,260),order:now(),createdAt:now()});await set(R(`resourceSecrets/${x.key}`),{content:secret.slice(0,4000),authorUid:state.user.uid,createdAt:now()});e.target.reset();toast("تمت إضافة البطاقة.","success");}catch(e){toast(errorText(e),"error")}}
+let addResource;
 async function saveRole(uid){if(!state.isAdmin)return;const role=document.querySelector(`[data-role-select="${uid}"]`).value;if(uid===state.user.uid&&role!=="admin")return toast("لا تسحب صلاحية المدير من حسابك.","error");try{if(role==="admin"){await set(R(`roles/${uid}`),{admin:true,assignedAt:now(),assignedBy:state.user.uid});}else if(role==="moderator"){await set(R(`roles/${uid}`),{moderator:true,assignedAt:now(),assignedBy:state.user.uid});}else{await remove(R(`roles/${uid}`));}await update(R(`profiles/${uid}`),{role});toast("تم تحديث الصلاحية.","success");}catch(e){toast(errorText(e),"error")}}
 async function moderate(uid,action){if(!canTarget(uid))return toast("لا يمكنك تطبيق هذا الإجراء على هذا الحساب.","error");if(action==="permanent"&&!state.isAdmin)return toast("الحظر الدائم للمدير الكامل فقط.","error");if(action==="clear"&&state.moderation[uid]?.type==="permanent_ban"&&!state.isAdmin)return toast("رفع الحظر الدائم للمدير الكامل فقط.","error");const labels={warning:"تحذير",temp24:"حظر مؤقت لمدة 24 ساعة",temp7:"حظر مؤقت لمدة 7 أيام",permanent:"حظر دائم",clear:"رفع الإجراء"};const reason=action==="clear"?"":prompt(`سبب ${labels[action]}:`);if(action!=="clear"&&!reason?.trim())return;let record=null,title="",message="";
  if(action==="warning"){record={type:"warning",reason:reason.trim().slice(0,500),updatedAt:now(),updatedBy:state.user.uid};title="⚠️ تحذير من الإدارة";message=`تلقيت تحذيرًا: ${record.reason}`;await push(R(`warnings/${uid}`),{...record,createdAt:now()});}
@@ -894,8 +854,6 @@ function bindPublic(){onValue(R("settings"),s=>{state.settings={...DEFAULT_SETTI
 function bindPrivate(){state.unsubs.forEach(u=>u&&u());state.unsubs=[];if(!state.user)return;state.unsubs.push(onValue(R(`profiles/${state.user.uid}`),s=>state.profile=s.val()||{}),onValue(R("roles"),s=>{state.roles=s.val()||{};if(state.isStaff)render();}),onValue(R("moderation"),s=>{state.moderation=s.val()||{};if(state.isStaff)render();}),onValue(R("comments"),s=>{state.comments=s.val()||{};if(state.isStaff)render();}),onValue(query(R("chat"),orderByChild("createdAt"),limitToLast(300)),s=>{state.chat=Object.entries(s.val()||{}).map(([id,v])=>({id,...v}));if(state.isStaff)render();}),onValue(query(R("reports"),orderByChild("createdAt"),limitToLast(250)),s=>{state.reports=Object.entries(s.val()||{}).map(([id,v])=>({id,...v}));if(state.isStaff)render();}));if(state.isAdmin)state.unsubs.push(onValue(R("resources"),s=>{state.resources=Object.entries(s.val()||{}).map(([id,v])=>({id,...v}));render();}),onValue(R("resourceSecrets"),s=>{state.secrets=s.val()||{};render();}));}
 
 
-
-/* V20 — configurable topic retention */
 const RETENTION_DAY_MS_V20=86400000;
 let cleanupQueuedV20=false;
 function retentionDaysV20(){const value=Number(state.settings?.topicRetentionDays||0);return [0,1,3,7,14,30,90].includes(value)?value:0;}
@@ -904,7 +862,6 @@ async function applyRetentionToExistingV20(days){if(!state.isAdmin)return;const 
 async function cleanupExpiredTopicsV20(showMessage=true){if(!state.isAdmin)return;const expired=state.posts.filter(p=>Number(p.expiresAt||0)>0&&Number(p.expiresAt)<=now());if(!expired.length){if(showMessage)toast(adminLanguageV17==='fr'?"Aucun sujet expiré.":adminLanguageV17==='en'?"No expired topics.":"لا توجد مواضيع منتهية.","success");return;}const updates={};expired.forEach(p=>{updates[`posts/${p.id}`]=null;updates[`comments/${p.id}`]=null;updates[`reactions/${p.id}`]=null;});await update(ref(db),updates);if(showMessage)toast(adminLanguageV17==='fr'?`${expired.length} sujet(s) expiré(s) supprimé(s).`:adminLanguageV17==='en'?`${expired.length} expired topic(s) deleted.`:`تم حذف ${expired.length} موضوع منتهٍ.`,"success");}
 function queueCleanupExpiredTopicsV20(){if(!state.isAdmin||cleanupQueuedV20)return;cleanupQueuedV20=true;setTimeout(async()=>{cleanupQueuedV20=false;try{await cleanupExpiredTopicsV20(false);}catch{}},900);}
 
-/* V17 — compact translation layer for every static dashboard control */
 
 const ADMIN_I18N_V20={
  ar:{retention_label:"الحذف التلقائي للمواضيع",retention_off:"معطّل — احتفظ بالمواضيع",retention_1:"بعد يوم واحد",retention_3:"بعد 3 أيام",retention_7:"بعد 7 أيام",retention_14:"بعد 14 يومًا",retention_30:"بعد 30 يومًا",retention_90:"بعد 90 يومًا",retention_help:"تُطبق المدة على المواضيع الجديدة. اختر تطبيقها على الحالي لحساب موعد انتهاء للمواضيع الموجودة أيضًا.",retention_apply_existing:"تطبيق المدة على المواضيع الحالية أيضًا",cleanup_expired:"حذف المواضيع المنتهية الآن"},
@@ -920,26 +877,21 @@ const ADMIN_I18N_V17={
 };
 
 
-/* V18 — remaining public control-panel copy */
 Object.assign(ADMIN_I18N_V17.ar,{facebook_url:"رابط Facebook",telegram_url:"رابط Telegram",background_aurora:"Aurora — ألوان متوهجة",background_grid:"Grid — شبكة تقنية",background_midnight:"Midnight — هادئ وعميق",site_background_url:"رابط خلفية الموقع",site_background_help:"اتركه فارغًا للرجوع للخلفية الأصلية.",chat_background_url:"رابط خلفية الدردشة",chat_background_help:"تظهر الخلفية داخل صندوق الدردشة فقط.",post_notice:"يدعم الموقع صور GIF عند النشر من صفحة المجتمع. إضافة قسم جديد أثناء النشر متاحة للـ Admin والمشرف من نافذة النشر في الموقع.",free_document_note:"الوضع المجاني: ضع رابط مستند مستضاف يدويًا في مستودعك أو مساحة ملفات تملكها.",resource_notice:"للموارد والروابط القانونية فقط، ولا توضع كلمات مرور أو بيانات شخصية.",members_notice:"المشرف المحدود يستطيع: حذف المحتوى المخالف، التحذير، والحظر المؤقت للأعضاء العاديين. المدير الكامل فقط يمنح الصلاحيات أو يفرض الحظر الدائم."});
 Object.assign(ADMIN_I18N_V17.en,{facebook_url:"Facebook URL",telegram_url:"Telegram URL",background_aurora:"Aurora — glowing colors",background_grid:"Grid — technical pattern",background_midnight:"Midnight — calm and deep",site_background_url:"Site background URL",site_background_help:"Leave empty to use the original background.",chat_background_url:"Chat background URL",chat_background_help:"Shown only inside the chat box.",post_notice:"GIF images are supported when publishing from the community page. Adding a new section while publishing is available to administrators and moderators from the site’s publishing window.",free_document_note:"Free mode: paste a direct document link hosted manually in your own repository or file space.",resource_notice:"For legal resources and links only. Do not add passwords or personal data.",members_notice:"Limited moderators may remove violating content, warn members, and temporarily ban regular members. Only a full administrator can assign roles or impose a permanent ban."});
 Object.assign(ADMIN_I18N_V17.fr,{facebook_url:"URL Facebook",telegram_url:"URL Telegram",background_aurora:"Aurora — couleurs lumineuses",background_grid:"Grille — motif technique",background_midnight:"Minuit — calme et profond",site_background_url:"URL de l’arrière-plan du site",site_background_help:"Laissez vide pour utiliser l’arrière-plan original.",chat_background_url:"URL de l’arrière-plan du chat",chat_background_help:"S’affiche uniquement dans la zone de discussion.",post_notice:"Les images GIF sont prises en charge lors de la publication depuis la page communautaire. L’ajout d’une section lors de la publication est disponible pour les administrateurs et modérateurs depuis la fenêtre de publication du site.",free_document_note:"Mode gratuit : collez un lien direct vers un document hébergé manuellement dans votre dépôt ou espace de fichiers.",resource_notice:"Uniquement pour les ressources et liens légaux. N’ajoutez pas de mots de passe ni de données personnelles.",members_notice:"Les modérateurs limités peuvent supprimer le contenu non conforme, avertir les membres et bannir temporairement les membres ordinaires. Seul un administrateur complet peut attribuer des rôles ou imposer un bannissement permanent."});
 
 
-
-/* V21 — visit counter label */
 Object.assign(ADMIN_I18N_V17.ar,{site_visits:"زيارات الموقع"});
 Object.assign(ADMIN_I18N_V17.en,{site_visits:"Site visits"});
 Object.assign(ADMIN_I18N_V17.fr,{site_visits:"Visites du site"});
 
 
-/* V22 — announcement controls */
 Object.assign(ADMIN_I18N_V17.ar,{announcement:"📢 إعلان الواجهة",announcement_text:"نص الإعلان",announcement_help:"يظهر فوق خلفية ضبابية، ويختفي بعد 10 ثوانٍ أو عند النقر على «فهمت».",publish_announcement:"نشر الإعلان",remove_announcement:"حذف الإعلان"});
 Object.assign(ADMIN_I18N_V17.en,{announcement:"📢 Site announcement",announcement_text:"Announcement text",announcement_help:"It appears over a blurred background and closes after 10 seconds or when visitors select “Got it”.",publish_announcement:"Publish announcement",remove_announcement:"Remove announcement"});
 Object.assign(ADMIN_I18N_V17.fr,{announcement:"📢 Annonce du site",announcement_text:"Texte de l’annonce",announcement_help:"Elle s’affiche sur un fond flou et disparaît après 10 secondes ou après un clic sur « J’ai compris ».",publish_announcement:"Publier l’annonce",remove_announcement:"Supprimer l’annonce"});
 
 
-/* V29 — labels for manually uploaded category/site icons */
 Object.assign(ADMIN_I18N_V17.ar,{category_add:"🧩 إضافة موقع / قسم بأيقونة",site_or_category_name:"اسم الموقع / القسم",fallback_icon:"رمز احتياطي اختياري",category_icon_upload:"رفع أيقونة الموقع",category_icon_preview:"معاينة الأيقونة"});
 Object.assign(ADMIN_I18N_V17.en,{category_add:"🧩 Add site / section with icon",site_or_category_name:"Site / section name",fallback_icon:"Optional fallback symbol",category_icon_upload:"Upload site icon",category_icon_preview:"Icon preview"});
 Object.assign(ADMIN_I18N_V17.fr,{category_add:"🧩 Ajouter un site / une section avec icône",site_or_category_name:"Nom du site / de la section",fallback_icon:"Symbole de secours facultatif",category_icon_upload:"Téléverser l’icône du site",category_icon_preview:"Aperçu de l’icône"});
@@ -950,8 +902,6 @@ function applyAdminV17(){document.documentElement.lang=adminLanguageV17;document
 function bindAdminAppearanceV17(){const s=$("adminLanguageSelect"),b=$("adminThemeToggle");if(s)s.onchange=()=>{adminLanguageV17=s.value;localStorage.setItem('nexushub-language',adminLanguageV17);applyAdminV17();if(state.isStaff)render();};if(b)b.onclick=()=>{adminThemeV17=adminThemeV17==='light'?'dark':'light';localStorage.setItem('nexushub-theme',adminThemeV17);applyAdminV17();};}
 
 
-
-/* V27 — account deletion, chat retention controls, and chat cleanup */
 const CHAT_RETENTION_OPTIONS_ADMIN_V27=[0,1,5,12,24,72,168];
 function chatRetentionHoursAdminV27(){const h=Number(state.settings?.chatRetentionHours||0);return CHAT_RETENTION_OPTIONS_ADMIN_V27.includes(h)?h:0;}
 function chatRetentionMsAdminV27(){return chatRetentionHoursAdminV27()*3600000;}
@@ -989,8 +939,6 @@ queueCleanupExpiredTopicsV20=function(){baseQueueCleanupExpiredTopicsV27();if(st
 applyAdminV17();bindAdminAppearanceV17();
 
 
-/* V43 — scheduled reveal cards logic, preserving the existing dashboard and Firebase paths */
-function scheduledPadV43(v){return String(Math.max(0,Number(v)||0)).padStart(2,'0');}
 function scheduledRevealMsV43(card={}){
   const raw=card.revealAt??card.reveal_at??card.revealAtMs??card.reveal_at_ms;
   if(raw===undefined||raw===null||raw==='')return Number(card.createdAt||0)||0;
@@ -1007,12 +955,7 @@ function resourceIconImageSafeV44(value=''){
   const src=String(value||'').trim();
   return isCategoryIconDataV29(src)||/^https?:\/\/[^\s"'<>]+$/i.test(src)?src:'';
 }
-function resourceIconHTMLV44(card={},small=false){
-  const src=resourceIconImageSafeV44(card.iconImage||card.iconUrl||'');
-  const icon=esc(card.icon||'🔐');
-  if(src)return `<img class="resource-admin-icon-img-v44" src="${esc(src)}" alt="">`;
-  return icon;
-}
+let resourceIconHTMLV44;
 function renderResourceIconPickerV44(){
   const picker=$('resourceIconPickerV44'),hidden=$('resourceIconCategoryIdV44');
   if(!picker||!hidden)return;
@@ -1023,40 +966,10 @@ function renderResourceIconPickerV44(){
     return `<button type="button" class="resource-icon-choice-v44 ${selected===c.id?'active':''}" data-resource-icon-cat-v44="${esc(c.id)}" title="${esc(c.title||'أيقونة')}">${src?`<img src="${esc(src)}" alt="">`:`<span>${esc(c.icon||'📁')}</span>`}</button>`;
   }).join('');
 }
-function selectResourceIconCategoryV44(id=''){
-  const hidden=$('resourceIconCategoryIdV44');if(hidden)hidden.value=id||'';
-  const c=id?cats().find(x=>x.id===id):null;
-  if(c&&$('resourceIcon'))$('resourceIcon').value=(c.icon||'🔐').slice(0,8);
-  renderResourceIconPickerV44();
-}
+let selectResourceIconCategoryV44;
 function selectedResourceIconCategoryV44(){const id=$('resourceIconCategoryIdV44')?.value||'';return id?cats().find(c=>c.id===id)||null:null;}
 function scheduledResetResourceFormV43(){const form=$('resourceForm');if(!form)return;form.reset();$('resourceEditId').value='';if($('resourceIconCategoryIdV44'))$('resourceIconCategoryIdV44').value='';$('resourceActive').checked=true;if($('resourceRequireUnlock'))$('resourceRequireUnlock').checked=true;$('resourceSubmitBtn').textContent='إضافة البطاقة';$('resourceCancelEditBtn').classList.add('hide');scheduledSetDefaultRevealV43();renderResourceIconPickerV44();}
-function scheduledResourcePayloadV43(id=''){
-  const title=$('resourceTitle').value.trim(),desc=$('resourceDescription').value.trim(),secret=$('resourceSecret').value.trim();
-  const revealInput=$('resourceRevealAt').value;
-  if(!title||!desc||!secret||!revealInput)throw new Error('يرجى تعبئة عنوان البطاقة والوصف والمحتوى ووقت الكشف.');
-  const current=id?state.resources.find(x=>x.id===id)||{}:{};
-  const revealAt=new Date(revealInput).getTime();
-  if(!Number.isFinite(revealAt))throw new Error('وقت الكشف غير صحيح.');
-  const iconCat=selectedResourceIconCategoryV44();
-  return {
-    title:title.slice(0,70),
-    icon:($('resourceIcon').value.trim().slice(0,8)||iconCat?.icon||'🔐'),
-    iconCategoryId:iconCat?.id||'',
-    iconImage:iconCat?.iconImage||'',
-    iconUrl:iconCat?.iconUrl||'',
-    iconColor:iconCat?.color||'',
-    description:desc.slice(0,360),
-    revealContent:secret.slice(0,6000),
-    coverImageUrl:($('resourceCoverImageUrl').value.trim().slice(0,1000)||null),
-    revealAt,
-    requireUnlock:$('resourceRequireUnlock')?$('resourceRequireUnlock').checked:true,
-    isActive:$('resourceActive').checked,
-    order:Number(current.order||Date.now()),
-    createdAt:Number(current.createdAt||Date.now()),
-    updatedAt:Date.now()
-  };
-}
+let scheduledResourcePayloadV43;
 addResource = async function(e){
   e.preventDefault();
   if(!state.isAdmin)return;
@@ -1075,27 +988,8 @@ addResource = async function(e){
     scheduledResetResourceFormV43();
   }catch(err){toast(errorText(err),'error');}
 };
-async function scheduledToggleResourceV43(id){
-  if(!state.isAdmin)return;
-  const r=state.resources.find(x=>x.id===id);if(!r)return;
-  try{await update(R(`resources/${id}`),{isActive:!scheduledIsActiveV43(r),updatedAt:Date.now()});toast(scheduledIsActiveV43(r)?'تم تعطيل البطاقة.':'تم تفعيل البطاقة.','success');}catch(e){toast(errorText(e),'error');}
-}
-function scheduledEditResourceV43(id){
-  const r=state.resources.find(x=>x.id===id);if(!r)return;
-  $('resourceEditId').value=id;
-  $('resourceTitle').value=r.title||'';
-  $('resourceIcon').value=r.icon||'🔐';
-  if($('resourceIconCategoryIdV44'))$('resourceIconCategoryIdV44').value=r.iconCategoryId||'';
-  $('resourceDescription').value=r.description||'';
-  $('resourceSecret').value=state.secrets?.[id]?.content||r.revealContent||'';
-  $('resourceCoverImageUrl').value=r.coverImageUrl||r.cover_image_url||'';
-  $('resourceRevealAt').value=scheduledToInputV43(scheduledRevealMsV43(r)||Date.now()+3600000);
-  $('resourceActive').checked=scheduledIsActiveV43(r);
-  if($('resourceRequireUnlock'))$('resourceRequireUnlock').checked=r.requireUnlock!==false;
-  $('resourceSubmitBtn').textContent='حفظ التعديل';
-  $('resourceCancelEditBtn').classList.remove('hide');
-  $('timedCardsAdmin')?.scrollIntoView({behavior:'smooth',block:'start'});
-}
+let scheduledToggleResourceV43;
+let scheduledEditResourceV43;
 function renderScheduledResourcesAdminV43(){
   const list=$('resourcesList');if(!list)return;
   scheduledSetDefaultRevealV43();
@@ -1126,7 +1020,6 @@ bindCategoryIconPreviewV29();$("siteBtn").onclick=()=>location.href="index.html"
 onAuthStateChanged(auth,user=>{state.user=user;state.isAdmin=false;state.isModerator=false;state.isStaff=false;state.unsubs.forEach(u=>u&&u());state.unsubs=[];if(!user){show();return;}onValue(R(`roles/${user.uid}`),s=>{const role=s.val()||{};state.isAdmin=!!role.admin;state.isModerator=!!role.moderator;state.isStaff=state.isAdmin||state.isModerator;bindPrivate();show();if(!state.isStaff){$("denied").textContent="تم تسجيل الدخول، لكن هذا الحساب لا يملك دور Admin أو مشرف محدود."; $("denied").classList.remove("hide");}else $("denied").classList.add("hide");});});
 
 
-/* V45 — stable VIP card admin behavior: fix edit/delete and remove emoji fallback */
 function resourceInitialsV45(text='VIP'){
   const clean=String(text||'').replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,'').trim();
   const parts=clean.split(/\s+/).filter(Boolean);
@@ -1260,7 +1153,6 @@ try{
 }catch{}
 
 
-/* V46 — show and preserve first-3-member cap in admin */
 state.resourceWinnersV46 = state.resourceWinnersV46 || {};
 const RESOURCE_WINNER_LIMIT_V46 = 3;
 function adminResourceWinnerCountV46(id){return Object.keys(state.resourceWinnersV46?.[id]||{}).length;}
@@ -1282,8 +1174,6 @@ renderScheduledResourcesAdminV43=function(){
 try{renderScheduledResourcesAdminV43();}catch{}
 
 
-
-/* V49 — duration timing fix: duration is preferred, manual datetime remains optional */
 function durationNumberV49(id, fallback=0){const el=$(id);const n=Number(el?.value||fallback);return Number.isFinite(n)&&n>0?n:0;}
 function durationMinutesV49(){
   const preset=$('resourceDurationPresetV49')?.value||'custom';
@@ -1369,7 +1259,6 @@ applyAdminV17=function(){applyAdminBeforeDurationV49();relabelDurationV49();};
 try{relabelDurationV49();}catch{}
 
 
-/* V50 — golden VIP notification when publishing a private card */
 async function notifyMembersOfVIPCardV50(resourceId,card={}){
  if(!state.user||!resourceId)return;
  const snap=await get(R('profiles')).catch(()=>null);
@@ -1417,8 +1306,6 @@ scheduledToggleResourceV43=async function(id){
 try{if($('resourceForm'))$('resourceForm').onsubmit=addResource;}catch{}
 
 
-
-/* V52 — Admin UX cleanup: three-dot action menus and profile-style member cards. */
 function adminAvatarTextV52(name='عضو'){
   const clean=String(name||'عضو').replace(/[^\p{L}\p{N}\s]/gu,'').trim();
   const parts=clean.split(/\s+/).filter(Boolean);
@@ -1485,8 +1372,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelect
 try{setTimeout(enhanceAdminV52,300);}catch{}
 
 
-
-/* V55 — safe fixes requested after stable V54/V52. No base behavior removed. */
 function ensureResourcePasswordFieldV55(){
   const form=$('resourceForm');if(!form||$('resourcePasswordV55'))return;
   const secretField=$('resourceSecret')?.closest('.field');
@@ -1607,7 +1492,7 @@ function positionAdminMenuV55(shell){
   menu.style.setProperty('--admin-menu-left-v55',left+'px');
   menu.style.setProperty('--admin-menu-top-v55',top+'px');
 }
-function closeAdminMenusV55(){document.querySelectorAll('.admin-actions-shell-v52.open').forEach(x=>x.classList.remove('open'));}
+
 document.addEventListener('click',e=>{
   const toggle=e.target.closest('.admin-menu-toggle-v52');
   if(toggle){setTimeout(()=>positionAdminMenuV55(toggle.closest('.admin-actions-shell-v52')),0);return;}
@@ -1621,7 +1506,6 @@ const renderScheduledBeforeV55=renderScheduledResourcesAdminV43;renderScheduledR
 try{setTimeout(enhanceAdminV55,500);}catch{}
 
 
-/* V56 — robust three-dot action menu fix. Keeps original buttons/datasets intact and calls the same existing functions. */
 (function(){
   const V56={shell:null,btn:null,menu:null,portal:null,originalControls:[]};
   function qs(sel,root=document){return root.querySelector(sel);}
@@ -1665,7 +1549,7 @@ try{setTimeout(enhanceAdminV55,500);}catch{}
     let left=Math.max(9,Math.min(window.innerWidth-width-9,rect.left));
     let top=rect.bottom+8;
     if(top+height>window.innerHeight-9)top=Math.max(9,rect.top-height-8);
-    // On very small screens keep it safely inside the viewport, not underneath cards.
+
     if(window.innerWidth<=430){
       left=9;
       top=Math.max(9,Math.min(window.innerHeight-height-9,rect.bottom+8));
@@ -1750,7 +1634,7 @@ try{setTimeout(enhanceAdminV55,500);}catch{}
   document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
   window.addEventListener('resize',()=>{if(isOpen())place();});
   window.addEventListener('scroll',()=>{if(isOpen())place();},true);
-  // Keep VIP resource cards from re-rendering every second while their options menu is open.
+
   const previousRenderScheduledV56=renderScheduledResourcesAdminV43;
   renderScheduledResourcesAdminV43=function(){
     if(isOpen()&&V56.shell&&V56.shell.closest('#resourcesList'))return;
@@ -1758,6 +1642,248 @@ try{setTimeout(enhanceAdminV55,500);}catch{}
   };
   window.__adminActionMenuV56={open,close,isOpen,place};
 })();
+
+
+/* ===== NexusHub Admin V64: requested features only ===== */
+state.questionsV64=state.questionsV64||{};
+state.questionVotesV64=state.questionVotesV64||{};
+state.questionCommentsV64=state.questionCommentsV64||{};
+state.hourLinksV64=state.hourLinksV64||{};
+
+function normalizeStickersAdminV64(value){const src=Array.isArray(value)?value:String(value||'').split(/[,،\n]+/),seen=new Set(),out=[];src.forEach(x=>{const s=String(x||'').replace(/[<>]/g,'').trim().slice(0,24),k=s.toLocaleLowerCase();if(s&&!seen.has(k)){seen.add(k);out.push(s);}});return out.slice(0,8);}
+function normalizeHttpUrlAdminV64(value){try{const u=new URL(String(value||'').trim());return /^https?:$/.test(u.protocol)?u.href:'';}catch{return '';}}
+function questionOptionsAdminV64(q){const rows=Array.isArray(q?.options)?q.options:Object.values(q?.options||{});return rows.map(x=>String(x||'').trim()).filter(Boolean).slice(0,6);}
+function questionVoteCountAdminV64(id){return Object.keys(state.questionVotesV64?.[id]||{}).length;}
+function questionCommentCountAdminV64(id){return Object.keys(state.questionCommentsV64?.[id]||{}).length;}
+function remainingAdminV64(ms){const sec=Math.max(0,Math.ceil((Number(ms||0)-Date.now())/1000)),m=Math.floor(sec/60),s=sec%60;return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
+
+function ensureAdminFeatureUIV64(){
+ const layout=document.querySelector('#adminView .layout');if(!layout)return;
+ const usersCard=$('usersList')?.closest('section.card');
+ if(!$('communityQuestionAdminV64')){
+  const card=document.createElement('section');card.id='communityQuestionAdminV64';card.className='card full admin-only';card.innerHTML=`<div class="head">📊 أسئلة المجتمع والتصويت</div><div class="body"><div class="notice">انشر سؤالًا أو تصويتًا، وسيصل إشعار للأعضاء. يمكنهم التصويت ثم التعليق والرد على بعضهم.</div><form id="questionFormV64"><div class="field"><label>السؤال</label><input id="questionTitleV64" required maxlength="180" placeholder="مثال: هل تريدون موضوعًا عن الألعاب هذا الأسبوع؟"></div><div class="field"><label>وصف إضافي</label><textarea id="questionDescriptionV64" maxlength="700" placeholder="تفاصيل اختيارية"></textarea></div><div class="field"><label>خيارات التصويت — افصل بفاصلة</label><input id="questionOptionsV64" maxlength="300" value="نعم، لا" placeholder="نعم، لا، ربما"></div><label class="row" style="font-size:13px;margin-bottom:10px"><input id="questionActiveV64" type="checkbox" checked style="width:auto"> نشر السؤال كفعّال</label><button class="btn primary">نشر السؤال وإشعار الأعضاء</button></form><div id="questionsAdminListV64" class="admin-list-v64"></div></div>`;
+  usersCard?layout.insertBefore(card,usersCard):layout.appendChild(card);
+  $('questionFormV64').onsubmit=addQuestionAdminV64;
+ }
+ if(!$('hourLinksAdminV64')){
+  const card=document.createElement('section');card.id='hourLinksAdminV64';card.className='card full admin-only';card.innerHTML=`<div class="head">⏱️ إدارة الروابط المؤقتة يدويًا</div><div class="body"><div class="notice">أدخل اسم البطاقة والخطة والرابط يدويًا. تُنشر البطاقة فورًا، ويبدأ عدّاد ساعة كاملة ثم تختفي تلقائيًا من الموقع.</div><form id="hourLinkFormV64"><input id="hourLinkIconCategoryV64" type="hidden"><div class="admin-feature-grid-v64"><div class="field"><label>اسم البطاقة أو الخدمة</label><input id="hourLinkTitleV64" required maxlength="100" placeholder="مثال: رابط المشاهدة"></div><div class="field"><label>الخطة</label><input id="hourLinkPlanV66" required maxlength="60" placeholder="مثال: Premium"></div></div><div class="field"><label>الرابط</label><input id="hourLinkUrlV64" type="url" required placeholder="https://example.com/..."></div><div class="field"><label>وصف اختياري</label><textarea id="hourLinkDescriptionV64" maxlength="400" placeholder="ملاحظة قصيرة تظهر داخل البطاقة"></textarea></div><div class="field"><label>اختر الأيقونة</label><div id="hourLinkIconPickerV64" class="admin-icon-picker-v64"></div></div><button class="btn cyan">نشر البطاقة لمدة ساعة</button></form><div id="hourLinksAdminListV64" class="admin-list-v64"></div></div>`;
+  usersCard?layout.insertBefore(card,usersCard):layout.appendChild(card);
+  $('hourLinkFormV64').onsubmit=addHourLinkAdminV64;
+ }
+ const nav=document.querySelector('.admin-nav-v32');if(nav&&!nav.querySelector('[href="#communityQuestionAdminV64"]'))nav.insertAdjacentHTML('beforeend','<a href="#communityQuestionAdminV64">📊 الأسئلة</a><a href="#hourLinksAdminV64">⏱️ روابط الساعة</a>');
+ ensureAdminReportModalV64();renderHourLinkIconPickerV64();
+ $('communityQuestionAdminV64')?.classList.toggle('hide',!state.isAdmin);
+ $('hourLinksAdminV64')?.classList.toggle('hide',!state.isAdmin);
+}
+function renderHourLinkIconPickerV64(){const box=$('hourLinkIconPickerV64'),hidden=$('hourLinkIconCategoryV64');if(!box||!hidden)return;const selected=hidden.value||'';box.innerHTML=cats().map(c=>{const src=String(c.iconImage||c.iconUrl||'').trim();return `<button type="button" class="admin-icon-choice-v64 ${selected===c.id?'active':''}" data-hour-icon-v64="${esc(c.id)}" title="${esc(c.title||'أيقونة')}">${src?`<img src="${esc(src)}" alt="">`:`<span>${esc(c.icon||'🔗')}</span>`}</button>`;}).join('');box.querySelectorAll('[data-hour-icon-v64]').forEach(b=>b.onclick=()=>{hidden.value=b.dataset.hourIconV64;renderHourLinkIconPickerV64();});}
+async function notifyMembersQuestionAdminV64(id,q){const snap=await get(R('profiles')).catch(()=>null),profiles=snap?.val()||state.profiles||{},createdAt=now(),updates={};Object.keys(profiles).filter(uid=>uid!==state.user?.uid).forEach(uid=>updates[`notifications/${uid}/question_${id}`]={type:'community_question',questionId:id,fromUid:state.user.uid,authorName:q.authorName,title:'📊 سؤال جديد للمجتمع',question:q.question,message:`شارك في التصويت: ${q.question}`.slice(0,320),read:false,createdAt,expiresAt:createdAt+5*3600000});if(Object.keys(updates).length)await update(ref(db),updates);}
+async function addQuestionAdminV64(e){e.preventDefault();if(!state.isAdmin)return;const question=$('questionTitleV64').value.trim(),description=$('questionDescriptionV64').value.trim(),options=String($('questionOptionsV64').value||'').split(/[,،\n]+/).map(x=>x.trim()).filter(Boolean).slice(0,6);if(!question)return;if(options.length<2){toast('أضف خيارين على الأقل للتصويت.','error');return;}try{const x=push(R('communityQuestions')),record={question:question.slice(0,180),description:description.slice(0,700),options,active:$('questionActiveV64').checked,authorUid:state.user.uid,authorName:clean(state.profile?.displayName||state.user.displayName||'المدير'),createdAt:now()};await set(x,record);if(record.active)await notifyMembersQuestionAdminV64(x.key,record);e.target.reset();$('questionActiveV64').checked=true;$('questionOptionsV64').value='نعم، لا';toast('تم نشر السؤال وإشعار الأعضاء.','success');}catch(err){toast(errorText(err),'error');}}
+async function toggleQuestionAdminV64(id){const q=state.questionsV64?.[id];if(!q)return;try{const enable=q.active===false;await update(R(`communityQuestions/${id}`),{active:enable,updatedAt:now()});if(enable)await notifyMembersQuestionAdminV64(id,{...q,active:true});toast(enable?'تم تفعيل السؤال وإشعار الأعضاء.':'تم إيقاف السؤال.','success');}catch(e){toast(errorText(e),'error');}}
+async function deleteQuestionAdminV64(id){if(!confirm('حذف السؤال والتصويتات والتعليقات؟'))return;try{await update(ref(db),{[`communityQuestions/${id}`]:null,[`questionVotes/${id}`]:null,[`questionComments/${id}`]:null});toast('تم حذف السؤال.','success');}catch(e){toast(errorText(e),'error');}}
+function renderQuestionsAdminV64(){const box=$('questionsAdminListV64');if(!box)return;const rows=Object.entries(state.questionsV64||{}).map(([id,v])=>({id,...v})).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));box.innerHTML=rows.length?rows.map(q=>`<article class="admin-question-v64"><h3>${esc(q.question||'سؤال')}</h3><p>${esc(q.description||'')}</p><div class="meta">${q.active===false?'متوقف':'فعّال'} · ${questionVoteCountAdminV64(q.id)} صوت · ${questionCommentCountAdminV64(q.id)} تعليق · ${ago(q.createdAt)}</div><div class="admin-question-actions-v64"><button class="btn small" data-toggle-question-v64="${esc(q.id)}">${q.active===false?'تفعيل':'إيقاف'}</button><button class="btn danger small" data-delete-question-v64="${esc(q.id)}">حذف</button></div></article>`).join(''):'<div class="item">لا توجد أسئلة بعد.</div>';box.querySelectorAll('[data-toggle-question-v64]').forEach(b=>b.onclick=()=>toggleQuestionAdminV64(b.dataset.toggleQuestionV64));box.querySelectorAll('[data-delete-question-v64]').forEach(b=>b.onclick=()=>deleteQuestionAdminV64(b.dataset.deleteQuestionV64));}
+
+function hourLinkProgressAdminV66(link){const start=Number(link?.createdAt||0),end=Number(link?.expiresAt||0),total=Math.max(1,end-start||3600000),left=Math.max(0,end-Date.now());return Math.max(0,Math.min(100,(left/total)*100));}
+async function createHourLinkAdminV64(payload={}){if(!state.isAdmin)throw new Error('صلاحية المدير مطلوبة.');const title=String(payload.title||'').trim().slice(0,100),plan=String(payload.plan||'').trim().slice(0,60),url=normalizeHttpUrlAdminV64(payload.url),description=String(payload.description||'').trim().slice(0,400),iconCategoryId=String(payload.iconCategoryId||payload.categoryId||'').trim();if(!title||!plan||!url)throw new Error('اسم البطاقة والخطة والرابط الصحيح مطلوبة.');const c=cats().find(x=>x.id===iconCategoryId)||cats()[0]||{};const createdAt=now(),x=push(R('hourLinks'));await set(x,{title,plan,url,description,iconCategoryId:c.id||'',icon:c.icon||'🔗',authorUid:state.user.uid,authorName:clean(state.profile?.displayName||state.user.displayName||'المدير'),createdAt,expiresAt:createdAt+3600000,isActive:true});return x.key;}
+async function addHourLinkAdminV64(e){e.preventDefault();try{await createHourLinkAdminV64({title:$('hourLinkTitleV64').value,plan:$('hourLinkPlanV66').value,url:$('hourLinkUrlV64').value,description:$('hourLinkDescriptionV64').value,iconCategoryId:$('hourLinkIconCategoryV64').value});e.target.reset();$('hourLinkIconCategoryV64').value='';renderHourLinkIconPickerV64();toast('تم نشر البطاقة، وستختفي تلقائيًا بعد ساعة.','success');}catch(err){toast(err.message||errorText(err),'error');}}
+async function deleteHourLinkAdminV64(id){try{await remove(R(`hourLinks/${id}`));toast('تم حذف الرابط.','success');}catch(e){toast(errorText(e),'error');}}
+function renderHourLinksAdminV64(){const box=$('hourLinksAdminListV64');if(!box)return;const rows=Object.entries(state.hourLinksV64||{}).map(([id,v])=>({id,...v})).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));box.innerHTML=rows.length?rows.map(x=>{const expired=Number(x.expiresAt||0)<=Date.now(),progress=hourLinkProgressAdminV66(x);return `<article class="admin-hour-link-v64"><h3>${esc(x.icon||'🔗')} ${esc(x.title||'رابط')}</h3><span class="admin-hour-plan-v66">الخطة: ${esc(x.plan||'غير محددة')}</span><p class="admin-hour-url-v66">${esc(x.url||'')}</p><div class="admin-hour-progress-v66" aria-hidden="true"><i style="--hour-progress:${progress.toFixed(2)}%"></i></div><div class="meta">${expired?'منتهي':'متبقٍ '+remainingAdminV64(x.expiresAt)} · ${ago(x.createdAt)}</div><div class="admin-question-actions-v64"><a class="btn small cyan" href="${esc(x.url||'#')}" target="_blank" rel="noopener noreferrer">فتح</a><button class="btn danger small" data-delete-hour-link-v64="${esc(x.id)}">حذف</button></div></article>`;}).join(''):'<div class="item">لا توجد روابط مؤقتة.</div>';box.querySelectorAll('[data-delete-hour-link-v64]').forEach(b=>b.onclick=()=>deleteHourLinkAdminV64(b.dataset.deleteHourLinkV64));}
+
+function ensureAdminReportModalV64(){if($('adminReportModalV64'))return;const el=document.createElement('div');el.id='adminReportModalV64';el.className='modal';el.innerHTML='<div class="modal-box" style="width:min(600px,100%)"><div class="modal-head"><h2>🚩 تفاصيل البلاغ</h2><button class="close" data-close-admin-report-v64>×</button></div><div id="adminReportBodyV64" class="modal-body admin-report-modal-v64"></div></div>';document.body.appendChild(el);el.querySelector('[data-close-admin-report-v64]').onclick=()=>el.classList.remove('show');el.onclick=e=>{if(e.target===el)el.classList.remove('show');};}
+function openAdminReportV64(id){ensureAdminReportModalV64();const r=state.reports.find(x=>x.id===id);if(!r)return;$('adminReportBodyV64').innerHTML=`<h3>${esc(r.targetTitle||'محتوى مبلغ عنه')}</h3><p><b>الشخص الذي أبلغ:</b> ${esc(r.reporterName||'عضو')}</p><p><b>السبب:</b> ${esc(r.reason||'لم يذكر سبب')}</p><p class="meta">${ago(r.createdAt)}</p>${r.targetId?`<a class="btn cyan full" href="index.html#post-${encodeURIComponent(r.targetId)}" target="_blank" rel="noopener">فتح الموضوع المبلغ عنه</a>`:''}`;$('adminReportModalV64').classList.add('show');}
+function renderReportsAdminV64(){const box=$('reportsList');if(!box)return;const rows=state.reports.slice().sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));box.innerHTML=rows.length?rows.map(r=>`<article class="admin-report-v64"><h3>🚩 ${esc(r.targetTitle||'بلاغ')}</h3><p><b>المبلّغ:</b> ${esc(r.reporterName||'عضو')}</p><p class="admin-report-reason-v64"><b>السبب:</b> ${esc(r.reason||'لم يذكر سبب')}</p><div class="meta">${ago(r.createdAt)}</div><div class="admin-question-actions-v64"><button class="btn small cyan" data-view-report-v64="${esc(r.id)}">عرض التفاصيل</button><button class="btn danger small" data-delete-report-v64="${esc(r.id)}">حذف البلاغ</button></div></article>`).join(''):'<div class="item">لا توجد إبلاغات.</div>';box.querySelectorAll('[data-view-report-v64]').forEach(b=>b.onclick=()=>openAdminReportV64(b.dataset.viewReportV64));box.querySelectorAll('[data-delete-report-v64]').forEach(b=>b.onclick=()=>remove(R(`reports/${b.dataset.deleteReportV64}`)));}
+function enhanceUserStickersAdminV64(){const list=$('usersList');if(!list)return;list.querySelectorAll(':scope > .item').forEach(card=>{const uid=card.dataset.adminUserV52||card.querySelector('[data-role-select]')?.dataset.roleSelect||card.querySelector('[data-delete-account]')?.dataset.deleteAccount;if(!uid)return;const p=state.profiles?.[uid]||{},stickers=normalizeStickersAdminV64(p.stickers);if(stickers.length&&!card.querySelector('.admin-stickers-v64')){const meta=card.querySelector('.meta');meta?.insertAdjacentHTML('beforeend',`<div class="admin-stickers-v64">${stickers.map(x=>`<span class="admin-sticker-v64">🏷️ ${esc(x)}</span>`).join('')}</div>`);}if(state.isAdmin&&!card.querySelector('[data-edit-stickers-v64]')){const actions=card.querySelector('.member-actions')||card.querySelector('.admin-actions-menu-v52');if(actions)actions.insertAdjacentHTML('beforeend',`<button class="btn small" data-edit-stickers-v64="${esc(uid)}">🏷️ ملصقات الملف</button>`);}});}
+async function editUserStickersAdminV64(uid){if(!state.isAdmin)return;const p=state.profiles?.[uid]||{},current=normalizeStickersAdminV64(p.stickers).join('، '),raw=prompt(`ملصقات ${p.displayName||'العضو'} — افصل بفاصلة:`,current);if(raw===null)return;try{await update(R(`profiles/${uid}`),{stickers:normalizeStickersAdminV64(raw),stickersUpdatedAt:now(),stickersUpdatedBy:state.user.uid});toast('تم حفظ ملصقات الملف.','success');}catch(e){toast(errorText(e),'error');}}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-edit-stickers-v64]');if(b){e.preventDefault();editUserStickersAdminV64(b.dataset.editStickersV64);}});
+
+ensureAdminFeatureUIV64();
+onValue(R('communityQuestions'),s=>{state.questionsV64=s.val()||{};renderQuestionsAdminV64();},()=>{});
+onValue(R('questionVotes'),s=>{state.questionVotesV64=s.val()||{};renderQuestionsAdminV64();},()=>{});
+onValue(R('questionComments'),s=>{state.questionCommentsV64=s.val()||{};renderQuestionsAdminV64();},()=>{});
+onValue(R('hourLinks'),s=>{state.hourLinksV64=s.val()||{};renderHourLinksAdminV64();},()=>{});
+const renderBaseRequestedV64=render;
+render=function(){const result=renderBaseRequestedV64();ensureAdminFeatureUIV64();renderQuestionsAdminV64();renderHourLinksAdminV64();renderReportsAdminV64();setTimeout(enhanceUserStickersAdminV64,80);return result;};
+clearInterval(window.__adminHourLinksV64);window.__adminHourLinksV64=setInterval(()=>{renderHourLinksAdminV64();if(state.isAdmin){const updates={};Object.entries(state.hourLinksV64||{}).forEach(([id,x])=>{if(Number(x?.expiresAt||0)>0&&Number(x.expiresAt)<=Date.now())updates[`hourLinks/${id}`]=null;});if(Object.keys(updates).length)update(ref(db),updates).catch(()=>{});}},1000);
+setTimeout(()=>{ensureAdminFeatureUIV64();if(state.isStaff)render();},350);
+
+
+
+/* ===== NexusHub Admin V65: uploaded sticker library and member assignment ===== */
+state.profileStickerLibraryV65=state.profileStickerLibraryV65||{};
+let stickerImageDataV65='';
+let stickerAssignmentUidV65='';
+let stickerAssignmentSelectionV65=new Set();
+
+function assignedStickerIdsAdminV65(profile={}){
+ const raw=profile.assignedStickers;
+ if(Array.isArray(raw))return raw.map(String).filter(Boolean).slice(0,12);
+ if(raw&&typeof raw==='object')return Object.keys(raw).filter(id=>raw[id]!==false&&raw[id]!==null).slice(0,12);
+ return [];
+}
+function adminMemberDateV65(value){const ms=Number(value||0);if(!ms)return 'غير متوفر';try{return new Intl.DateTimeFormat('ar-DZ',{dateStyle:'medium',timeStyle:'short'}).format(new Date(ms));}catch{return new Date(ms).toLocaleString('ar-DZ');}}
+function stickerImageSafeV65(value=''){return /^data:image\/(png|jpe?g|webp|gif);base64,[a-z0-9+/=]+$/i.test(String(value||''))?String(value):'';}
+async function readStickerFileV65(file){
+ if(!file)throw new Error('اختر صورة الملصق.');
+ if(!/^image\/(png|jpeg|jpg|webp|gif)$/i.test(file.type))throw new Error('صيغة الصورة غير مدعومة.');
+ if(file.size>650*1024)throw new Error('حجم الصورة كبير جدًا. الحد 650KB قبل الضغط.');
+ if(file.type==='image/gif'){
+  if(file.size>120*1024)throw new Error('ملصق GIF يجب ألا يتجاوز 120KB.');
+  return await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result||''));r.onerror=()=>reject(new Error('تعذر قراءة الصورة.'));r.readAsDataURL(file);});
+ }
+ const image=await new Promise((resolve,reject)=>{const url=URL.createObjectURL(file),img=new Image();img.onload=()=>{URL.revokeObjectURL(url);resolve(img);};img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('تعذر فتح الصورة.'));};img.src=url;});
+ const size=160,canvas=document.createElement('canvas');canvas.width=size;canvas.height=size;const ctx=canvas.getContext('2d');
+ ctx.clearRect(0,0,size,size);const scale=Math.max(size/image.width,size/image.height),w=image.width*scale,h=image.height*scale;ctx.drawImage(image,(size-w)/2,(size-h)/2,w,h);
+ let quality=.84,out=canvas.toDataURL('image/webp',quality);while(out.length>90000&&quality>.42){quality-=.08;out=canvas.toDataURL('image/webp',quality);}if(out.length>90000)throw new Error('تعذر ضغط الصورة بما يكفي. اختر صورة أبسط.');return out;
+}
+function ensureStickerAdminUIV65(){
+ const layout=document.querySelector('#adminView .layout');if(!layout)return;
+ const usersCard=$('usersList')?.closest('section.card');
+ if(!$('profileStickerAdminV65')){
+  const card=document.createElement('section');card.id='profileStickerAdminV65';card.className='card full admin-only';card.innerHTML=`<div class="head">🏷️ ملصقات الملفات الشخصية</div><div class="body"><div class="notice">ارفع الملصقات هنا، ثم اختر أي عضو من قائمة الأعضاء وحدد الملصقات التي ستظهر في ملفه. العضو لا يستطيع إضافة أو إزالة هذه الملصقات بنفسه.</div><div class="sticker-admin-grid-v65"><form id="profileStickerFormV65"><div class="field"><label>اسم الملصق</label><input id="profileStickerNameV65" required maxlength="32" placeholder="مثال: مهرج، ألعاب، عضو موثوق"></div><div class="field"><label>صورة الملصق</label><input id="profileStickerFileV65" type="file" accept="image/png,image/jpeg,image/webp,image/gif" required><small class="soft">PNG / JPG / WEBP / GIF. يتم ضغط الصور الثابتة تلقائيًا.</small><div id="profileStickerPreviewV65" class="sticker-upload-preview-v65">معاينة</div></div><button class="btn primary" type="submit">رفع الملصق</button></form><div><h3 style="margin:0 0 10px">مكتبة الملصقات</h3><div id="profileStickerLibraryListV65" class="sticker-library-v65"></div></div></div></div>`;
+  usersCard?layout.insertBefore(card,usersCard):layout.appendChild(card);
+  $('profileStickerFormV65').onsubmit=addProfileStickerAdminV65;
+  $('profileStickerFileV65').onchange=previewProfileStickerAdminV65;
+ }
+ if(!$('profileStickerAssignModalV65')){
+  const modalEl=document.createElement('div');modalEl.id='profileStickerAssignModalV65';modalEl.className='modal';modalEl.innerHTML=`<div class="modal-box" style="width:min(720px,100%)"><div class="modal-head"><h2 id="profileStickerAssignTitleV65">إدارة ملصقات العضو</h2><button class="close" data-close-sticker-assign-v65>×</button></div><div class="modal-body"><div id="profileStickerAssignmentGridV65" class="sticker-assignment-grid-v65"></div><div class="row" style="margin-top:13px"><button id="saveProfileStickerAssignmentV65" class="btn green" type="button">حفظ الملصقات</button><button class="btn" type="button" data-close-sticker-assign-v65>إلغاء</button></div></div></div>`;document.body.appendChild(modalEl);
+  modalEl.querySelectorAll('[data-close-sticker-assign-v65]').forEach(b=>b.onclick=()=>modalEl.classList.remove('show'));
+  modalEl.onclick=e=>{if(e.target===modalEl)modalEl.classList.remove('show');};
+  $('saveProfileStickerAssignmentV65').onclick=saveMemberStickerAssignmentV65;
+ }
+ const nav=document.querySelector('.admin-nav-v32');if(nav&&!nav.querySelector('[href="#profileStickerAdminV65"]'))nav.insertAdjacentHTML('beforeend','<a href="#profileStickerAdminV65">🏷️ الملصقات</a>');
+ $('profileStickerAdminV65')?.classList.toggle('hide',!state.isAdmin);
+ renderProfileStickerLibraryAdminV65();
+}
+async function previewProfileStickerAdminV65(e){
+ const preview=$('profileStickerPreviewV65');stickerImageDataV65='';
+ try{stickerImageDataV65=await readStickerFileV65(e.target.files?.[0]);preview.innerHTML=`<img src="${esc(stickerImageDataV65)}" alt="">`;}
+ catch(err){e.target.value='';preview.textContent='معاينة';toast(err.message||errorText(err),'error');}
+}
+async function addProfileStickerAdminV65(e){
+ e.preventDefault();if(!state.isAdmin)return;
+ const name=String($('profileStickerNameV65').value||'').replace(/[<>]/g,'').trim().slice(0,32);if(!name||!stickerImageDataV65){toast('اكتب الاسم واختر صورة الملصق.','error');return;}
+ try{const x=push(R('profileStickerLibrary'));await set(x,{name,imageData:stickerImageDataV65,createdAt:now(),createdBy:state.user.uid});e.target.reset();stickerImageDataV65='';$('profileStickerPreviewV65').textContent='معاينة';toast('تم رفع الملصق إلى المكتبة.','success');}catch(err){toast(errorText(err),'error');}
+}
+async function deleteProfileStickerAdminV65(id){
+ if(!state.isAdmin||!confirm('حذف هذا الملصق وإزالته من ملفات جميع الأعضاء؟'))return;
+ const updates={[`profileStickerLibrary/${id}`]:null};Object.keys(state.profiles||{}).forEach(uid=>updates[`profiles/${uid}/assignedStickers/${id}`]=null);
+ try{await update(ref(db),updates);toast('تم حذف الملصق وإزالته من الأعضاء.','success');}catch(err){toast(errorText(err),'error');}
+}
+function renderProfileStickerLibraryAdminV65(){
+ const box=$('profileStickerLibraryListV65');if(!box)return;
+ const rows=Object.entries(state.profileStickerLibraryV65||{}).map(([id,v])=>({id,...v})).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+ box.innerHTML=rows.length?rows.map(x=>`<article class="sticker-library-card-v65"><img src="${esc(stickerImageSafeV65(x.imageData))}" alt=""><div><strong>${esc(x.name||'ملصق')}</strong><small>${ago(x.createdAt)}</small></div><button class="btn danger small" data-delete-profile-sticker-v65="${esc(x.id)}">حذف</button></article>`).join(''):'<div class="item">لا توجد ملصقات مرفوعة بعد.</div>';
+ box.querySelectorAll('[data-delete-profile-sticker-v65]').forEach(b=>b.onclick=()=>deleteProfileStickerAdminV65(b.dataset.deleteProfileStickerV65));
+}
+function renderStickerAssignmentGridV65(){
+ const box=$('profileStickerAssignmentGridV65');if(!box)return;
+ const rows=Object.entries(state.profileStickerLibraryV65||{}).map(([id,v])=>({id,...v})).sort((a,b)=>(a.name||'').localeCompare(b.name||'','ar'));
+ box.innerHTML=rows.length?rows.map(x=>`<button type="button" class="sticker-assignment-choice-v65 ${stickerAssignmentSelectionV65.has(x.id)?'active':''}" data-assign-profile-sticker-v65="${esc(x.id)}"><img src="${esc(stickerImageSafeV65(x.imageData))}" alt=""><b>${esc(x.name||'ملصق')}</b><small>${stickerAssignmentSelectionV65.has(x.id)?'محدد':'اضغط للاختيار'}</small></button>`).join(''):'<div class="item">ارفع ملصقًا أولًا من مكتبة الملصقات.</div>';
+ box.querySelectorAll('[data-assign-profile-sticker-v65]').forEach(b=>b.onclick=()=>{const id=b.dataset.assignProfileStickerV65;if(stickerAssignmentSelectionV65.has(id))stickerAssignmentSelectionV65.delete(id);else if(stickerAssignmentSelectionV65.size<8)stickerAssignmentSelectionV65.add(id);else return toast('يمكن وضع 8 ملصقات كحد أقصى للعضو.','error');renderStickerAssignmentGridV65();});
+}
+function openMemberStickerAssignmentV65(uid){
+ if(!state.isAdmin)return;ensureStickerAdminUIV65();stickerAssignmentUidV65=uid;stickerAssignmentSelectionV65=new Set(assignedStickerIdsAdminV65(state.profiles?.[uid]||{}));
+ $('profileStickerAssignTitleV65').textContent=`ملصقات: ${state.profiles?.[uid]?.displayName||'العضو'}`;renderStickerAssignmentGridV65();$('profileStickerAssignModalV65').classList.add('show');
+}
+async function saveMemberStickerAssignmentV65(){
+ if(!state.isAdmin||!stickerAssignmentUidV65)return;
+ const value={};stickerAssignmentSelectionV65.forEach(id=>value[id]={assignedAt:now(),assignedBy:state.user.uid});
+ try{await update(R(`profiles/${stickerAssignmentUidV65}`),{assignedStickers:Object.keys(value).length?value:null,assignedStickersUpdatedAt:now(),assignedStickersUpdatedBy:state.user.uid});$('profileStickerAssignModalV65').classList.remove('show');toast('تم حفظ ملصقات العضو.','success');}catch(err){toast(errorText(err),'error');}
+}
+function userUidFromCardV65(card){return card?.dataset?.adminUserV52||card?.querySelector('[data-role-select]')?.dataset?.roleSelect||card?.querySelector('[data-delete-account]')?.dataset?.deleteAccount||'';}
+function enhanceUsersForStickersV65(){
+ const list=$('usersList');if(!list)return;
+ list.querySelectorAll(':scope > .item').forEach(card=>{
+  const uid=userUidFromCardV65(card);if(!uid)return;const profile=state.profiles?.[uid]||{},meta=card.querySelector('.meta');
+  card.querySelectorAll('[data-edit-stickers-v64],.admin-stickers-v64,.admin-member-times-v65,.admin-assigned-stickers-v65').forEach(x=>x.remove());
+  if(meta){const first=profile.firstLoginAt||profile.createdAt,last=profile.lastSeen||profile.lastLoginAt;meta.insertAdjacentHTML('beforeend',`<div class="admin-member-times-v65"><span><b>آخر ظهور:</b> ${state.presence?.[uid]?'متصل الآن':esc(adminMemberDateV65(last))}</span><span><b>أول دخول:</b> ${esc(adminMemberDateV65(first))}</span></div>`);const ids=assignedStickerIdsAdminV65(profile),rows=ids.map(id=>({id,...(state.profileStickerLibraryV65?.[id]||{})})).filter(x=>x.name&&x.imageData);if(rows.length)meta.insertAdjacentHTML('beforeend',`<div class="admin-assigned-stickers-v65">${rows.map(x=>`<span class="admin-assigned-sticker-v65"><img src="${esc(x.imageData)}" alt="">${esc(x.name)}</span>`).join('')}</div>`);}
+  if(state.isAdmin&&!card.querySelector('[data-manage-stickers-v65]')){const actions=card.querySelector('.member-actions')||card;actions.insertAdjacentHTML('beforeend',`<button class="btn small" data-manage-stickers-v65="${esc(uid)}">🏷️ إدارة الملصقات</button>`);}
+ });
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-manage-stickers-v65]');if(b){e.preventDefault();openMemberStickerAssignmentV65(b.dataset.manageStickersV65);}});
+
+onValue(R('profileStickerLibrary'),snap=>{state.profileStickerLibraryV65=snap.val()||{};renderProfileStickerLibraryAdminV65();setTimeout(enhanceUsersForStickersV65,80);if($('profileStickerAssignModalV65')?.classList.contains('show'))renderStickerAssignmentGridV65();},()=>{});
+const renderBaseV65=render;
+render=function(){const result=renderBaseV65();ensureStickerAdminUIV65();renderProfileStickerLibraryAdminV65();setTimeout(enhanceUsersForStickersV65,120);return result;};
+setTimeout(()=>{ensureStickerAdminUIV65();if(state.isStaff)render();},450);
+
+
+/* ===== NexusHub Admin V66: complete interface translation (published content excluded) ===== */
+const ADMIN_UI_EXTRA_V66={en:{"NexusHub V39 — لوحة الإدارة":"NexusHub V39 — Admin panel","العربية":"Arabic","الوضع النهاري":"Light mode","عرض الموقع":"View site","خروج":"Log out","دخول لوحة التحكم":"Admin panel sign-in","يدخل المدير الكامل والمشرف المحدود بحساب Firebase نفسه. المدير وحده يغيّر الإعدادات والصلاحيات.":"Full administrators and limited moderators sign in with the same Firebase account. Only administrators can change settings and permissions.","البريد الإلكتروني":"Email","كلمة المرور":"Password","دخول":"Sign in","الأعضاء":"Members","المتصلون":"Online","المواضيع":"Topics","التعليقات":"Comments","الحالات الإدارية":"Moderation cases","الإبلاغات":"Reports","زيارات الموقع":"Site visits","⚙️ إعدادات الموقع":"⚙️ Site settings","🧩 الأقسام والأيقونات":"🧩 Sections and icons","📝 نشر وتثبيت":"📝 Publish and pin","🔐 البطاقات الخاصة":"🔐 Private cards","👥 الأعضاء والحظر":"👥 Members and bans","📌 المنشورات":"📌 Posts","🚩 البلاغات":"🚩 Reports","💬 الدردشة":"💬 Chat","✨ هوية الموقع وروابط المجتمع":"✨ Site identity and community links","اسم الموقع":"Site name","النص التعريفي":"Intro text","الحذف التلقائي للمواضيع":"Automatic topic deletion","معطّل — احتفظ بالمواضيع":"Disabled — keep topics","بعد يوم واحد":"After 1 day","بعد 3 أيام":"After 3 days","بعد 7 أيام":"After 7 days","بعد 14 يومًا":"After 14 days","بعد 30 يومًا":"After 30 days","بعد 90 يومًا":"After 90 days","تُطبق المدة على المواضيع الجديدة. اختر تطبيقها على الحالي لحساب موعد انتهاء للمواضيع الموجودة أيضًا.":"The duration applies to new topics. Choose to apply it to current topics to calculate expiry dates for existing topics as well.","تطبيق المدة على المواضيع الحالية أيضًا":"Apply the duration to current topics too","حذف المواضيع المنتهية الآن":"Delete expired topics now","🧩 إضافة موقع / قسم بأيقونة":"🧩 Add site / section with icon","اسم الموقع / القسم":"Site / section name","رمز احتياطي اختياري":"Optional fallback symbol","يظهر هذا الرمز إذا لم يتم رفع صورة.":"This symbol is shown when no image is uploaded.","رفع أيقونة الموقع":"Upload site icon","PNG / JPG / WEBP / GIF — الحد الأقصى 120KB حتى تبقى القاعدة سريعة.":"PNG / JPG / WEBP / GIF — maximum 120 KB to keep the database fast.","معاينة الأيقونة":"Icon preview","الوصف":"Description","لون البطاقة":"Card color","إضافة القسم":"Add section","إضافة الافتراضي":"Add defaults","📝 نشر موضوع جديد":"📝 Publish a new topic","العنوان":"Title","القسم":"Section","رابط مستند مباشر":"Direct document URL","اسم المستند الظاهر":"Visible document name","المحتوى":"Content","تثبيت الموضوع":"Pin topic","نشر في الموقع":"Publish to site","🔐 البطاقات الخاصة المؤقتة":"🔐 Scheduled private cards","أنشئ بطاقة خاصة، وحدد وقت الكشف من لوحة التحكم. قبل انتهاء العداد سيحجب المؤقت البطاقة، وبعده يمكن إبقاء المحتوى محجوباً حتى يكمل العضو شروط الوصول.":"Create a private card and set its reveal time. Before the countdown ends the card is hidden; afterward it may remain locked until the member completes the access requirements.","اكتب رمزاً أو اختر أيقونة من الأيقونات المرفوعة مسبقاً للأقسام.":"Enter a symbol or choose one of the uploaded section icons.","إذا تركته فارغاً ستظهر الأيقونة المختارة داخل البطاقة.":"If left empty, the selected icon will appear inside the card.","اختياري: استخدمه إذا أردت تاريخاً ووقتاً محددين.":"Optional: use this for a specific date and time.","مدة العداد":"Countdown duration","اكتب أو اختر مدة، وسيتم حساب وقت الكشف من لحظة حفظ البطاقة.":"Enter or choose a duration; the reveal time is calculated from when the card is saved.","مدة جاهزة":"Preset duration","استخدام الوقت اليدوي":"Use manual time","15 دقيقة":"15 minutes","30 دقيقة":"30 minutes","ساعة واحدة":"1 hour","3 ساعات":"3 hours","12 ساعة":"12 hours","24 ساعة":"24 hours","مدة مخصصة":"Custom duration","أيام":"Days","ساعات":"Hours","دقائق":"Minutes","مثال: اختر 3 ساعات، أو اكتب 0 يوم / 1 ساعة / 30 دقيقة. يظهر الوقت بصيغة صباحاً/مساءً في القائمة.":"Example: choose 3 hours, or enter 0 days / 1 hour / 30 minutes. The list shows the time in a localized format.","تفعيل الحجب بعد انتهاء العداد حتى يتخطى العضو الشروط السابقة":"Keep the card locked after the countdown until the member completes the requirements","الافتراضي: عند وجود عداد يتم حجب المحتوى إجبارياً. أزل التحديد فقط إذا أردت ظهور المحتوى للجميع بعد انتهاء العداد.":"By default, timed content remains locked. Clear this only if the content should become public after the countdown.","تفعيل البطاقة وعرضها في index":"Enable the card and display it on the site","إضافة البطاقة":"Add card","إلغاء التعديل":"Cancel editing","👥 كل الأعضاء — الصلاحيات والتحذير والحظر":"👥 All members — roles, warnings, and bans","📌 إدارة المنشورات":"📌 Manage posts","💬 إدارة الدردشة":"💬 Manage chat","مدة بقاء رسائل الدردشة":"Chat message retention","معطّل — احتفظ بالدردشة":"Disabled — keep chat","5 ساعات":"5 hours","تطبق المدة على العرض والحذف من لوحة التحكم. الرسائل الجديدة ستحمل تاريخ انتهاء تلقائيًا.":"The duration applies to display and deletion from the admin panel. New messages receive an expiry date automatically.","حفظ مدة الدردشة":"Save chat retention","حذف الرسائل المنتهية الآن":"Delete expired messages now","حذف الدردشة بالكامل الآن":"Delete all chat now","💭 إدارة التعليقات":"💭 Manage comments","🚩 الإبلاغات":"🚩 Reports","📜 قوانين المجتمع الظاهرة للزوار":"📜 Community rules shown to visitors","منع السبام والتكرار.":"Prohibit spam and repetition.","منع كلمات المرور والـ Cookies والـ Tokens.":"Prohibit passwords, cookies, and tokens.","احترام الأعضاء وعدم الإساءة.":"Respect members and avoid abuse.","استعمال زر الإبلاغ للمخالفات.":"Use the report button for violations.","للإدارة حق التحذير والحظر والحذف.":"Moderators may warn, ban, and remove content.","هذه القوانين مضافة في واجهة الموقع داخل زر الإعدادات ورابط القوانين، ولا تحتاج قاعدة بيانات جديدة.":"These rules are included in the site interface under Settings and the Rules link; no new database is required.","اللغة":"Language","اختصارات لوحة التحكم":"Admin panel shortcuts","مثال: Netflix":"Example: Netflix","مثال: تقرير المشروع.pdf":"Example: project-report.pdf","حد كبير: 50,000 حرف. لا تضع Cookies أو كلمات مرور أو بيانات دخول.":"Maximum: 50,000 characters. Do not include cookies, passwords, or login credentials.","مثال: بطاقة مفاجأة خاصة":"Example: special surprise card","اختيار أيقونة البطاقة":"Choose card icon","اكتب وصفاً قصيراً يظهر قبل فتح البطاقة":"Write a short description shown before opening the card","هذا المحتوى سيبقى مغلقاً حتى موعد الكشف، ثم حتى يتخطى العضو الشروط إذا كان الحجب مفعّلاً":"This content remains locked until the reveal time and, when enabled, until the member completes the requirements","اكتب الإعلان الذي سيظهر لزوّار الموقع.":"Write the announcement shown to site visitors.","إجراءات":"Actions","صيغة الأيقونة غير مدعومة.":"Unsupported icon format.","حجم الأيقونة أكبر من 120KB.":"The icon is larger than 120 KB.","تعذر قراءة ملف الأيقونة.":"The icon file could not be read.","بيانات الدخول غير صحيحة.":"Incorrect credentials.","فعّل طريقة الدخول في Firebase Authentication.":"Enable the sign-in method in Firebase Authentication.","قواعد Firebase تمنع هذه العملية. انشر firebase-rules.json الجديد.":"Firebase rules blocked this operation. Publish the new firebase-rules.json.","حدث خطأ.":"An error occurred.","المدير":"Administrator","مشرف محدود":"Limited moderator","عضو":"Member","عضو في المجتمع":"Community member","حظر دائم":"Permanent ban","تحذير نشط":"Active warning","نشط":"Active","إلغاء التثبيت":"Unpin","تثبيت":"Pin","رسالة":"Message","منتهية":"Expired","بلاغ":"Report","المحتوى المحمي موجود":"Protected content available","بدون محتوى":"No content","تم حفظ الإعدادات.":"Settings saved.","اكتب اسم الموقع أو القسم.":"Enter the site or section name.","تمت إضافة الموقع / القسم مع الأيقونة.":"Site / section added with its icon.","تمت إضافة الأقسام الافتراضية.":"Default sections added.","تم النشر وإشعار الأعضاء.":"Published and members notified.","لا تسحب صلاحية المدير من حسابك.":"Do not remove administrator rights from your own account.","تم تحديث الصلاحية.":"Role updated.","لا يمكنك تطبيق هذا الإجراء على هذا الحساب.":"You cannot apply this action to this account.","الحظر الدائم للمدير الكامل فقط.":"Only a full administrator can impose a permanent ban.","رفع الحظر الدائم للمدير الكامل فقط.":"Only a full administrator can remove a permanent ban.","تحذير":"Warning","حظر مؤقت لمدة 24 ساعة":"Temporary ban for 24 hours","حظر مؤقت لمدة 7 أيام":"Temporary ban for 7 days","رفع الإجراء":"Remove action","⚠️ تحذير من الإدارة":"⚠️ Moderation warning","⛔ حظر مؤقت":"⛔ Temporary ban","⛔ حظر دائم":"⛔ Permanent ban","✅ رفع الإجراء":"✅ Action removed","تم رفع الإجراء الإداري عن حسابك.":"The moderation action on your account was removed.","تم إرسال الإجراء والإشعار.":"Action and notification sent.","تم إلغاء تثبيت الموضوع.":"Topic unpinned.","تم تثبيت الموضوع في الأعلى.":"Topic pinned to the top.","تم نشر الإعلان في واجهة الموقع.":"Announcement published on the site.","حذف الإعلان الحالي من واجهة الموقع؟":"Remove the current announcement from the site?","تم حذف الإعلان.":"Announcement removed.","حذف الموضوع مع تعليقاته وتفاعلاته؟":"Delete the topic with its comments and reactions?","تم حذف الموضوع.":"Topic deleted.","حذف التعليق؟":"Delete the comment?","تم حذف التعليق.":"Comment deleted.","حذف الرسالة؟":"Delete the message?","تم حذف الرسالة.":"Message deleted.","احذف منشورات القسم أولًا.":"Delete the section’s posts first.","حذف القسم؟":"Delete the section?","تم حذف القسم.":"Section deleted.","حذف البطاقة؟":"Delete the card?","تم حذف البطاقة.":"Card deleted.","لا توجد مواضيع منتهية.":"There are no expired topics.","تم حفظ مدة بقاء الدردشة.":"Chat retention saved.","لا توجد رسائل منتهية.":"There are no expired messages.","سيتم حذف كل رسائل الدردشة والتفاعلات عليها فورًا. هل أنت متأكد؟":"All chat messages and reactions will be deleted immediately. Are you sure?","تم حذف الدردشة بالكامل.":"All chat messages deleted.","لا يمكنك حذف هذا الحساب بهذه الصلاحية.":"You do not have permission to delete this account.","تم حذف الحساب من الموقع وحظره من إعادة إنشاء الملف تلقائيًا. احذف مستخدم Authentication يدويًا لإزالة البريد نهائيًا.":"The account was removed from the site and blocked from automatically recreating its profile. Delete the Authentication user manually to remove the email permanently.","📊 أسئلة المجتمع والتصويت":"📊 Community questions and polls","انشر سؤالًا أو تصويتًا، وسيصل إشعار للأعضاء. يمكنهم التصويت ثم التعليق والرد على بعضهم.":"Publish a question or poll and members will receive a notification. They can vote, comment, and reply to one another.","السؤال":"Question","وصف إضافي":"Additional description","خيارات التصويت — افصل بفاصلة":"Poll options — separate with commas","نعم، لا":"Yes, No","نعم، لا، ربما":"Yes, No, Maybe","نشر السؤال كفعّال":"Publish the question as active","نشر السؤال وإشعار الأعضاء":"Publish question and notify members","⏱️ قسم روابط الساعة وجسر الإضافة":"⏱️ One-hour links and bridge","كل رابط يبقى ساعة واحدة ثم يختفي تلقائيًا من الموقع. اختر له أيقونة من أيقونات أقسامك.":"Each link remains for one hour and then disappears automatically. Choose one of your section icons.","عنوان الرابط":"Link title","الرابط":"Link","وصف اختياري":"Optional description","اختر الأيقونة":"Choose icon","إضافة الرابط لمدة ساعة":"Add link for one hour","المصدر الموثوق للموقع الآخر":"Trusted origin for the other site","حفظ المصدر الموثوق":"Save trusted origin","جسر الإضافة يستقبل رسالة":"The bridge accepts the message","فقط من المصدر الموثوق وبعد تسجيل دخول المدير داخل لوحة التحكم.":"only from the trusted origin and after the administrator signs in to the panel.","📊 الأسئلة":"📊 Questions","⏱️ روابط الساعة":"⏱️ One-hour links","🏷️ ملصقات الملفات الشخصية":"🏷️ Profile stickers","ارفع الملصقات هنا، ثم اختر أي عضو من قائمة الأعضاء وحدد الملصقات التي ستظهر في ملفه. العضو لا يستطيع إضافة أو إزالة هذه الملصقات بنفسه.":"Upload stickers here, then choose a member and select the stickers shown on their profile. Members cannot add or remove these stickers themselves.","اسم الملصق":"Sticker name","مثال: مهرج، ألعاب، عضو موثوق":"Example: clown, games, trusted member","صورة الملصق":"Sticker image","PNG / JPG / WEBP / GIF. يتم ضغط الصور الثابتة تلقائيًا.":"PNG / JPG / WEBP / GIF. Static images are compressed automatically.","معاينة":"Preview","رفع الملصق":"Upload sticker","مكتبة الملصقات":"Sticker library","إدارة ملصقات العضو":"Manage member stickers","حفظ الملصقات":"Save stickers","إلغاء":"Cancel","🏷️ الملصقات":"🏷️ Stickers","اكتب الاسم واختر صورة الملصق.":"Enter a name and choose a sticker image.","تم رفع الملصق إلى المكتبة.":"Sticker uploaded to the library.","حذف هذا الملصق وإزالته من ملفات جميع الأعضاء؟":"Delete this sticker and remove it from every member profile?","تم حذف الملصق وإزالته من الأعضاء.":"Sticker deleted and removed from member profiles.","ملصق":"Sticker","حذف":"Delete","لا توجد ملصقات مرفوعة بعد.":"No stickers have been uploaded yet.","محدد":"Selected","اضغط للاختيار":"Select","ارفع ملصقًا أولًا من مكتبة الملصقات.":"Upload a sticker to the library first.","يمكن وضع 8 ملصقات كحد أقصى للعضو.":"A member can have up to 8 stickers.","تم حفظ ملصقات العضو.":"Member stickers saved.","آخر ظهور:":"Last seen:","أول دخول:":"First login:","متصل الآن":"Online now","🏷️ إدارة الملصقات":"🏷️ Manage stickers","غير متوفر":"Unavailable","تعذر فتح الصورة.":"The image could not be opened.","تعذر ضغط الصورة بما يكفي. اختر صورة أبسط.":"The image could not be compressed enough. Choose a simpler image.","اختيار ملف صورة فقط.":"Choose an image file only.","حجم الصورة كبير جدًا. اختر صورة أصغر.":"The image is too large. Choose a smaller image.","اختر صورة الملصق.":"Choose a sticker image.","صيغة الصورة غير مدعومة.":"Unsupported image format.","حجم الصورة كبير جدًا. الحد 650KB قبل الضغط.":"The image is too large. Maximum 650 KB before compression.","ملصق GIF يجب ألا يتجاوز 120KB.":"A GIF sticker must not exceed 120 KB.","تعذر قراءة الصورة.":"The image could not be read.","مثال: هل تريدون موضوعًا عن الألعاب هذا الأسبوع؟":"Example: Would you like a topic about games this week?","تفاصيل اختيارية":"Optional details","متوقف":"Inactive","فعّال":"Active","تفعيل":"Enable","إيقاف":"Disable","لا توجد أسئلة بعد.":"No questions yet.","منتهي":"Expired","متبقٍ":"Remaining","فتح":"Open","لا توجد روابط ساعة.":"No one-hour links.","عنوان":"Title","وصف":"Description","رابط لوحة الإدارة":"Admin panel URL","أيقونة مرفوعة يدويًا":"Manually uploaded icon","تمت إضافة السؤال وإشعار الأعضاء.":"Question added and members notified.","تم تحديث حالة السؤال.":"Question status updated.","حذف السؤال مع تصويتاته وتعليقاته؟":"Delete the question with its votes and comments?","تم حذف السؤال.":"Question deleted.","تمت إضافة الرابط لمدة ساعة.":"Link added for one hour.","حذف الرابط؟":"Delete the link?","تم حذف الرابط.":"Link deleted.","اكتب مصدرًا صحيحًا يبدأ بـ http أو https.":"Enter a valid origin starting with http or https.","تم حفظ المصدر الموثوق.":"Trusted origin saved.","3 أيام":"3 days","7 أيام":"7 days","🆕 منشور جديد":"🆕 New post","🧩 إضافة قسم فني":"🧩 Add a creative section","أيقونة":"Icon","سؤال":"Question","رابط":"Link","محتوى مبلغ عنه":"Reported content","لم يذكر سبب":"No reason provided","العضو":"Member","📊 سؤال جديد للمجتمع":"📊 New community question"},fr:{"NexusHub V39 — لوحة الإدارة":"NexusHub V39 — Panneau d’administration","العربية":"Arabe","الوضع النهاري":"Mode clair","عرض الموقع":"Voir le site","خروج":"Déconnexion","دخول لوحة التحكم":"Connexion au panneau d’administration","يدخل المدير الكامل والمشرف المحدود بحساب Firebase نفسه. المدير وحده يغيّر الإعدادات والصلاحيات.":"Les administrateurs complets et les modérateurs limités se connectent avec le même compte Firebase. Seuls les administrateurs peuvent modifier les paramètres et les autorisations.","البريد الإلكتروني":"Adresse e-mail","كلمة المرور":"Mot de passe","دخول":"Se connecter","الأعضاء":"Membres","المتصلون":"En ligne","المواضيع":"Sujets","التعليقات":"Commentaires","الحالات الإدارية":"Mesures de modération","الإبلاغات":"Signalements","زيارات الموقع":"Visites du site","⚙️ إعدادات الموقع":"⚙️ Paramètres du site","🧩 الأقسام والأيقونات":"🧩 Sections et icônes","📝 نشر وتثبيت":"📝 Publier et épingler","🔐 البطاقات الخاصة":"🔐 Cartes privées","👥 الأعضاء والحظر":"👥 Membres et bannissements","📌 المنشورات":"📌 Publications","🚩 البلاغات":"🚩 Signalements","💬 الدردشة":"💬 Discussion","✨ هوية الموقع وروابط المجتمع":"✨ Identité du site et liens communautaires","اسم الموقع":"Nom du site","النص التعريفي":"Texte d’introduction","الحذف التلقائي للمواضيع":"Suppression automatique des sujets","معطّل — احتفظ بالمواضيع":"Désactivé — conserver les sujets","بعد يوم واحد":"Après 1 jour","بعد 3 أيام":"Après 3 jours","بعد 7 أيام":"Après 7 jours","بعد 14 يومًا":"Après 14 jours","بعد 30 يومًا":"Après 30 jours","بعد 90 يومًا":"Après 90 jours","تُطبق المدة على المواضيع الجديدة. اختر تطبيقها على الحالي لحساب موعد انتهاء للمواضيع الموجودة أيضًا.":"La durée s’applique aux nouveaux sujets. Appliquez-la aussi aux sujets actuels pour calculer leur date d’expiration.","تطبيق المدة على المواضيع الحالية أيضًا":"Appliquer la durée aux sujets actuels","حذف المواضيع المنتهية الآن":"Supprimer les sujets expirés","🧩 إضافة موقع / قسم بأيقونة":"🧩 Ajouter un site / une section avec une icône","اسم الموقع / القسم":"Nom du site / de la section","رمز احتياطي اختياري":"Symbole de secours facultatif","يظهر هذا الرمز إذا لم يتم رفع صورة.":"Ce symbole s’affiche si aucune image n’est téléversée.","رفع أيقونة الموقع":"Téléverser l’icône du site","PNG / JPG / WEBP / GIF — الحد الأقصى 120KB حتى تبقى القاعدة سريعة.":"PNG / JPG / WEBP / GIF — maximum 120 Ko pour préserver les performances.","معاينة الأيقونة":"Aperçu de l’icône","الوصف":"Description","لون البطاقة":"Couleur de la carte","إضافة القسم":"Ajouter la section","إضافة الافتراضي":"Ajouter les valeurs par défaut","📝 نشر موضوع جديد":"📝 Publier un nouveau sujet","العنوان":"Titre","القسم":"Section","رابط مستند مباشر":"URL directe du document","اسم المستند الظاهر":"Nom visible du document","المحتوى":"Contenu","تثبيت الموضوع":"Épingler le sujet","نشر في الموقع":"Publier sur le site","🔐 البطاقات الخاصة المؤقتة":"🔐 Cartes privées programmées","أنشئ بطاقة خاصة، وحدد وقت الكشف من لوحة التحكم. قبل انتهاء العداد سيحجب المؤقت البطاقة، وبعده يمكن إبقاء المحتوى محجوباً حتى يكمل العضو شروط الوصول.":"Créez une carte privée et définissez son heure de révélation. Avant la fin du compte à rebours, elle est masquée ; ensuite, elle peut rester verrouillée jusqu’à ce que le membre remplisse les conditions.","اكتب رمزاً أو اختر أيقونة من الأيقونات المرفوعة مسبقاً للأقسام.":"Saisissez un symbole ou choisissez une icône déjà téléversée pour les sections.","إذا تركته فارغاً ستظهر الأيقونة المختارة داخل البطاقة.":"Si ce champ est vide, l’icône choisie apparaîtra dans la carte.","اختياري: استخدمه إذا أردت تاريخاً ووقتاً محددين.":"Facultatif : utilisez ce champ pour une date et une heure précises.","مدة العداد":"Durée du compte à rebours","اكتب أو اختر مدة، وسيتم حساب وقت الكشف من لحظة حفظ البطاقة.":"Saisissez ou choisissez une durée ; l’heure de révélation sera calculée à partir de l’enregistrement.","مدة جاهزة":"Durée prédéfinie","استخدام الوقت اليدوي":"Utiliser l’heure manuelle","15 دقيقة":"15 minutes","30 دقيقة":"30 minutes","ساعة واحدة":"1 heure","3 ساعات":"3 heures","12 ساعة":"12 heures","24 ساعة":"24 heures","مدة مخصصة":"Durée personnalisée","أيام":"Jours","ساعات":"Heures","دقائق":"Minutes","مثال: اختر 3 ساعات، أو اكتب 0 يوم / 1 ساعة / 30 دقيقة. يظهر الوقت بصيغة صباحاً/مساءً في القائمة.":"Exemple : choisissez 3 heures, ou saisissez 0 jour / 1 heure / 30 minutes. La liste affiche l’heure selon la langue choisie.","تفعيل الحجب بعد انتهاء العداد حتى يتخطى العضو الشروط السابقة":"Maintenir le verrouillage après le compte à rebours jusqu’à ce que le membre remplisse les conditions","الافتراضي: عند وجود عداد يتم حجب المحتوى إجبارياً. أزل التحديد فقط إذا أردت ظهور المحتوى للجميع بعد انتهاء العداد.":"Par défaut, le contenu programmé reste verrouillé. Décochez uniquement pour le rendre public après le compte à rebours.","تفعيل البطاقة وعرضها في index":"Activer la carte et l’afficher sur le site","إضافة البطاقة":"Ajouter la carte","إلغاء التعديل":"Annuler la modification","👥 كل الأعضاء — الصلاحيات والتحذير والحظر":"👥 Tous les membres — rôles, avertissements et bannissements","📌 إدارة المنشورات":"📌 Gérer les publications","💬 إدارة الدردشة":"💬 Gérer la discussion","مدة بقاء رسائل الدردشة":"Conservation des messages","معطّل — احتفظ بالدردشة":"Désactivé — conserver la discussion","5 ساعات":"5 heures","تطبق المدة على العرض والحذف من لوحة التحكم. الرسائل الجديدة ستحمل تاريخ انتهاء تلقائيًا.":"La durée s’applique à l’affichage et à la suppression depuis le panneau. Les nouveaux messages reçoivent automatiquement une date d’expiration.","حفظ مدة الدردشة":"Enregistrer la durée","حذف الرسائل المنتهية الآن":"Supprimer les messages expirés","حذف الدردشة بالكامل الآن":"Supprimer toute la discussion","💭 إدارة التعليقات":"💭 Gérer les commentaires","🚩 الإبلاغات":"🚩 Signalements","📜 قوانين المجتمع الظاهرة للزوار":"📜 Règles affichées aux visiteurs","منع السبام والتكرار.":"Interdire le spam et les répétitions.","منع كلمات المرور والـ Cookies والـ Tokens.":"Interdire les mots de passe, cookies et jetons.","احترام الأعضاء وعدم الإساءة.":"Respecter les membres et éviter les abus.","استعمال زر الإبلاغ للمخالفات.":"Utiliser le bouton de signalement pour les infractions.","للإدارة حق التحذير والحظر والحذف.":"La modération peut avertir, bannir et supprimer.","هذه القوانين مضافة في واجهة الموقع داخل زر الإعدادات ورابط القوانين، ولا تحتاج قاعدة بيانات جديدة.":"Ces règles figurent dans l’interface sous Paramètres et via le lien Règles ; aucune nouvelle base n’est nécessaire.","اللغة":"Langue","اختصارات لوحة التحكم":"Raccourcis du panneau","مثال: Netflix":"Exemple : Netflix","مثال: تقرير المشروع.pdf":"Exemple : rapport-projet.pdf","حد كبير: 50,000 حرف. لا تضع Cookies أو كلمات مرور أو بيانات دخول.":"Maximum : 50 000 caractères. N’ajoutez ni cookies, ni mots de passe, ni identifiants.","مثال: بطاقة مفاجأة خاصة":"Exemple : carte surprise spéciale","اختيار أيقونة البطاقة":"Choisir l’icône de la carte","اكتب وصفاً قصيراً يظهر قبل فتح البطاقة":"Écrivez une brève description affichée avant l’ouverture","هذا المحتوى سيبقى مغلقاً حتى موعد الكشف، ثم حتى يتخطى العضو الشروط إذا كان الحجب مفعّلاً":"Ce contenu reste verrouillé jusqu’à l’heure de révélation puis, si activé, jusqu’à ce que le membre remplisse les conditions","اكتب الإعلان الذي سيظهر لزوّار الموقع.":"Écrivez l’annonce destinée aux visiteurs.","إجراءات":"Actions","صيغة الأيقونة غير مدعومة.":"Format d’icône non pris en charge.","حجم الأيقونة أكبر من 120KB.":"L’icône dépasse 120 Ko.","تعذر قراءة ملف الأيقونة.":"Impossible de lire le fichier d’icône.","بيانات الدخول غير صحيحة.":"Identifiants incorrects.","فعّل طريقة الدخول في Firebase Authentication.":"Activez la méthode de connexion dans Firebase Authentication.","قواعد Firebase تمنع هذه العملية. انشر firebase-rules.json الجديد.":"Les règles Firebase ont bloqué l’opération. Publiez le nouveau fichier firebase-rules.json.","حدث خطأ.":"Une erreur est survenue.","المدير":"Administrateur","مشرف محدود":"Modérateur limité","عضو":"Membre","عضو في المجتمع":"Membre de la communauté","حظر دائم":"Bannissement permanent","تحذير نشط":"Avertissement actif","نشط":"Actif","إلغاء التثبيت":"Désépingler","تثبيت":"Épingler","رسالة":"Message","منتهية":"Expiré","بلاغ":"Signalement","المحتوى المحمي موجود":"Contenu protégé disponible","بدون محتوى":"Aucun contenu","تم حفظ الإعدادات.":"Paramètres enregistrés.","اكتب اسم الموقع أو القسم.":"Saisissez le nom du site ou de la section.","تمت إضافة الموقع / القسم مع الأيقونة.":"Site / section ajouté avec son icône.","تمت إضافة الأقسام الافتراضية.":"Sections par défaut ajoutées.","تم النشر وإشعار الأعضاء.":"Publication effectuée et membres notifiés.","لا تسحب صلاحية المدير من حسابك.":"Ne retirez pas vos propres droits d’administrateur.","تم تحديث الصلاحية.":"Rôle mis à jour.","لا يمكنك تطبيق هذا الإجراء على هذا الحساب.":"Vous ne pouvez pas appliquer cette action à ce compte.","الحظر الدائم للمدير الكامل فقط.":"Seul un administrateur complet peut imposer un bannissement permanent.","رفع الحظر الدائم للمدير الكامل فقط.":"Seul un administrateur complet peut lever un bannissement permanent.","تحذير":"Avertissement","حظر مؤقت لمدة 24 ساعة":"Bannissement temporaire de 24 heures","حظر مؤقت لمدة 7 أيام":"Bannissement temporaire de 7 jours","رفع الإجراء":"Lever la mesure","⚠️ تحذير من الإدارة":"⚠️ Avertissement de la modération","⛔ حظر مؤقت":"⛔ Bannissement temporaire","⛔ حظر دائم":"⛔ Bannissement permanent","✅ رفع الإجراء":"✅ Mesure levée","تم رفع الإجراء الإداري عن حسابك.":"La mesure de modération appliquée à votre compte a été levée.","تم إرسال الإجراء والإشعار.":"Mesure et notification envoyées.","تم إلغاء تثبيت الموضوع.":"Sujet désépinglé.","تم تثبيت الموضوع في الأعلى.":"Sujet épinglé en haut.","تم نشر الإعلان في واجهة الموقع.":"Annonce publiée sur le site.","حذف الإعلان الحالي من واجهة الموقع؟":"Supprimer l’annonce actuelle du site ?","تم حذف الإعلان.":"Annonce supprimée.","حذف الموضوع مع تعليقاته وتفاعلاته؟":"Supprimer le sujet avec ses commentaires et réactions ?","تم حذف الموضوع.":"Sujet supprimé.","حذف التعليق؟":"Supprimer le commentaire ?","تم حذف التعليق.":"Commentaire supprimé.","حذف الرسالة؟":"Supprimer le message ?","تم حذف الرسالة.":"Message supprimé.","احذف منشورات القسم أولًا.":"Supprimez d’abord les publications de la section.","حذف القسم؟":"Supprimer la section ?","تم حذف القسم.":"Section supprimée.","حذف البطاقة؟":"Supprimer la carte ?","تم حذف البطاقة.":"Carte supprimée.","لا توجد مواضيع منتهية.":"Aucun sujet expiré.","تم حفظ مدة بقاء الدردشة.":"Durée de conservation enregistrée.","لا توجد رسائل منتهية.":"Aucun message expiré.","سيتم حذف كل رسائل الدردشة والتفاعلات عليها فورًا. هل أنت متأكد؟":"Tous les messages et réactions seront supprimés immédiatement. Confirmer ?","تم حذف الدردشة بالكامل.":"Toute la discussion a été supprimée.","لا يمكنك حذف هذا الحساب بهذه الصلاحية.":"Vous n’avez pas l’autorisation de supprimer ce compte.","تم حذف الحساب من الموقع وحظره من إعادة إنشاء الملف تلقائيًا. احذف مستخدم Authentication يدويًا لإزالة البريد نهائيًا.":"Le compte a été supprimé du site et empêché de recréer automatiquement son profil. Supprimez manuellement l’utilisateur Authentication pour retirer définitivement l’adresse e-mail.","📊 أسئلة المجتمع والتصويت":"📊 Questions et sondages de la communauté","انشر سؤالًا أو تصويتًا، وسيصل إشعار للأعضاء. يمكنهم التصويت ثم التعليق والرد على بعضهم.":"Publiez une question ou un sondage ; les membres recevront une notification et pourront voter, commenter et se répondre.","السؤال":"Question","وصف إضافي":"Description supplémentaire","خيارات التصويت — افصل بفاصلة":"Options du sondage — séparez-les par des virgules","نعم، لا":"Oui, Non","نعم، لا، ربما":"Oui, Non, Peut-être","نشر السؤال كفعّال":"Publier la question comme active","نشر السؤال وإشعار الأعضاء":"Publier la question et notifier les membres","⏱️ قسم روابط الساعة وجسر الإضافة":"⏱️ Liens d’une heure et passerelle","كل رابط يبقى ساعة واحدة ثم يختفي تلقائيًا من الموقع. اختر له أيقونة من أيقونات أقسامك.":"Chaque lien reste une heure puis disparaît automatiquement. Choisissez une icône parmi celles de vos sections.","عنوان الرابط":"Titre du lien","الرابط":"Lien","وصف اختياري":"Description facultative","اختر الأيقونة":"Choisir l’icône","إضافة الرابط لمدة ساعة":"Ajouter le lien pour une heure","المصدر الموثوق للموقع الآخر":"Origine de confiance de l’autre site","حفظ المصدر الموثوق":"Enregistrer l’origine de confiance","جسر الإضافة يستقبل رسالة":"La passerelle accepte le message","فقط من المصدر الموثوق وبعد تسجيل دخول المدير داخل لوحة التحكم.":"uniquement depuis l’origine de confiance et après la connexion de l’administrateur.","📊 الأسئلة":"📊 Questions","⏱️ روابط الساعة":"⏱️ Liens d’une heure","🏷️ ملصقات الملفات الشخصية":"🏷️ Autocollants de profil","ارفع الملصقات هنا، ثم اختر أي عضو من قائمة الأعضاء وحدد الملصقات التي ستظهر في ملفه. العضو لا يستطيع إضافة أو إزالة هذه الملصقات بنفسه.":"Téléversez les autocollants ici, puis choisissez un membre et sélectionnez ceux qui apparaîtront sur son profil. Les membres ne peuvent pas les ajouter ni les retirer eux-mêmes.","اسم الملصق":"Nom de l’autocollant","مثال: مهرج، ألعاب، عضو موثوق":"Exemple : clown, jeux, membre fiable","صورة الملصق":"Image de l’autocollant","PNG / JPG / WEBP / GIF. يتم ضغط الصور الثابتة تلقائيًا.":"PNG / JPG / WEBP / GIF. Les images fixes sont compressées automatiquement.","معاينة":"Aperçu","رفع الملصق":"Téléverser l’autocollant","مكتبة الملصقات":"Bibliothèque d’autocollants","إدارة ملصقات العضو":"Gérer les autocollants du membre","حفظ الملصقات":"Enregistrer les autocollants","إلغاء":"Annuler","🏷️ الملصقات":"🏷️ Autocollants","اكتب الاسم واختر صورة الملصق.":"Saisissez un nom et choisissez l’image de l’autocollant.","تم رفع الملصق إلى المكتبة.":"Autocollant ajouté à la bibliothèque.","حذف هذا الملصق وإزالته من ملفات جميع الأعضاء؟":"Supprimer cet autocollant de tous les profils ?","تم حذف الملصق وإزالته من الأعضاء.":"Autocollant supprimé des profils.","ملصق":"Autocollant","حذف":"Supprimer","لا توجد ملصقات مرفوعة بعد.":"Aucun autocollant téléversé.","محدد":"Sélectionné","اضغط للاختيار":"Sélectionner","ارفع ملصقًا أولًا من مكتبة الملصقات.":"Téléversez d’abord un autocollant dans la bibliothèque.","يمكن وضع 8 ملصقات كحد أقصى للعضو.":"Un membre peut avoir jusqu’à 8 autocollants.","تم حفظ ملصقات العضو.":"Autocollants du membre enregistrés.","آخر ظهور:":"Dernière activité :","أول دخول:":"Première connexion :","متصل الآن":"En ligne","🏷️ إدارة الملصقات":"🏷️ Gérer les autocollants","غير متوفر":"Indisponible","تعذر فتح الصورة.":"Impossible d’ouvrir l’image.","تعذر ضغط الصورة بما يكفي. اختر صورة أبسط.":"Impossible de compresser suffisamment l’image. Choisissez une image plus simple.","اختيار ملف صورة فقط.":"Choisissez uniquement un fichier image.","حجم الصورة كبير جدًا. اختر صورة أصغر.":"L’image est trop volumineuse. Choisissez une image plus petite.","اختر صورة الملصق.":"Choisissez l’image de l’autocollant.","صيغة الصورة غير مدعومة.":"Format d’image non pris en charge.","حجم الصورة كبير جدًا. الحد 650KB قبل الضغط.":"L’image est trop volumineuse. Maximum 650 Ko avant compression.","ملصق GIF يجب ألا يتجاوز 120KB.":"Un autocollant GIF ne doit pas dépasser 120 Ko.","تعذر قراءة الصورة.":"Impossible de lire l’image.","مثال: هل تريدون موضوعًا عن الألعاب هذا الأسبوع؟":"Exemple : souhaitez-vous un sujet sur les jeux cette semaine ?","تفاصيل اختيارية":"Détails facultatifs","متوقف":"Inactif","فعّال":"Actif","تفعيل":"Activer","إيقاف":"Désactiver","لا توجد أسئلة بعد.":"Aucune question pour le moment.","منتهي":"Expiré","متبقٍ":"Restant","فتح":"Ouvrir","لا توجد روابط ساعة.":"Aucun lien d’une heure.","عنوان":"Titre","وصف":"Description","رابط لوحة الإدارة":"URL du panneau d’administration","أيقونة مرفوعة يدويًا":"Icône téléversée manuellement","تمت إضافة السؤال وإشعار الأعضاء.":"Question ajoutée et membres notifiés.","تم تحديث حالة السؤال.":"État de la question mis à jour.","حذف السؤال مع تصويتاته وتعليقاته؟":"Supprimer la question avec ses votes et commentaires ?","تم حذف السؤال.":"Question supprimée.","تمت إضافة الرابط لمدة ساعة.":"Lien ajouté pour une heure.","حذف الرابط؟":"Supprimer le lien ?","تم حذف الرابط.":"Lien supprimé.","اكتب مصدرًا صحيحًا يبدأ بـ http أو https.":"Saisissez une origine valide commençant par http ou https.","تم حفظ المصدر الموثوق.":"Origine de confiance enregistrée.","3 أيام":"3 jours","7 أيام":"7 jours","🆕 منشور جديد":"🆕 Nouvelle publication","🧩 إضافة قسم فني":"🧩 Ajouter une section créative","أيقونة":"Icône","سؤال":"Question","رابط":"Lien","محتوى مبلغ عنه":"Contenu signalé","لم يذكر سبب":"Aucune raison indiquée","العضو":"Membre","📊 سؤال جديد للمجتمع":"📊 Nouvelle question communautaire"}};
+const ADMIN_UI_PATTERNS_V66={en:[[new RegExp("^منذ (\\d+) د$"),"$1 min ago"],[new RegExp("^منذ (\\d+) س$"),"$1 h ago"],[new RegExp("^حظر مؤقت حتى (.+)$"),"Temporary ban until $1"],[new RegExp("^تم حذف (\\d+) موضوع منتهٍ\\.$"),"Deleted $1 expired topics."],[new RegExp("^تم حذف (\\d+) رسالة منتهية\\.$"),"Deleted $1 expired messages."],[new RegExp("^سبب (.+):$"),"Reason for $1:"],[new RegExp("^تلقيت تحذيرًا: (.+)$"),"You received a warning: $1"],[new RegExp("^تم إيقاف تفاعلك مؤقتًا لمدة (.+)\\. السبب: (.+)$"),"Your activity was temporarily suspended for $1. Reason: $2"],[new RegExp("^تم حظر الحساب من التفاعل\\. السبب: (.+)$"),"The account was banned from interacting. Reason: $1"],[new RegExp("^ملصقات: (.+)$"),"Stickers: $1"],[new RegExp("^متبقٍ (.+)$"),"Remaining $1"],[new RegExp("^(.+) · (\\d+) صوت · (\\d+) تعليق · (.+)$"),"$1 · $2 votes · $3 comments · $4"],[new RegExp("^نشر (.+) موضوعًا جديدًا: (.+)$"),"$1 published a new topic: $2"]],fr:[[new RegExp("^منذ (\\d+) د$"),"il y a $1 min"],[new RegExp("^منذ (\\d+) س$"),"il y a $1 h"],[new RegExp("^حظر مؤقت حتى (.+)$"),"Bannissement temporaire jusqu’au $1"],[new RegExp("^تم حذف (\\d+) موضوع منتهٍ\\.$"),"$1 sujets expirés supprimés."],[new RegExp("^تم حذف (\\d+) رسالة منتهية\\.$"),"$1 messages expirés supprimés."],[new RegExp("^سبب (.+):$"),"Raison de $1 :"],[new RegExp("^تلقيت تحذيرًا: (.+)$"),"Vous avez reçu un avertissement : $1"],[new RegExp("^تم إيقاف تفاعلك مؤقتًا لمدة (.+)\\. السبب: (.+)$"),"Votre activité a été suspendue pendant $1. Raison : $2"],[new RegExp("^تم حظر الحساب من التفاعل\\. السبب: (.+)$"),"Le compte a été banni des interactions. Raison : $1"],[new RegExp("^ملصقات: (.+)$"),"Autocollants : $1"],[new RegExp("^متبقٍ (.+)$"),"Restant $1"],[new RegExp("^(.+) · (\\d+) صوت · (\\d+) تعليق · (.+)$"),"$1 · $2 votes · $3 commentaires · $4"],[new RegExp("^نشر (.+) موضوعًا جديدًا: (.+)$"),"$1 a publié un nouveau sujet : $2"]]};
+const adminTextStateV66=new WeakMap(),adminAttrStateV66=new WeakMap();
+const ADMIN_UI_SKIP_SELECTOR_V66=[
+ '#siteName','#heroText','#facebookUrl','#telegramUrl','#siteBackgroundUrl','#chatBackgroundUrl',
+ '#categoryTitle','#categoryDescription','#postTitle','#postBody','#postDocumentName','#resourceTitle','#resourceDescription','#resourceSecret',
+ '#announcementText','.item h3','.item p','.item>.meta','.admin-question-v64 h3','.admin-question-v64>p',
+ '.admin-hour-link-v64 h3','.admin-hour-link-v64>p','.sticker-library-card-v65 strong','.sticker-assignment-choice-v65 b',
+ '.admin-assigned-sticker-v65','.report-detail-v64 h3','.report-detail-v64 .report-reason-v64'
+].join(',');
+function adminUiNormV66(value){return String(value??'').replace(/\s+/g,' ').trim();}
+function adminUiPlainV66(value){const box=document.createElement('div');box.innerHTML=String(value??'');return adminUiNormV66(box.textContent||'');}
+function adminUiReverseV66(){
+ const out=new Map();
+ for(const dict of [ADMIN_I18N_V17.ar||{},ADMIN_I18N_V20?.ar||{}])Object.entries(dict).forEach(([key,value])=>{const plain=adminUiPlainV66(value);if(plain)out.set(plain,key);});
+ return out;
+}
+function adminUiTranslateStringV66(value){
+ const source=String(value??'');if(adminLanguageV17==='ar'||!source)return source;
+ const lead=source.match(/^\s*/)?.[0]||'',tail=source.match(/\s*$/)?.[0]||'',core=adminUiNormV66(source);if(!core)return source;
+ const reverse=adminUiReverseV66(),key=reverse.get(core);
+ let translated=key?(ADMIN_I18N_V17[adminLanguageV17]?.[key]??ADMIN_I18N_V20?.[adminLanguageV17]?.[key]):ADMIN_UI_EXTRA_V66[adminLanguageV17]?.[core];
+ if(translated!=null)translated=adminUiPlainV66(translated);
+ if(translated==null){for(const [pattern,replacement] of ADMIN_UI_PATTERNS_V66[adminLanguageV17]||[]){if(pattern.test(core)){translated=core.replace(pattern,replacement);break;}}}
+ return translated==null?source:lead+translated+tail;
+}
+function adminUiSkipV66(el){
+ if(!el||el.closest('script,style,noscript,template,[data-no-ui-translate]'))return true;
+ const matched=el.closest(ADMIN_UI_SKIP_SELECTOR_V66);if(!matched)return false;
+ if(el.closest('.admin-member-times-v65'))return false;
+ return true;
+}
+function adminTranslateTextNodeV66(node){
+ const el=node.parentElement;if(!el||adminUiSkipV66(el))return;
+ const current=node.nodeValue||'';let rec=adminTextStateV66.get(node);
+ if(!rec||(current!==rec.output&&/[\u0600-\u06ff]/.test(current)))rec={source:current,output:current};
+ if(!/[\u0600-\u06ff]/.test(rec.source||''))return;
+ const output=adminLanguageV17==='ar'?rec.source:adminUiTranslateStringV66(rec.source);
+ rec.output=output;adminTextStateV66.set(node,rec);if(current!==output)node.nodeValue=output;
+}
+function adminTranslateAttrsV66(el){
+ if(!el||adminUiSkipV66(el))return;let rec=adminAttrStateV66.get(el)||{};
+ for(const attr of ['placeholder','title','aria-label']){
+  const current=el.getAttribute(attr);if(current==null)continue;const item=rec[attr];
+  if(!item||(current!==item.output&&/[\u0600-\u06ff]/.test(current)))rec[attr]={source:current,output:current};
+  if(!rec[attr]||!/[\u0600-\u06ff]/.test(rec[attr].source||''))continue;
+  const output=adminLanguageV17==='ar'?rec[attr].source:adminUiTranslateStringV66(rec[attr].source);
+  rec[attr].output=output;if(current!==output)el.setAttribute(attr,output);
+ }
+ adminAttrStateV66.set(el,rec);
+}
+function applyCompleteAdminLanguageV66(root=document.body){
+ if(!root)return;
+ const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let node;while((node=walker.nextNode()))adminTranslateTextNodeV66(node);
+ const elements=root.matches?.('*')?[root,...root.querySelectorAll('*')]:[...root.querySelectorAll('*')];elements.forEach(adminTranslateAttrsV66);
+ document.title=adminLanguageV17==='en'?'NexusHub — Admin panel':adminLanguageV17==='fr'?'NexusHub — Panneau d’administration':'NexusHub — لوحة الإدارة';
+}
+const applyAdminBeforeV66=applyAdminV17;
+applyAdminV17=function(){const result=applyAdminBeforeV66();queueMicrotask(()=>applyCompleteAdminLanguageV66());return result;};
+const renderAdminBeforeV66=render;
+render=function(){const result=renderAdminBeforeV66();queueMicrotask(()=>applyCompleteAdminLanguageV66());return result;};
+const adminToastBeforeV66=toast;
+toast=function(message,type){return adminToastBeforeV66(adminUiTranslateStringV66(message),type);};
+const adminNativeConfirmV66=window.confirm.bind(window),adminNativePromptV66=window.prompt.bind(window),adminNativeAlertV66=window.alert.bind(window);
+window.confirm=(message)=>adminNativeConfirmV66(adminUiTranslateStringV66(message));
+window.prompt=(message,defaultValue='')=>adminNativePromptV66(adminUiTranslateStringV66(message),defaultValue);
+window.alert=(message)=>adminNativeAlertV66(adminUiTranslateStringV66(message));
+adminMemberDateV65=function(value){
+ const ms=Number(value||0);if(!ms)return adminUiTranslateStringV66('غير متوفر');
+ const locale=adminLanguageV17==='en'?'en-US':adminLanguageV17==='fr'?'fr-FR':'ar-DZ';
+ try{return new Intl.DateTimeFormat(locale,{dateStyle:'medium',timeStyle:'short'}).format(new Date(ms));}catch{return new Date(ms).toLocaleString(locale);}
+};
+let adminLanguageTimerV66=0;
+const adminLanguageObserverV66=new MutationObserver(()=>{clearTimeout(adminLanguageTimerV66);adminLanguageTimerV66=setTimeout(()=>applyCompleteAdminLanguageV66(),25);});
+adminLanguageObserverV66.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','title','aria-label']});
+setTimeout(()=>applyCompleteAdminLanguageV66(),0);
 
 </script>
 </body></html>
