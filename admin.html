@@ -603,6 +603,24 @@ html[data-theme="light"] .admin-menu-portal-v56{
 @media(max-width:760px){.sticker-admin-grid-v65{grid-template-columns:1fr}.sticker-library-v65{grid-template-columns:repeat(2,minmax(0,1fr))}.sticker-assignment-grid-v65{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:430px){.sticker-library-v65,.sticker-assignment-grid-v65{grid-template-columns:1fr}}
 
+
+/* ===== NexusHub Admin V67: dependable sticker manager ===== */
+#profileStickerAssignModalV65{z-index:10000!important}
+#profileStickerAssignModalV65.show{display:grid!important}
+.sticker-assignment-grid-v65{
+ display:grid!important;
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ gap:9px!important;
+ max-height:min(62vh,520px)!important;
+ overflow:auto!important;
+}
+.sticker-assignment-choice-v65{min-height:108px!important;padding:9px!important}
+.sticker-assignment-choice-v65 img{width:52px!important;height:52px!important;object-fit:contain!important;background:transparent!important}
+.admin-assigned-stickers-v65{display:grid!important;grid-template-columns:repeat(3,26px)!important;gap:5px!important;width:max-content!important;margin-top:8px!important}
+.admin-assigned-sticker-v65{display:grid!important;place-items:center!important;width:26px!important;height:26px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;font-size:0!important}
+.admin-assigned-sticker-v65 img{width:24px!important;height:24px!important;border-radius:6px!important;object-fit:contain!important;background:transparent!important}
+@media(max-width:520px){.sticker-assignment-grid-v65{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important}.sticker-assignment-choice-v65{min-height:95px!important;padding:6px!important}.sticker-assignment-choice-v65 img{width:44px!important;height:44px!important}}
+
 </style>
 </head>
 <body>
@@ -1885,5 +1903,80 @@ const adminLanguageObserverV66=new MutationObserver(()=>{clearTimeout(adminLangu
 adminLanguageObserverV66.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','title','aria-label']});
 setTimeout(()=>applyCompleteAdminLanguageV66(),0);
 
+
+
+/* ===== NexusHub Admin V67: visible sticker picker and multi-assignment ===== */
+function closeMemberStickerAssignmentV67(){
+ const modalEl=$('profileStickerAssignModalV65');
+ if(!modalEl)return;
+ modalEl.classList.remove('show');
+ modalEl.style.removeProperty('display');
+ document.documentElement.style.removeProperty('overflow');
+}
+
+renderStickerAssignmentGridV65=function(){
+ const box=$('profileStickerAssignmentGridV65');if(!box)return;
+ const rows=Object.entries(state.profileStickerLibraryV65||{})
+  .map(([id,v])=>({id,...v}))
+  .filter(x=>x.imageData)
+  .sort((a,b)=>(a.name||'').localeCompare(b.name||'','ar'));
+ box.innerHTML=rows.length?rows.map(x=>`<button type="button" class="sticker-assignment-choice-v65 ${stickerAssignmentSelectionV65.has(x.id)?'active':''}" data-assign-profile-sticker-v65="${esc(x.id)}" aria-pressed="${stickerAssignmentSelectionV65.has(x.id)?'true':'false'}"><img src="${esc(stickerImageSafeV65(x.imageData))}" alt="${esc(x.name||'ملصق')}"><b>${esc(x.name||'ملصق')}</b><small>${stickerAssignmentSelectionV65.has(x.id)?'محدد':'اضغط للاختيار'}</small></button>`).join(''):'<div class="item">ارفع ملصقًا أولًا من مكتبة الملصقات.</div>';
+ box.querySelectorAll('[data-assign-profile-sticker-v65]').forEach(button=>{
+  button.onclick=event=>{
+   event.preventDefault();
+   const id=button.dataset.assignProfileStickerV65;
+   if(stickerAssignmentSelectionV65.has(id))stickerAssignmentSelectionV65.delete(id);
+   else if(stickerAssignmentSelectionV65.size<12)stickerAssignmentSelectionV65.add(id);
+   else return toast('يمكن وضع 12 ملصقًا كحد أقصى للعضو.','error');
+   renderStickerAssignmentGridV65();
+  };
+ });
+};
+
+function openMemberStickerAssignmentV67(uid){
+ if(!state.isAdmin||!uid)return;
+ ensureStickerAdminUIV65();
+ const modalEl=$('profileStickerAssignModalV65');
+ if(!modalEl){toast('تعذر فتح نافذة إدارة الملصقات.','error');return;}
+ stickerAssignmentUidV65=uid;
+ stickerAssignmentSelectionV65=new Set(assignedStickerIdsAdminV65(state.profiles?.[uid]||{}).slice(0,12));
+ const title=$('profileStickerAssignTitleV65');
+ if(title)title.textContent=`ملصقات: ${state.profiles?.[uid]?.displayName||'العضو'}`;
+ renderStickerAssignmentGridV65();
+ modalEl.querySelectorAll('[data-close-sticker-assign-v65]').forEach(button=>button.onclick=closeMemberStickerAssignmentV67);
+ modalEl.onclick=event=>{if(event.target===modalEl)closeMemberStickerAssignmentV67();};
+ modalEl.style.display='grid';
+ modalEl.classList.add('show');
+ document.documentElement.style.overflow='hidden';
+ requestAnimationFrame(()=>modalEl.querySelector('[data-assign-profile-sticker-v65],button')?.focus());
+}
+openMemberStickerAssignmentV65=openMemberStickerAssignmentV67;
+
+document.addEventListener('click',event=>{
+ const button=event.target.closest('[data-manage-stickers-v65]');
+ if(!button)return;
+ event.preventDefault();
+ event.stopImmediatePropagation();
+ openMemberStickerAssignmentV67(button.dataset.manageStickersV65);
+},true);
+
+const saveMemberStickerAssignmentBaseV67=saveMemberStickerAssignmentV65;
+saveMemberStickerAssignmentV65=async function(){
+ await saveMemberStickerAssignmentBaseV67();
+ if(!$('profileStickerAssignModalV65')?.classList.contains('show')){
+  document.documentElement.style.removeProperty('overflow');
+  setTimeout(enhanceUsersForStickersV65,80);
+ }
+};
+const saveStickerButtonV67=$('saveProfileStickerAssignmentV65');
+if(saveStickerButtonV67)saveStickerButtonV67.onclick=saveMemberStickerAssignmentV65;
+
 </script>
 </body></html>
+
+<style id="nexushub-sticker-size-v68">
+/* Double-size assigned sticker previews; no border, line, or background. */
+.admin-assigned-stickers-v65{display:grid!important;grid-template-columns:repeat(3,52px)!important;gap:8px!important;width:max-content!important;max-width:100%!important;margin-top:9px!important}
+.admin-assigned-sticker-v65{display:grid!important;place-items:center!important;width:52px!important;height:52px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;font-size:0!important}
+.admin-assigned-sticker-v65 img{width:48px!important;height:48px!important;border:0!important;border-radius:9px!important;object-fit:contain!important;background:transparent!important;box-shadow:none!important}
+</style>
