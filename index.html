@@ -2033,6 +2033,56 @@ html[data-theme="light"] .profile-sticker-v64{color:#86570b;background:rgba(164,
 .member-session-row-v65.online b{color:var(--mint)}
 @media(max-width:430px){.member-session-info-v65{grid-template-columns:1fr}.profile-admin-sticker-v65{max-width:145px}.profile-admin-sticker-v65 img{width:27px;height:27px;flex-basis:27px}}
 
+
+/* ===== NexusHub V68: double-size transparent profile stickers ===== */
+.profile-admin-stickers-v65{
+  display:grid!important;
+  grid-template-columns:repeat(3,60px)!important;
+  grid-auto-rows:60px!important;
+  justify-content:center!important;
+  align-items:center!important;
+  gap:10px!important;
+  width:max-content!important;
+  max-width:100%!important;
+  margin:10px auto 14px!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.profile-admin-sticker-v65{
+  display:grid!important;
+  place-items:center!important;
+  width:60px!important;
+  height:60px!important;
+  max-width:none!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:inherit!important;
+  overflow:visible!important;
+}
+.profile-admin-sticker-v65 img{
+  display:block!important;
+  width:56px!important;
+  height:56px!important;
+  flex:0 0 56px!important;
+  object-fit:contain!important;
+  border:0!important;
+  border-radius:10px!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.profile-admin-sticker-v65 b{display:none!important}
+@media(max-width:430px){
+ .profile-admin-stickers-v65{grid-template-columns:repeat(3,56px)!important;grid-auto-rows:56px!important;gap:8px!important}
+ .profile-admin-sticker-v65{width:56px!important;height:56px!important}
+ .profile-admin-sticker-v65 img{width:52px!important;height:52px!important;flex-basis:52px!important}
+}
+
 </style>
 </head>
 <body>
@@ -5453,7 +5503,8 @@ registerPostViewOnceV55=async function(pid,post){
   const current=before.val()||{};
   const already=Object.entries(current).some(([key,row])=>String(row?.uid||'')===uid||key===uid||key===`member_${uid}`||key===`uid_${safeFirebaseKeyV55(uid)}`);
   if(!already){
-   const key=`uid_${safeFirebaseKeyV55(uid)}`;
+   // Firebase Rules تشترط أن يكون مفتاح سجل المشاهدة مساويًا تمامًا إلى auth.uid.
+   const key=uid;
    const claimed=await runTransaction(dbref(`postViews/${pid}/${key}`),v=>v?undefined:{uid,viewerType:'member_uid',viewedAt:now()},{applyLocally:false});
    if(!claimed?.committed)return false;
   }
@@ -5759,6 +5810,62 @@ let uiLanguageTimerV66=0;
 const uiObserverV66=new MutationObserver(()=>{clearTimeout(uiLanguageTimerV66);uiLanguageTimerV66=setTimeout(()=>applyCompleteLanguageV66(),25);});
 uiObserverV66.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['placeholder','title','aria-label']});
 setTimeout(()=>applyCompleteLanguageV66(),0);
+
+
+
+/* ===== NexusHub V67: reliable member views + compact sticker icons ===== */
+function validPostViewCountV67(pid){
+ if(typeof canonicalPostViewSetV64==='function')return canonicalPostViewSetV64(pid).size;
+ const views=state.postViewsV55?.[pid];
+ return views&&typeof views==='object'?Object.keys(views).filter(Boolean).length:0;
+}
+postViewRecordCountV55=validPostViewCountV67;
+
+async function registerPostViewOnceV67(pid,post){
+ if(!pid||!state.user?.uid)return false;
+ const uid=state.user.uid;
+ try{
+  const claim=await runTransaction(
+   dbref(`postViews/${pid}/${uid}`),
+   current=>current?undefined:{uid,viewerType:'member_uid',viewedAt:now()},
+   {applyLocally:false}
+  );
+  const viewsSnap=await get(dbref(`postViews/${pid}`));
+  state.postViewsV55=state.postViewsV55||{};
+  state.postViewsV55[pid]=viewsSnap.val()||{};
+  const realCount=validPostViewCountV67(pid);
+  if(realCount>0){
+   await set(dbref(`posts/${pid}/viewCount`),realCount).catch(err=>console.warn('viewCount mirror failed',err));
+   const row=state.posts.find(x=>x.id===pid);
+   if(row)row.viewCount=realCount;
+   if(post)post.viewCount=realCount;
+   if(state.activePost?.id===pid)state.activePost.viewCount=realCount;
+  }
+  return !!claim?.committed||realCount>0;
+ }catch(err){
+  console.warn('Member view registration failed',err);
+  return false;
+ }
+}
+registerPostViewOnceV52=registerPostViewOnceV67;
+registerPostViewOnceV55=registerPostViewOnceV67;
+
+function profileAdminStickersHTMLV67(profile={}){
+ const rows=assignedStickerIdsV65(profile)
+  .map(id=>({id,...(state.profileStickerLibraryV65?.[id]||{})}))
+  .filter(x=>x.name&&x.imageData)
+  .slice(0,12);
+ if(!rows.length)return '';
+ return `<div class="profile-admin-stickers-v65" aria-label="ملصقات الملف الشخصي">${rows.map(x=>`<span class="profile-admin-sticker-v65" title="${esc(x.name)}"><img src="${esc(x.imageData)}" alt="${esc(x.name)}" title="${esc(x.name)}"></span>`).join('')}</div>`;
+}
+profileAdminStickersHTMLV65=profileAdminStickersHTMLV67;
+
+setTimeout(()=>{
+ try{
+  renderProfileWidget();
+  if(state.activeMemberUidV65&&$('memberModal')?.classList.contains('show'))openMember(state.activeMemberUidV65);
+ }catch(err){console.warn('Sticker refresh failed',err);}
+},80);
 
 </script>
 
